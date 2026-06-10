@@ -6,864 +6,627 @@
 <title>Michael Bryan Mandey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0a;
-  --ink:#f2f0eb;
-  --accent:#c8f060;
-  --accent2:#ff6b35;
-  --dim:#3a3a3a;
-  --dim2:#1e1e1e;
-  --muted:#6b6b6b;
+  --bg:#080808;
+  --ink:#efefeb;
+  --lime:#d4f244;
+  --orange:#ff4d00;
+  --dim:#151515;
+  --dim2:#1c1c1c;
+  --muted:#555;
+  --muted2:#888;
 }
-html{scroll-behavior:smooth;cursor:none}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'Space Grotesk',sans-serif;
-  overflow-x:hidden;
-  line-height:1.6;
-}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
 
-/* CURSOR */
-#cursor{
-  position:fixed;width:12px;height:12px;
-  background:var(--accent);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .2s,height .2s,background .2s;
-  mix-blend-mode:difference;
-}
-#cursor-ring{
-  position:fixed;width:40px;height:40px;
-  border:1px solid rgba(200,240,96,.4);
-  border-radius:50%;pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform .08s linear,width .25s,height .25s,border-color .25s;
-}
-#cursor.hover{width:6px;height:6px}
-#cursor-ring.hover{width:56px;height:56px;border-color:rgba(200,240,96,.8)}
+/* ─── CURSOR ─── */
+#cur{position:fixed;width:8px;height:8px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+#cur-f{position:fixed;width:32px;height:32px;border:1px solid rgba(212,242,68,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:4px;height:4px}
+body:has(a:hover) #cur-f,body:has(button:hover) #cur-f{width:52px;height:52px;border-color:rgba(212,242,68,.7)}
 
-/* NOISE OVERLAY */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:1000;opacity:.4;
-}
+/* ─── LOADER ─── */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9000;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s ease}
+#loader.hide{opacity:0;visibility:hidden}
+.loader-text{font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:8px;color:var(--ink);overflow:hidden}
+.loader-bar{position:absolute;bottom:0;left:0;height:2px;background:var(--lime);width:0;transition:width 1.2s ease}
 
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  padding:28px 6%;
-  display:flex;justify-content:space-between;align-items:center;
-  mix-blend-mode:difference;
-}
-.nav-logo{
-  font-family:'Space Mono',monospace;
-  font-size:13px;font-weight:700;
-  color:var(--ink);text-decoration:none;
-  letter-spacing:2px;text-transform:uppercase;
-}
-.nav-right{display:flex;align-items:center;gap:40px}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{
-  font-size:11px;font-weight:500;
-  color:var(--ink);text-decoration:none;
-  letter-spacing:2px;text-transform:uppercase;
-  opacity:.5;transition:opacity .2s;
-}
-.nav-links a:hover{opacity:1}
-.nav-num{
-  font-family:'Space Mono',monospace;
-  font-size:11px;color:var(--ink);opacity:.3;
-}
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:30px 5%;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--ink);text-decoration:none}
+.nav-menu{display:flex;gap:36px;list-style:none}
+.nav-menu a{font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);text-decoration:none;opacity:.4;transition:opacity .2s}
+.nav-menu a:hover{opacity:1}
+.nav-status{font-family:'Space Mono',monospace;font-size:10px;color:var(--ink);opacity:.3;letter-spacing:1px}
 
-/* HERO */
-#hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  justify-content:flex-end;
-  padding:0 6% 8%;
-  position:relative;overflow:hidden;
-}
-.hero-bg-img{
-  position:absolute;inset:0;z-index:0;
-  overflow:hidden;
-}
-.hero-bg-img img{
-  width:100%;height:110%;
-  object-fit:cover;object-position:top center;
-  opacity:.18;
-  transform:translateY(0);
-  filter:grayscale(100%) contrast(1.2);
-}
-.hero-marquee-line{
-  position:absolute;
-  top:50%;left:0;right:0;
-  transform:translateY(-50%);
-  overflow:hidden;white-space:nowrap;
-  pointer-events:none;z-index:1;
-  opacity:.04;
-}
-.hero-marquee-inner{
-  display:inline-flex;
-  font-family:'Space Mono',monospace;
-  font-size:140px;font-weight:700;
-  letter-spacing:-4px;
-  animation:marquee 18s linear infinite;
-}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.hero-content{position:relative;z-index:2}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--accent);margin-bottom:32px;
-}
-.hero-tag::before{content:'';width:24px;height:1px;background:var(--accent)}
-.hero-h1{
-  font-size:clamp(56px,9vw,130px);
-  font-weight:700;line-height:.95;
-  letter-spacing:-4px;
-  color:var(--ink);
-  margin-bottom:48px;
-}
-.hero-h1 span{
-  display:block;
-  -webkit-text-stroke:1px rgba(242,240,235,.2);
-  color:transparent;
-}
-.hero-bottom{
-  display:flex;justify-content:space-between;
-  align-items:flex-end;
-  border-top:1px solid var(--dim);
-  padding-top:32px;
-}
-.hero-desc{
-  max-width:340px;
-  font-size:13.5px;line-height:1.9;
-  color:var(--muted);
-}
-.hero-cta-group{display:flex;flex-direction:column;align-items:flex-end;gap:16px}
-.hero-cta{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 32px;
-  border:1px solid var(--accent);
-  border-radius:2px;
-  color:var(--bg);background:var(--accent);
-  font-size:11px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;
-  transition:all .25s;
-}
-.hero-cta:hover{background:transparent;color:var(--accent)}
-.hero-scroll{
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:2px;
-  color:var(--muted);text-transform:uppercase;
-  display:flex;align-items:center;gap:8px;
-  animation:bounce 2.5s ease-in-out infinite;
-}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.hero-year{
-  font-family:'Space Mono',monospace;
-  font-size:10px;color:var(--muted);
-  letter-spacing:2px;text-transform:uppercase;
-}
+/* ─── HERO ─── */
+#hero{height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5% 6%}
+.hero-photo{position:absolute;right:0;top:0;width:55%;height:100%;overflow:hidden;z-index:0}
+.hero-photo img{width:100%;height:120%;object-fit:cover;object-position:top center;filter:grayscale(100%);transform:translateY(0);will-change:transform}
+.hero-photo-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,rgba(8,8,8,.6) 50%,transparent 100%)}
+.hero-photo-overlay2{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 50%)}
+.hero-marquee{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;overflow:hidden;pointer-events:none;z-index:1}
+.hero-marquee-track{display:flex;white-space:nowrap;animation:mq 22s linear infinite}
+.hero-marquee-text{font-family:'Bebas Neue',sans-serif;font-size:22vw;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.04);padding-right:4vw;line-height:1;user-select:none}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-content{position:relative;z-index:2;max-width:680px}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--lime)}
+.hero-eyebrow-text{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--lime)}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,11vw,160px);line-height:.88;letter-spacing:2px;color:var(--ink);margin-bottom:32px}
+.hero-name .stroke{-webkit-text-stroke:1.5px rgba(239,239,235,.25);color:transparent}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,255,255,.06);padding-top:28px;gap:40px}
+.hero-desc{font-size:13.5px;line-height:1.9;color:var(--muted2);max-width:320px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;padding:14px 34px;background:var(--lime);color:var(--bg);font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-radius:1px;transition:all .25s;white-space:nowrap}
+.hero-cta:hover{background:var(--ink);transform:translateY(-2px)}
+.hero-scroll-hint{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero-scroll-hint::after{content:'';width:1px;height:60px;background:linear-gradient(to bottom,var(--muted),transparent);animation:scrollbar 2s ease-in-out infinite}
+@keyframes scrollbar{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
 
-/* SECTION COMMON */
-.sec{padding:120px 6%;position:relative}
-.sec-header{
-  display:flex;justify-content:space-between;
-  align-items:flex-start;
-  border-bottom:1px solid var(--dim);
-  padding-bottom:32px;margin-bottom:80px;
-}
-.sec-num{
-  font-family:'Space Mono',monospace;
-  font-size:11px;color:var(--muted);
-  letter-spacing:2px;margin-top:4px;
-}
-.sec-title{
-  font-size:clamp(40px,5vw,72px);
-  font-weight:700;letter-spacing:-2px;
-  line-height:.95;color:var(--ink);
-}
+/* ─── SECTIONS ─── */
+.sec{padding:130px 5%;position:relative;overflow:hidden}
+.sec-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:100px;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:36px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,8vw,120px);letter-spacing:2px;line-height:.9;color:var(--ink)}
+.sec-meta{text-align:right}
+.sec-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;display:block;margin-bottom:6px}
+.sec-sub{font-size:12px;color:var(--muted2);letter-spacing:.5px;max-width:200px;line-height:1.7;text-align:right}
 
-/* ABOUT */
+/* ─── ABOUT ─── */
 #about{background:var(--bg)}
-.about-grid{
-  display:grid;
-  grid-template-columns:1fr 1px 1fr;
-  gap:0;
-}
-.about-divider{background:var(--dim)}
-.about-left{padding-right:80px}
-.about-right{padding-left:80px}
-.about-img-wrap{position:relative;margin-bottom:40px}
-.about-img-wrap img{
-  width:100%;aspect-ratio:3/4;
-  object-fit:cover;object-position:top;
-  filter:grayscale(20%);
-  display:block;
-}
-.about-img-caption{
-  position:absolute;bottom:16px;left:16px;
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:2px;
-  color:var(--ink);background:var(--bg);
-  padding:6px 12px;
-  text-transform:uppercase;
-}
-.about-big-text{
-  font-size:clamp(22px,2.5vw,32px);
-  font-weight:500;line-height:1.5;
-  letter-spacing:-.5px;
-  color:var(--ink);margin-bottom:32px;
-}
-.about-big-text em{
-  font-style:normal;color:var(--accent);
-}
-.about-body{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:24px}
-.about-skills-title{
-  font-family:'Space Mono',monospace;
-  font-size:10px;letter-spacing:3px;
-  text-transform:uppercase;color:var(--muted);
-  margin-bottom:16px;margin-top:40px;
-}
-.skill-tags{display:flex;flex-wrap:wrap;gap:8px}
-.skill-tag{
-  font-size:11px;font-weight:500;
-  padding:6px 14px;
-  border:1px solid var(--dim);
-  border-radius:2px;color:var(--muted);
-  transition:all .2s;letter-spacing:.5px;
-}
-.skill-tag:hover{border-color:var(--accent);color:var(--accent)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.about-img-col{position:relative}
+.about-sticky{position:sticky;top:120px}
+.about-photo{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top;filter:grayscale(15%) contrast(1.05);display:block}
+.about-photo-frame{position:relative}
+.about-photo-frame::before{content:'';position:absolute;inset:-8px;border:1px solid rgba(212,242,68,.12);pointer-events:none;z-index:2}
+.about-label{position:absolute;bottom:-1px;left:0;right:0;padding:16px 20px;background:rgba(8,8,8,.9);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;z-index:3}
+.about-label-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--ink)}
+.about-label-year{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px}
+.about-text-col{}
+.about-big{font-size:clamp(20px,2.2vw,28px);font-weight:500;line-height:1.5;letter-spacing:-.3px;color:var(--ink);margin-bottom:40px}
+.about-big em{font-style:normal;color:var(--lime)}
+.about-p{font-size:14px;line-height:1.95;color:var(--muted2);margin-bottom:20px}
+.about-divider{width:40px;height:1px;background:var(--muted);margin:36px 0}
+.stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.05);margin-top:36px}
+.stack-item{background:var(--bg);padding:16px 20px;display:flex;align-items:center;gap:12px;transition:background .2s}
+.stack-item:hover{background:var(--dim)}
+.stack-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0}
+.stack-name{font-size:12.5px;font-weight:500;color:var(--muted2)}
+.stack-lvl{margin-left:auto;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)}
 
-/* SKILLS BENTO */
-#skills{background:var(--dim2)}
-.bento{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  grid-template-rows:auto;
-  gap:2px;
-}
-.bento-cell{
-  background:var(--bg);
-  padding:36px 32px;
+/* ─── SKILLS ─── */
+#skills{background:var(--dim)}
+.skills-list{}
+.skill-row{display:grid;grid-template-columns:200px 1fr 80px;align-items:center;gap:40px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:all .2s}
+.skill-row:hover .sk-fill{filter:brightness(1.2)}
+.skill-row:hover .sk-name{color:var(--lime)}
+.sk-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--ink);transition:color .2s}
+.sk-track{flex:1;height:1px;background:rgba(255,255,255,.08);position:relative}
+.sk-fill{position:absolute;top:0;left:0;height:100%;background:var(--lime);transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.sk-pct{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);text-align:right}
+
+/* ─── PROJECTS — HORIZONTAL SCROLL PARALLAX ─── */
+#projects{background:var(--bg);padding:130px 0}
+.proj-sec-hdr{padding:0 5%;margin-bottom:80px;display:flex;justify-content:space-between;align-items:flex-end}
+.proj-sec-hdr .sec-title{color:var(--ink)}
+.proj-hint{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.proj-hint::after{content:'→→→';letter-spacing:-1px;color:var(--lime);animation:hint 1.5s ease-in-out infinite alternate}
+@keyframes hint{from{opacity:.3}to{opacity:1}}
+
+/* sticky horizontal scroll container */
+.proj-sticky-outer{height:300vh;position:relative}
+.proj-sticky-inner{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+.proj-track{display:flex;gap:40px;padding:0 5%;will-change:transform;transition:transform .1s linear}
+.proj-card{
+  flex-shrink:0;
+  width:600px;height:75vh;
   position:relative;overflow:hidden;
-  transition:background .3s;
-}
-.bento-cell:hover{background:var(--dim2)}
-.bento-cell.wide{grid-column:span 3}
-.bento-cell.wider{grid-column:span 4}
-.bento-cell.narrow{grid-column:span 2}
-.bento-cell.tall{grid-row:span 2}
-.bento-pct{
-  font-family:'Space Mono',monospace;
-  font-size:clamp(40px,4vw,64px);
-  font-weight:700;color:var(--accent);
-  line-height:1;margin-bottom:8px;
-  letter-spacing:-2px;
-}
-.bento-name{
-  font-size:18px;font-weight:600;
-  color:var(--ink);margin-bottom:8px;
-}
-.bento-desc{font-size:12.5px;color:var(--muted);line-height:1.7}
-.bento-ico{
-  font-size:40px;color:var(--dim);
-  position:absolute;bottom:24px;right:24px;
-  transition:color .3s;
-}
-.bento-cell:hover .bento-ico{color:var(--accent)}
-.bento-bar{
-  position:absolute;bottom:0;left:0;
-  height:2px;background:var(--accent);
-  transition:width .8s ease;
-}
-
-/* EDUCATION */
-#education{background:var(--bg)}
-.edu-rows{}
-.edu-row{
-  display:grid;
-  grid-template-columns:120px 1fr 1fr;
-  gap:40px;
-  padding:48px 0;
-  border-bottom:1px solid var(--dim);
-  align-items:start;
-  transition:background .2s;
-  cursor:default;
-}
-.edu-row:hover .edu-school-name{color:var(--accent)}
-.edu-year-tag{
-  font-family:'Space Mono',monospace;
-  font-size:11px;color:var(--muted);
-  letter-spacing:1px;padding-top:4px;
-}
-.edu-school-name{
-  font-size:clamp(20px,2.5vw,30px);
-  font-weight:700;letter-spacing:-1px;
-  color:var(--ink);margin-bottom:8px;
-  transition:color .2s;
-}
-.edu-type-badge{
-  display:inline-block;
-  font-family:'Space Mono',monospace;
-  font-size:9px;letter-spacing:2px;
-  text-transform:uppercase;
-  border:1px solid var(--dim);
-  padding:4px 10px;border-radius:2px;
-  color:var(--muted);
-}
-.edu-degree{font-size:13px;color:var(--muted);line-height:1.8}
-
-/* PROJECTS */
-#projects{background:var(--dim2)}
-.projects-list{}
-.project-row{
-  display:grid;
-  grid-template-columns:80px 1fr 260px;
-  gap:40px;
-  padding:48px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  align-items:center;
+  background:var(--dim);
   cursor:pointer;
-  transition:all .3s;
-  text-decoration:none;
-  color:inherit;
 }
-.project-row:hover .proj-title{color:var(--accent)}
-.project-row:hover .proj-img-thumb{opacity:1;transform:scale(1.02)}
-.proj-index{
-  font-family:'Space Mono',monospace;
-  font-size:12px;color:var(--muted);
-  letter-spacing:1px;
-}
-.proj-middle{}
-.proj-title{
-  font-size:clamp(24px,3vw,44px);
-  font-weight:700;letter-spacing:-1.5px;
-  color:var(--ink);margin-bottom:12px;
-  transition:color .3s;line-height:1;
-}
-.proj-meta{display:flex;gap:10px;flex-wrap:wrap}
-.proj-tag{
-  font-size:10px;font-weight:600;
-  letter-spacing:1.5px;text-transform:uppercase;
-  padding:4px 10px;border:1px solid var(--dim);
-  border-radius:2px;color:var(--muted);
-}
-.proj-img-thumb{
-  width:260px;height:160px;
+.proj-card-img{
+  width:100%;height:100%;
   object-fit:cover;object-position:top;
-  opacity:.6;
-  transition:opacity .3s,transform .3s;
-  filter:grayscale(30%);
+  filter:grayscale(20%) contrast(1.05);
+  transition:transform .6s ease,filter .4s ease;
+  transform:scale(1.05) translateY(0);
+  will-change:transform;
 }
-.proj-arrow{
-  font-size:12px;margin-left:auto;
-  color:var(--muted);transition:color .3s,transform .3s;
+.proj-card:hover .proj-card-img{filter:grayscale(0%) contrast(1.1);transform:scale(1.08) translateY(-10px)}
+.proj-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.3) 50%,transparent 100%);
+  transition:opacity .4s;
 }
-.project-row:hover .proj-arrow{color:var(--accent);transform:translate(4px,-4px)}
+.proj-card:hover .proj-card-overlay{opacity:.8}
+.proj-card-body{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:36px 40px;
+  transform:translateY(8px);
+  transition:transform .4s ease;
+}
+.proj-card:hover .proj-card-body{transform:translateY(0)}
+.proj-card-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--lime);margin-bottom:10px}
+.proj-card-title{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:1px;color:var(--ink);line-height:.95;margin-bottom:14px}
+.proj-card-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.proj-card-tag{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,255,255,.15);color:var(--muted2);border-radius:1px}
+.proj-card-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--lime);text-decoration:none;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s .05s ease,transform .35s .05s ease;
+}
+.proj-card:hover .proj-card-link{opacity:1;transform:translateY(0)}
+.proj-card-link::after{content:'→';transition:transform .2s}
+.proj-card-link:hover::after{transform:translateX(4px)}
 
-/* CONTACT */
-#contact{background:var(--bg)}
-.contact-big{
-  font-size:clamp(50px,8vw,110px);
-  font-weight:700;letter-spacing:-4px;
-  line-height:.9;color:var(--ink);
-  margin-bottom:64px;
-}
-.contact-big span{
-  -webkit-text-stroke:1px rgba(242,240,235,.15);
-  color:transparent;
-  display:block;
-}
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:80px;border-top:1px solid var(--dim);
-  padding-top:64px;
-}
-.clist{display:flex;flex-direction:column;gap:32px}
-.c-item{}
-.c-label{
-  font-family:'Space Mono',monospace;
-  font-size:9px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:6px;
-}
-.c-val{font-size:15px;color:var(--ink);font-weight:500}
-.c-socials{display:flex;gap:16px;margin-top:48px}
-.c-soc{
-  width:44px;height:44px;
-  border:1px solid var(--dim);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--muted);font-size:15px;
-  text-decoration:none;transition:all .2s;
-  border-radius:2px;
-}
-.c-soc:hover{border-color:var(--accent);color:var(--accent)}
-.cform{}
-.cform-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.cf-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.cf-group label{
-  font-family:'Space Mono',monospace;
-  font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);
-}
-.cf-group input,.cf-group textarea{
-  background:transparent;
-  border:none;border-bottom:1px solid var(--dim);
-  padding:12px 0;color:var(--ink);
-  font-size:14px;font-family:'Space Grotesk',sans-serif;
-  outline:none;transition:border-color .2s;
-  width:100%;
-}
-.cf-group input:focus,.cf-group textarea:focus{border-color:var(--accent)}
-.cf-group textarea{min-height:100px;resize:none}
-.cf-submit{
-  margin-top:32px;
-  display:inline-flex;align-items:center;gap:12px;
-  padding:15px 36px;
-  background:var(--accent);color:var(--bg);
-  border:none;border-radius:2px;
-  font-size:11px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;cursor:pointer;
-  font-family:'Space Grotesk',sans-serif;
-  transition:all .2s;
-}
-.cf-submit:hover{background:var(--ink)}
+/* card tilt effect */
+.proj-card{transition:box-shadow .3s}
+.proj-card:hover{box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(212,242,68,.1)}
 
-/* FOOTER */
-footer{
-  border-top:1px solid var(--dim);
-  padding:32px 6%;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:16px;
-}
-.footer-l{
-  font-family:'Space Mono',monospace;
-  font-size:11px;color:var(--muted);letter-spacing:1px;
-}
-.footer-r{
-  font-family:'Space Mono',monospace;
-  font-size:11px;color:var(--muted);letter-spacing:1px;
-}
+/* ─── EDUCATION ─── */
+#education{background:var(--dim)}
+.edu-timeline{position:relative;padding-left:2px}
+.edu-timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--lime),rgba(212,242,68,.1))}
+.edu-item{padding:0 0 80px 60px;position:relative}
+.edu-item:last-child{padding-bottom:0}
+.edu-dot{position:absolute;left:-5px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 3px var(--dim),0 0 16px rgba(212,242,68,.5)}
+.edu-item:not(:first-child) .edu-dot{background:var(--muted);box-shadow:0 0 0 3px var(--dim)}
+.edu-period{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--lime);margin-bottom:14px;text-transform:uppercase}
+.edu-item:not(:first-child) .edu-period{color:var(--muted)}
+.edu-school{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);letter-spacing:1px;color:var(--ink);line-height:.95;margin-bottom:10px}
+.edu-degree{font-size:13px;font-weight:500;color:var(--lime);margin-bottom:14px}
+.edu-item:not(:first-child) .edu-degree{color:var(--muted2)}
+.edu-desc{font-size:13.5px;line-height:1.85;color:var(--muted);max-width:560px}
 
-/* PARALLAX SHAPES */
-.par-shape{position:absolute;pointer-events:none;z-index:0}
-.par-circle{
-  width:420px;height:420px;
-  border:1px solid rgba(200,240,96,.05);
-  border-radius:50%;
-}
-.par-line{
-  width:1px;height:200px;
-  background:linear-gradient(to bottom,transparent,rgba(200,240,96,.15),transparent);
-}
+/* ─── CONTACT ─── */
+#contact{background:var(--bg);min-height:80vh;display:flex;flex-direction:column;justify-content:center}
+.contact-giant{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,150px);line-height:.88;letter-spacing:2px;margin-bottom:64px;overflow:hidden}
+.contact-giant-row{display:block;overflow:hidden}
+.contact-giant-inner{display:block;transform:translateY(100%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.contact-giant-inner.up{transform:translateY(0)}
+.contact-giant .stroke{-webkit-text-stroke:1.5px rgba(239,239,235,.2);color:transparent}
+.contact-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.05)}
+.contact-card{background:var(--bg);padding:32px 28px;transition:background .2s}
+.contact-card:hover{background:var(--dim)}
+.cc-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.cc-val{font-size:14px;font-weight:500;color:var(--ink);word-break:break-all}
+.contact-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:40px;margin-top:40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.contact-socials{display:flex;gap:16px}
+.contact-soc{width:42px;height:42px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;text-decoration:none;transition:all .2s;border-radius:1px}
+.contact-soc:hover{border-color:var(--lime);color:var(--lime);background:rgba(212,242,68,.04)}
+.contact-cta{display:inline-flex;align-items:center;gap:10px;padding:14px 34px;background:var(--lime);color:var(--bg);font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-radius:1px;transition:all .25s}
+.contact-cta:hover{background:var(--ink)}
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
-.reveal.up{transform:translateY(36px)}
-.reveal.left{transform:translateX(-36px)}
-.reveal.right{transform:translateX(36px)}
-.reveal.visible{opacity:1;transform:translate(0)}
+/* ─── FOOTER ─── */
+footer{border-top:1px solid rgba(255,255,255,.06);padding:28px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-l{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px}
+.ft-r{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px}
 
+/* ─── PARALLAX REVEAL ─── */
+.par-reveal{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease}
+.par-reveal.in{opacity:1;transform:translateY(0)}
+.par-reveal-left{opacity:0;transform:translateX(-50px);transition:opacity .9s ease,transform .9s ease}
+.par-reveal-left.in{opacity:1;transform:translateX(0)}
+
+/* ─── RESPONSIVE ─── */
 @media(max-width:900px){
-  .about-grid{grid-template-columns:1fr;gap:60px}
-  .about-divider{display:none}
-  .about-left{padding-right:0}
-  .about-right{padding-left:0}
-  .bento{grid-template-columns:1fr 1fr}
-  .bento-cell.wide,.bento-cell.wider,.bento-cell.narrow{grid-column:span 1}
-  .edu-row{grid-template-columns:1fr;gap:16px}
-  .project-row{grid-template-columns:60px 1fr;gap:20px}
-  .proj-img-thumb{display:none}
-  .contact-grid{grid-template-columns:1fr}
-  .nav-links{display:none}
+  .hero-photo{width:100%;opacity:.35}
+  .about-layout{grid-template-columns:1fr}
+  .about-sticky{position:relative;top:0;max-width:400px}
+  .proj-card{width:85vw;height:65vw}
+  .contact-cards{grid-template-columns:1fr 1fr}
+  .nav-menu{display:none}
 }
 @media(max-width:600px){
-  .hero-h1{letter-spacing:-2px}
-  .hero-bottom{flex-direction:column;gap:24px;align-items:flex-start}
-  .bento{grid-template-columns:1fr}
-  .cform-row{grid-template-columns:1fr}
-  html{cursor:auto}
-  #cursor,#cursor-ring{display:none}
+  .skill-row{grid-template-columns:120px 1fr 50px;gap:20px}
+  .sk-name{font-size:20px}
+  .contact-cards{grid-template-columns:1fr}
+  body{cursor:auto}
+  #cur,#cur-f{display:none}
+  .hero-scroll-hint{display:none}
 }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<div id="cur"></div>
+<div id="cur-f"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div>
+    <div class="loader-text" id="loader-text">LOADING</div>
+    <div class="loader-bar" id="loader-bar"></div>
+  </div>
+</div>
 
 <!-- NAV -->
-<nav id="navbar">
+<nav>
   <a href="#hero" class="nav-logo">MBM</a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#projects">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <span class="nav-num">Bekasi — ID</span>
-  </div>
+  <ul class="nav-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="nav-status">Bekasi — ID</span>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section id="hero">
-  <div class="hero-bg-img" id="heroBg">
-    <img src="FOTO MICHAEL 2.jpg" alt="" aria-hidden="true" id="heroImg">
+  <div class="hero-photo" id="heroPhoto">
+    <img src="FOTO MICHAEL 2.jpg" alt="" id="heroPhotoImg">
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-photo-overlay2"></div>
   </div>
-  <div class="hero-marquee-line" aria-hidden="true">
-    <div class="hero-marquee-inner">
-      MICHAEL BRYAN &nbsp;&nbsp; SOFTWARE DEVELOPER &nbsp;&nbsp; MICHAEL BRYAN &nbsp;&nbsp; SOFTWARE DEVELOPER &nbsp;&nbsp; MICHAEL BRYAN &nbsp;&nbsp; SOFTWARE DEVELOPER &nbsp;&nbsp;
+  <div class="hero-marquee" aria-hidden="true">
+    <div class="hero-marquee-track">
+      <span class="hero-marquee-text">MICHAEL BRYAN</span>
+      <span class="hero-marquee-text">MICHAEL BRYAN</span>
+      <span class="hero-marquee-text">MICHAEL BRYAN</span>
+      <span class="hero-marquee-text">MICHAEL BRYAN</span>
     </div>
   </div>
   <div class="hero-content">
-    <div class="hero-tag">Software Developer &amp; IT Student</div>
-    <h1 class="hero-h1">
-      Michael
-      <span>Bryan</span>
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Software Developer &amp; IT Student</span>
+    </div>
+    <div class="hero-name">
+      Michael<br>
+      <span class="stroke">Bryan</span><br>
       Mandey
-    </h1>
-    <div class="hero-bottom">
-      <p class="hero-desc">Building efficient, elegant software that actually works. President University — Bekasi, Indonesia.</p>
-      <div class="hero-cta-group">
-        <a href="#projects" class="hero-cta">View work <i class="fas fa-arrow-right"></i></a>
-        <span class="hero-scroll"><i class="fas fa-arrow-down"></i> Scroll down</span>
+    </div>
+    <div class="hero-foot">
+      <p class="hero-desc">Building efficient, elegant software that leaves an impression. Based in Bekasi, Indonesia.</p>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:24px">
+        <a href="#projects" class="hero-cta">View Work →</a>
+        <div class="hero-scroll-hint">Scroll</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ═══ ABOUT ═══ -->
 <section id="about" class="sec">
-  <div class="sec-header reveal">
+  <div class="sec-hdr par-reveal">
     <h2 class="sec-title">About</h2>
-    <span class="sec-num">01 / 04</span>
+    <div class="sec-meta">
+      <span class="sec-num">01 — 04</span>
+      <p class="sec-sub">Who I am and what drives me</p>
+    </div>
   </div>
-  <div class="about-grid">
-    <div class="about-left reveal left">
-      <div class="about-img-wrap">
-        <img src="FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
-        <div class="about-img-caption">Michael Bryan Mandey — 2025</div>
+  <div class="about-layout">
+    <div class="about-img-col par-reveal-left">
+      <div class="about-sticky">
+        <div class="about-photo-frame">
+          <img src="FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey" class="about-photo" id="aboutImg">
+          <div class="about-label">
+            <span class="about-label-name">Michael Bryan Mandey</span>
+            <span class="about-label-year">2025</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="about-divider"></div>
-    <div class="about-right reveal right">
-      <p class="about-big-text">
-        I'm a developer who cares about <em>craft</em> — clean code, thoughtful architecture, and experiences that feel right.
+    <div class="par-reveal">
+      <p class="about-big">
+        I build software that's <em>fast</em>, <em>clean</em>, and actually worth using.
       </p>
-      <p class="about-body">Currently studying Information Technology at President University. I work across the full stack with Java, JavaScript, PHP, Python, and C++. I don't just build things — I build things that hold up.</p>
-      <p class="about-body">When I'm not shipping code, I'm exploring new tech, contributing to open source, or thinking about the intersection of design and engineering.</p>
-      <div class="about-skills-title">— Tech stack</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Java</span>
-        <span class="skill-tag">JavaScript</span>
-        <span class="skill-tag">PHP</span>
-        <span class="skill-tag">Python</span>
-        <span class="skill-tag">C++</span>
-        <span class="skill-tag">MySQL</span>
-        <span class="skill-tag">PostgreSQL</span>
-        <span class="skill-tag">MongoDB</span>
-        <span class="skill-tag">Laravel</span>
-        <span class="skill-tag">REST APIs</span>
+      <p class="about-p">I'm an Information Technology student at President University with a genuine obsession for writing code that holds up. Not just code that works — code you'd be proud to show anyone.</p>
+      <p class="about-p">I work across the full stack: Java, JavaScript, PHP, Python, C++, and the databases that tie everything together. My approach is simple — understand the problem deeply, then build the leanest solution that solves it well.</p>
+      <div class="about-divider"></div>
+      <div class="stack-grid">
+        <div class="stack-item"><span class="stack-dot"></span><span class="stack-name">Java</span><span class="stack-lvl">90%</span></div>
+        <div class="stack-item"><span class="stack-dot"></span><span class="stack-name">JavaScript</span><span class="stack-lvl">85%</span></div>
+        <div class="stack-item"><span class="stack-dot"></span><span class="stack-name">Python</span><span class="stack-lvl">85%</span></div>
+        <div class="stack-item"><span class="stack-dot"></span><span class="stack-name">PHP</span><span class="stack-lvl">80%</span></div>
+        <div class="stack-item"><span class="stack-dot"></span><span class="stack-name">Databases</span><span class="stack-lvl">80%</span></div>
+        <div class="stack-item"><span class="stack-dot"></span><span class="stack-name">C++</span><span class="stack-lvl">75%</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS BENTO -->
+<!-- ═══ SKILLS ═══ -->
 <section id="skills" class="sec">
-  <div class="sec-header reveal">
+  <div class="sec-hdr par-reveal">
     <h2 class="sec-title">Skills</h2>
-    <span class="sec-num">02 / 04</span>
+    <div class="sec-meta">
+      <span class="sec-num">02 — 04</span>
+    </div>
   </div>
-  <div class="bento reveal">
-    <div class="bento-cell wide tall">
-      <div class="bento-pct">90%</div>
-      <div class="bento-name">Java</div>
-      <div class="bento-desc">Enterprise applications, Android, and backend services. Strong OOP foundation built over years of practice.</div>
-      <i class="fab fa-java bento-ico"></i>
-      <div class="bento-bar" style="width:90%"></div>
+  <div class="skills-list">
+    <div class="skill-row par-reveal" data-pct="90">
+      <span class="sk-name">Java</span>
+      <div class="sk-track"><div class="sk-fill" style="width:0"></div></div>
+      <span class="sk-pct">90%</span>
     </div>
-    <div class="bento-cell narrow">
-      <div class="bento-pct">85%</div>
-      <div class="bento-name">JavaScript</div>
-      <div class="bento-desc">Modern ES6+, DOM, async patterns.</div>
-      <i class="fab fa-js bento-ico"></i>
-      <div class="bento-bar" style="width:85%"></div>
+    <div class="skill-row par-reveal" data-pct="85" style="transition-delay:.07s">
+      <span class="sk-name">JavaScript</span>
+      <div class="sk-track"><div class="sk-fill" style="width:0"></div></div>
+      <span class="sk-pct">85%</span>
     </div>
-    <div class="bento-cell narrow">
-      <div class="bento-pct">85%</div>
-      <div class="bento-name">Python</div>
-      <div class="bento-desc">Web dev, automation, data analysis.</div>
-      <i class="fab fa-python bento-ico"></i>
-      <div class="bento-bar" style="width:85%"></div>
+    <div class="skill-row par-reveal" data-pct="85" style="transition-delay:.14s">
+      <span class="sk-name">Python</span>
+      <div class="sk-track"><div class="sk-fill" style="width:0"></div></div>
+      <span class="sk-pct">85%</span>
     </div>
-    <div class="bento-cell narrow">
-      <div class="bento-pct">80%</div>
-      <div class="bento-name">PHP</div>
-      <div class="bento-desc">Laravel, REST APIs, dynamic sites.</div>
-      <i class="fab fa-php bento-ico"></i>
-      <div class="bento-bar" style="width:80%"></div>
+    <div class="skill-row par-reveal" data-pct="80" style="transition-delay:.21s">
+      <span class="sk-name">PHP</span>
+      <div class="sk-track"><div class="sk-fill" style="width:0"></div></div>
+      <span class="sk-pct">80%</span>
     </div>
-    <div class="bento-cell narrow">
-      <div class="bento-pct">80%</div>
-      <div class="bento-name">Databases</div>
-      <div class="bento-desc">MySQL, PostgreSQL, MongoDB.</div>
-      <i class="fas fa-database bento-ico"></i>
-      <div class="bento-bar" style="width:80%"></div>
+    <div class="skill-row par-reveal" data-pct="80" style="transition-delay:.28s">
+      <span class="sk-name">Databases</span>
+      <div class="sk-track"><div class="sk-fill" style="width:0"></div></div>
+      <span class="sk-pct">80%</span>
     </div>
-    <div class="bento-cell wide">
-      <div class="bento-pct">75%</div>
-      <div class="bento-name">C++</div>
-      <div class="bento-desc">System programming, algorithms, performance optimization and memory management.</div>
-      <i class="fas fa-code bento-ico"></i>
-      <div class="bento-bar" style="width:75%"></div>
+    <div class="skill-row par-reveal" data-pct="75" style="transition-delay:.35s">
+      <span class="sk-name">C++</span>
+      <div class="sk-track"><div class="sk-fill" style="width:0"></div></div>
+      <span class="sk-pct">75%</span>
     </div>
   </div>
 </section>
 
-<!-- EDUCATION -->
+<!-- ═══ PROJECTS — HORIZONTAL PARALLAX SCROLL ═══ -->
+<section id="projects">
+  <div class="proj-sec-hdr">
+    <h2 class="sec-title par-reveal">Work</h2>
+    <div class="proj-hint">Drag to explore</div>
+  </div>
+  <div class="proj-sticky-outer" id="projOuter">
+    <div class="proj-sticky-inner" id="projInner">
+      <div class="proj-track" id="projTrack">
+
+        <div class="proj-card" id="pc0">
+          <img class="proj-card-img" src="project.PNG" alt="Church Website" id="pimg0">
+          <div class="proj-card-overlay"></div>
+          <div class="proj-card-body">
+            <div class="proj-card-num">— 01</div>
+            <div class="proj-card-title">Church Website</div>
+            <div class="proj-card-tags">
+              <span class="proj-card-tag">HTML</span>
+              <span class="proj-card-tag">CSS</span>
+              <span class="proj-card-tag">JavaScript</span>
+              <span class="proj-card-tag">PHP</span>
+            </div>
+            <a class="proj-card-link" href="https://gbiglowbekasi.vercel.app" target="_blank">Visit site</a>
+          </div>
+        </div>
+
+        <div class="proj-card" id="pc1">
+          <img class="proj-card-img" src="image.png" alt="President Cupid" id="pimg1">
+          <div class="proj-card-overlay"></div>
+          <div class="proj-card-body">
+            <div class="proj-card-num">— 02</div>
+            <div class="proj-card-title">President Cupid</div>
+            <div class="proj-card-tags">
+              <span class="proj-card-tag">HTML</span>
+              <span class="proj-card-tag">CSS</span>
+              <span class="proj-card-tag">JavaScript</span>
+              <span class="proj-card-tag">PHP</span>
+            </div>
+            <a class="proj-card-link" href="https://cupid.threeds.uno" target="_blank">Visit site</a>
+          </div>
+        </div>
+
+        <div class="proj-card" id="pc2">
+          <img class="proj-card-img" src="image1.png" alt="Student Org System" id="pimg2">
+          <div class="proj-card-overlay"></div>
+          <div class="proj-card-body">
+            <div class="proj-card-num">— 03</div>
+            <div class="proj-card-title">Student Org System</div>
+            <div class="proj-card-tags">
+              <span class="proj-card-tag">HTML</span>
+              <span class="proj-card-tag">CSS</span>
+              <span class="proj-card-tag">JavaScript</span>
+              <span class="proj-card-tag">PHP</span>
+            </div>
+            <a class="proj-card-link" href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank">View code</a>
+          </div>
+        </div>
+
+        <!-- end card -->
+        <div class="proj-card" style="background:transparent;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--muted)">More coming</span>
+          <span style="font-size:11px;color:var(--muted);letter-spacing:2px">in progress</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
 <section id="education" class="sec">
-  <div class="sec-header reveal">
+  <div class="sec-hdr par-reveal">
     <h2 class="sec-title">Education</h2>
-    <span class="sec-num">03 / 04</span>
+    <div class="sec-meta">
+      <span class="sec-num">03 — 04</span>
+    </div>
   </div>
-  <div class="edu-rows">
-    <div class="edu-row reveal">
-      <div class="edu-year-tag">2023<br>Present</div>
-      <div>
-        <div class="edu-school-name">President University</div>
-        <span class="edu-type-badge">University</span>
-      </div>
-      <div class="edu-degree">Bachelor's in Information Technology. Focusing on software development, data structures, and system architecture. Actively shipping projects.</div>
+  <div class="edu-timeline">
+    <div class="edu-item par-reveal">
+      <div class="edu-dot"></div>
+      <div class="edu-period">2023 — Present</div>
+      <div class="edu-school">President University</div>
+      <div class="edu-degree">Bachelor's in Information Technology</div>
+      <p class="edu-desc">Focusing on software development, data structures, and system architecture. Actively building projects and shipping real software every semester.</p>
     </div>
-    <div class="edu-row reveal">
-      <div class="edu-year-tag">2021<br>2023</div>
-      <div>
-        <div class="edu-school-name">Ananda High School</div>
-        <span class="edu-type-badge">High School</span>
-      </div>
-      <div class="edu-degree">Science major. Participated in programming competitions and tech events. First serious exposure to structured problem-solving.</div>
+    <div class="edu-item par-reveal">
+      <div class="edu-dot"></div>
+      <div class="edu-period">2021 — 2023</div>
+      <div class="edu-school">Ananda High School</div>
+      <div class="edu-degree">Science Major</div>
+      <p class="edu-desc">Completed high school with a science focus. Competed in programming events and started taking software seriously as a craft.</p>
     </div>
-    <div class="edu-row reveal">
-      <div class="edu-year-tag">2018<br>2021</div>
-      <div>
-        <div class="edu-school-name">Strada Middle School</div>
-        <span class="edu-type-badge">Middle School</span>
-      </div>
-      <div class="edu-degree">Where it all started. Discovered programming through extracurricular activities. Built the foundation for everything that followed.</div>
+    <div class="edu-item par-reveal">
+      <div class="edu-dot"></div>
+      <div class="edu-period">2018 — 2021</div>
+      <div class="edu-school">Strada Middle School</div>
+      <div class="edu-degree">General Studies</div>
+      <p class="edu-desc">Where it all started. First line of code, first taste of building something from nothing.</p>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" class="sec">
-  <div class="sec-header reveal">
-    <h2 class="sec-title">Work</h2>
-    <span class="sec-num">04 / 04</span>
-  </div>
-  <div class="projects-list">
-    <a class="project-row reveal" href="https://gbiglowbekasi.vercel.app" target="_blank">
-      <div class="proj-index">01</div>
-      <div class="proj-middle">
-        <div class="proj-title">Church Website</div>
-        <div class="proj-meta">
-          <span class="proj-tag">HTML</span>
-          <span class="proj-tag">CSS</span>
-          <span class="proj-tag">JavaScript</span>
-          <span class="proj-tag">PHP</span>
-        </div>
-      </div>
-      <img class="proj-img-thumb" src="project.PNG" alt="Church Website">
-      <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
-    </a>
-    <a class="project-row reveal" href="https://cupid.threeds.uno" target="_blank">
-      <div class="proj-index">02</div>
-      <div class="proj-middle">
-        <div class="proj-title">President Cupid</div>
-        <div class="proj-meta">
-          <span class="proj-tag">HTML</span>
-          <span class="proj-tag">CSS</span>
-          <span class="proj-tag">JavaScript</span>
-          <span class="proj-tag">PHP</span>
-        </div>
-      </div>
-      <img class="proj-img-thumb" src="image.png" alt="President Cupid">
-      <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
-    </a>
-    <a class="project-row reveal" href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank">
-      <div class="proj-index">03</div>
-      <div class="proj-middle">
-        <div class="proj-title">Student Org System</div>
-        <div class="proj-meta">
-          <span class="proj-tag">HTML</span>
-          <span class="proj-tag">CSS</span>
-          <span class="proj-tag">JavaScript</span>
-          <span class="proj-tag">PHP</span>
-        </div>
-      </div>
-      <img class="proj-img-thumb" src="image1.png" alt="Student Org System">
-      <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
-    </a>
-  </div>
-</section>
-
-<!-- CONTACT -->
+<!-- ═══ CONTACT ═══ -->
 <section id="contact" class="sec">
-  <div class="contact-big reveal">
-    Let's work
-    <span>together.</span>
+  <div class="contact-giant">
+    <span class="contact-giant-row"><span class="contact-giant-inner" id="cg1">Let's build</span></span>
+    <span class="contact-giant-row"><span class="contact-giant-inner stroke" id="cg2">something</span></span>
+    <span class="contact-giant-row"><span class="contact-giant-inner" id="cg3">together.</span></span>
   </div>
-  <div class="contact-grid">
-    <div class="clist reveal left">
-      <div class="c-item">
-        <div class="c-label">Phone</div>
-        <div class="c-val">+62 812 9730 0254</div>
-      </div>
-      <div class="c-item">
-        <div class="c-label">Email</div>
-        <div class="c-val">mbryanmandey@gmail.com</div>
-      </div>
-      <div class="c-item">
-        <div class="c-label">Location</div>
-        <div class="c-val">Bekasi, Indonesia</div>
-      </div>
-      <div class="c-item">
-        <div class="c-label">Status</div>
-        <div class="c-val" style="color:var(--accent2)">&#x25cf; Open to work</div>
-      </div>
-      <div class="c-socials">
-        <a class="c-soc" href="https://github.com/MICHAELCUY-lang" target="_blank"><i class="fab fa-github"></i></a>
-        <a class="c-soc" href="https://www.linkedin.com/in/michael-bryan-mandey-34b673250" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a class="c-soc" href="https://www.instagram.com/michael.mandey.79/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a class="c-soc" href="https://wa.me/6281297300254" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      </div>
+  <div class="contact-cards par-reveal">
+    <div class="contact-card">
+      <div class="cc-label">Phone</div>
+      <div class="cc-val">+62 812 9730 0254</div>
     </div>
-    <div class="cform reveal right">
-      <div class="cform-row">
-        <div class="cf-group"><label>Name</label><input type="text" placeholder="Your name"></div>
-        <div class="cf-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-      </div>
-      <div class="cf-group"><label>Subject</label><input type="text" placeholder="Project, collab, or just hello"></div>
-      <div class="cf-group"><label>Message</label><textarea placeholder="Tell me what you're thinking..."></textarea></div>
-      <button class="cf-submit" onclick="this.innerHTML='<i class=\'fas fa-check\'></i> Sent!';this.style.background='var(--accent2)';setTimeout(()=>{this.innerHTML='Send message <i class=\'fas fa-arrow-right\'></i>';this.style.background=''},3500)">
-        Send message <i class="fas fa-arrow-right"></i>
-      </button>
+    <div class="contact-card">
+      <div class="cc-label">Email</div>
+      <div class="cc-val">mbryanmandey@gmail.com</div>
     </div>
+    <div class="contact-card">
+      <div class="cc-label">Location</div>
+      <div class="cc-val">Bekasi, Indonesia</div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-label">Status</div>
+      <div class="cc-val" style="color:var(--lime)">● Open to work</div>
+    </div>
+  </div>
+  <div class="contact-bottom par-reveal">
+    <div class="contact-socials">
+      <a class="contact-soc" href="https://github.com/MICHAELCUY-lang" target="_blank"><i class="fab fa-github"></i></a>
+      <a class="contact-soc" href="https://www.linkedin.com/in/michael-bryan-mandey-34b673250" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a class="contact-soc" href="https://www.instagram.com/michael.mandey.79/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a class="contact-soc" href="https://wa.me/6281297300254" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <a class="contact-cta" href="mailto:mbryanmandey@gmail.com">Send Email →</a>
   </div>
 </section>
 
 <footer>
-  <span class="footer-l">&copy; 2025 Michael Bryan Mandey</span>
-  <span class="footer-r">Built with care — Bekasi, ID</span>
+  <span class="ft-l">© 2025 Michael Bryan Mandey</span>
+  <span class="ft-r">Bekasi, Indonesia</span>
 </footer>
 
 <script>
-// CUSTOM CURSOR
-const cur = document.getElementById('cursor')
-const ring = document.getElementById('cursor-ring')
-let rx=0,ry=0,mx=0,my=0
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY
-  cur.style.left=mx+'px';cur.style.top=my+'px'
-})
-function animRing(){
-  rx+=(mx-rx)*.12;ry+=(my-ry)*.12
-  ring.style.left=rx+'px';ring.style.top=ry+'px'
-  requestAnimationFrame(animRing)
-}
-animRing()
-document.querySelectorAll('a,button,.skill-tag,.edu-row,.bento-cell').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')})
-  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')})
-})
+/* ── LOADER ── */
+const loader = document.getElementById('loader')
+const lbar = document.getElementById('loader-bar')
+lbar.style.width = '100%'
+window.addEventListener('load', () => setTimeout(() => loader.classList.add('hide'), 800))
 
-// PARALLAX HERO IMAGE
-const heroImg = document.getElementById('heroImg')
-window.addEventListener('scroll',()=>{
+/* ── CURSOR ── */
+const cur = document.getElementById('cur')
+const cuf = document.getElementById('cur-f')
+let fx=0,fy=0,mx=0,my=0
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px' })
+;(function fol(){ fx+=(mx-fx)*.1; fy+=(my-fy)*.1; cuf.style.left=fx+'px'; cuf.style.top=fy+'px'; requestAnimationFrame(fol) })()
+
+/* ── HERO PARALLAX ── */
+const heroPhotoImg = document.getElementById('heroPhotoImg')
+const aboutImg = document.getElementById('aboutImg')
+
+/* ── HORIZONTAL SCROLL PROJECT SECTION ── */
+const projOuter = document.getElementById('projOuter')
+const projTrack = document.getElementById('projTrack')
+const pimgs = [document.getElementById('pimg0'),document.getElementById('pimg1'),document.getElementById('pimg2')]
+
+/* ── SCROLL HANDLER ── */
+function onScroll() {
   const sy = window.scrollY
-  // hero img parallax
-  if(heroImg) heroImg.style.transform = `translateY(${sy * 0.4}px)`
-  // parallax on data-par elements
-  document.querySelectorAll('[data-par]').forEach(el=>{
-    const speed = parseFloat(el.dataset.par)
-    el.style.transform = `translateY(${sy * speed}px)`
-  })
-})
+  const vh = window.innerHeight
 
-// SCROLL REVEAL
-const ro = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}
-  })
-},{threshold:.1})
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el))
+  /* hero photo parallax */
+  if(heroPhotoImg) heroPhotoImg.style.transform = `translateY(${sy * 0.38}px)`
 
-// STAGGER reveals inside bento
-document.querySelectorAll('.bento-cell').forEach((el,i)=>{
-  el.style.transitionDelay=(i*0.06)+'s'
-  el.classList.add('reveal')
-  ro.observe(el)
-})
+  /* about image subtle parallax */
+  if(aboutImg) {
+    const aboutSec = document.getElementById('about')
+    if(aboutSec) {
+      const rect = aboutSec.getBoundingClientRect()
+      const prog = -rect.top / vh
+      aboutImg.style.transform = `scale(1.08) translateY(${prog * -30}px)`
+    }
+  }
 
-// PROJECT ROW hover image parallax effect
-document.querySelectorAll('.project-row').forEach(row=>{
-  row.addEventListener('mousemove',e=>{
-    const img = row.querySelector('.proj-img-thumb')
-    if(!img) return
-    const r = row.getBoundingClientRect()
-    const x = (e.clientX-r.left)/r.width
-    const y = (e.clientY-r.top)/r.height
-    img.style.transform = `scale(1.06) translate(${(x-.5)*8}px,${(y-.5)*6}px)`
-  })
-  row.addEventListener('mouseleave',()=>{
-    const img = row.querySelector('.proj-img-thumb')
-    if(img) img.style.transform='scale(1) translate(0,0)'
-  })
-})
+  /* horizontal scroll for projects */
+  const outerRect = projOuter.getBoundingClientRect()
+  const outerTop = projOuter.offsetTop
+  const outerH = projOuter.offsetHeight
+  const scrollInto = sy - outerTop
+  const maxScroll = outerH - vh
+  if(scrollInto >= 0 && scrollInto <= maxScroll) {
+    const prog = scrollInto / maxScroll
+    const trackW = projTrack.scrollWidth - projTrack.parentElement.offsetWidth + (window.innerWidth * 0.05)
+    const tx = prog * trackW
+    projTrack.style.transform = `translateX(-${tx}px)`
+    /* project image parallax within cards */
+    pimgs.forEach((img,i) => {
+      if(img) img.style.transform = `scale(1.1) translateY(${prog * -40 + i * 8}px)`
+    })
+  }
 
-// BENTO bars animate on scroll
-const barObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const bar = e.target.querySelector('.bento-bar')
-      if(bar){
-        const w = bar.style.width
-        bar.style.width='0'
-        setTimeout(()=>bar.style.width=w,100)
+  /* contact giant text reveal */
+  const contact = document.getElementById('contact')
+  if(contact) {
+    const cr = contact.getBoundingClientRect()
+    if(cr.top < vh * 0.85) {
+      document.getElementById('cg1').classList.add('up')
+      setTimeout(() => document.getElementById('cg2').classList.add('up'), 120)
+      setTimeout(() => document.getElementById('cg3').classList.add('up'), 240)
+    }
+  }
+
+  /* nav hide on scroll down */
+  const nav = document.querySelector('nav')
+  if(sy > lastSY && sy > 120) nav.style.transform = 'translateY(-100%)'
+  else nav.style.transform = 'translateY(0)'
+  lastSY = sy
+}
+
+let lastSY = 0
+document.querySelector('nav').style.transition = 'transform .4s ease'
+window.addEventListener('scroll', onScroll, { passive: true })
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('in')
+      /* animate skill bars */
+      const fill = e.target.querySelector('.sk-fill')
+      if(fill) {
+        const pct = e.target.dataset.pct
+        setTimeout(() => fill.style.width = pct + '%', 100)
       }
     }
   })
-},{threshold:.3})
-document.querySelectorAll('.bento-cell').forEach(el=>barObs.observe(el))
+}, { threshold: 0.12 })
+document.querySelectorAll('.par-reveal, .par-reveal-left').forEach(el => ro.observe(el))
 
-// NAV — hide/show on scroll direction
-let lastY=0,ticking=false
-window.addEventListener('scroll',()=>{
-  if(!ticking){
-    requestAnimationFrame(()=>{
-      const y=window.scrollY
-      const nav=document.getElementById('navbar')
-      if(y>lastY&&y>100){nav.style.transform='translateY(-100%'}
-      else{nav.style.transform='translateY(0)'}
-      lastY=y;ticking=false
-    })
-    ticking=true
-  }
+/* ── CARD TILT ── */
+document.querySelectorAll('.proj-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width - .5
+    const y = (e.clientY - r.top) / r.height - .5
+    card.style.transform = `perspective(800px) rotateY(${x*8}deg) rotateX(${-y*6}deg) scale(1.02)`
+  })
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)'
+  })
 })
-document.getElementById('navbar').style.transition='transform .4s ease'
 </script>
 </body>
 </html>
