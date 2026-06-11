@@ -370,6 +370,206 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
 .reveal-r.show{opacity:1;transform:translateX(0)}
 
 /* ─── RESPONSIVE ─── */
+/* ══════════════════════════════════════
+   TERMINAL MODAL
+══════════════════════════════════════ */
+#term-btn{
+  position:fixed;bottom:32px;right:32px;z-index:600;
+  width:52px;height:52px;
+  background:var(--gold);color:#04040a;
+  border:none;border-radius:2px;cursor:none;
+  font-size:20px;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;box-shadow:0 0 0 0 rgba(200,169,110,.4);
+  animation:term-pulse 3s ease-in-out infinite;
+}
+#term-btn:hover{transform:scale(1.1)}
+@keyframes term-pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,169,110,.4)}50%{box-shadow:0 0 0 12px rgba(200,169,110,0)}}
+
+#term-overlay{
+  position:fixed;inset:0;z-index:700;
+  background:rgba(4,4,10,.92);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .3s,visibility .3s;
+}
+#term-overlay.open{opacity:1;visibility:visible}
+
+#term-box{
+  width:min(720px,92vw);
+  background:#0a0a14;
+  border:1px solid rgba(200,169,110,.2);
+  border-radius:4px;
+  overflow:hidden;
+  transform:translateY(20px);
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+#term-overlay.open #term-box{transform:translateY(0)}
+.term-topbar{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 16px;
+  background:#060610;
+  border-bottom:1px solid rgba(200,169,110,.1);
+}
+.term-dot{width:12px;height:12px;border-radius:50%}
+.term-dot.r{background:#ff5f57}
+.term-dot.y{background:#febc2e}
+.term-dot.g{background:#28c840}
+.term-dot.r{cursor:pointer}
+.term-title{flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3);letter-spacing:.1em}
+
+#term-output{
+  height:340px;overflow-y:auto;
+  padding:20px 20px 0;
+  font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;
+  color:#c8c4b8;
+  scroll-behavior:smooth;
+}
+#term-output::-webkit-scrollbar{width:4px}
+#term-output::-webkit-scrollbar-track{background:transparent}
+#term-output::-webkit-scrollbar-thumb{background:rgba(200,169,110,.2);border-radius:4px}
+.t-line{margin-bottom:2px;white-space:pre-wrap;word-break:break-all}
+.t-gold{color:var(--gold)}
+.t-dim{color:var(--ink3)}
+.t-ink{color:var(--ink)}
+.t-green{color:#5dca87}
+.t-red{color:#e05c5c}
+.t-prompt{color:var(--gold)}
+
+.term-input-row{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 20px;
+  border-top:1px solid rgba(200,169,110,.1);
+}
+.term-prompt-label{font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);white-space:nowrap}
+#term-input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);
+  caret-color:var(--gold);
+}
+#term-input::placeholder{color:var(--ink3)}
+
+/* ══════════════════════════════════════
+   TYPING SPEED TEST MODAL
+══════════════════════════════════════ */
+#typing-btn{
+  position:fixed;bottom:32px;right:96px;z-index:600;
+  width:52px;height:52px;
+  background:transparent;color:var(--gold);
+  border:1px solid rgba(200,169,110,.35);border-radius:2px;cursor:none;
+  font-size:18px;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+#typing-btn:hover{background:rgba(200,169,110,.08);transform:scale(1.08)}
+
+#typing-overlay{
+  position:fixed;inset:0;z-index:700;
+  background:rgba(4,4,10,.94);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .3s,visibility .3s;
+}
+#typing-overlay.open{opacity:1;visibility:visible}
+#typing-box{
+  width:min(780px,92vw);
+  background:#0a0a14;
+  border:1px solid rgba(200,169,110,.2);
+  border-radius:4px;
+  padding:40px;
+  transform:translateY(20px);
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+#typing-overlay.open #typing-box{transform:translateY(0)}
+
+.typing-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.typing-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--ink)}
+.typing-close{background:none;border:none;color:var(--ink3);font-size:22px;cursor:pointer;transition:color .2s;line-height:1}
+.typing-close:hover{color:var(--gold)}
+
+.typing-stats{display:flex;gap:32px;margin-bottom:32px}
+.typing-stat{text-align:center}
+.typing-stat-val{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--gold);line-height:1;display:block}
+.typing-stat-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-top:4px;display:block}
+
+#typing-passage{
+  font-family:'DM Mono',monospace;font-size:16px;line-height:1.9;
+  background:rgba(240,238,232,.03);
+  border:1px solid rgba(200,169,110,.1);
+  padding:24px;border-radius:2px;
+  margin-bottom:20px;
+  user-select:none;letter-spacing:.02em;
+  min-height:100px;
+}
+.tp-correct{color:var(--gold)}
+.tp-wrong{color:#e05c5c;text-decoration:underline}
+.tp-cursor{border-right:2px solid var(--gold);animation:tp-blink .7s step-end infinite}
+@keyframes tp-blink{0%,100%{opacity:1}50%{opacity:0}}
+.tp-remaining{color:rgba(200,196,184,.3)}
+
+#typing-input{
+  width:100%;background:rgba(240,238,232,.04);
+  border:1px solid rgba(200,169,110,.2);border-radius:2px;
+  padding:14px 18px;
+  font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);
+  outline:none;caret-color:var(--gold);
+  transition:border-color .2s;
+}
+#typing-input:focus{border-color:rgba(200,169,110,.5)}
+#typing-input:disabled{opacity:.4}
+
+.typing-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.typing-hint{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.05em}
+.btn-restart{background:var(--gold);color:#04040a;border:none;padding:10px 24px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all .2s}
+.btn-restart:hover{background:var(--ink)}
+
+/* ══════════════════════════════════════
+   KONAMI EASTER EGG
+══════════════════════════════════════ */
+#konami-overlay{
+  position:fixed;inset:0;z-index:800;
+  background:#04040a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .5s;
+  overflow:hidden;
+}
+#konami-overlay.open{opacity:1;visibility:visible}
+.konami-particles{position:absolute;inset:0;pointer-events:none}
+.konami-content{position:relative;z-index:1;text-align:center;padding:40px}
+.konami-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(48px,8vw,110px);
+  font-weight:800;letter-spacing:-.03em;
+  color:var(--gold);
+  line-height:.9;
+  margin-bottom:16px;
+  animation:konami-glow 2s ease-in-out infinite alternate;
+}
+@keyframes konami-glow{from{text-shadow:0 0 20px rgba(200,169,110,.3)}to{text-shadow:0 0 60px rgba(200,169,110,.7),0 0 100px rgba(200,169,110,.3)}}
+.konami-sub{font-family:'DM Mono',monospace;font-size:14px;color:var(--ink2);letter-spacing:.15em;margin-bottom:48px}
+.konami-code{
+  font-family:'DM Mono',monospace;font-size:clamp(18px,3vw,28px);
+  color:var(--ink);letter-spacing:.1em;margin-bottom:48px;
+  animation:konami-fade 1s ease-in-out .3s both;
+}
+@keyframes konami-fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.konami-secret{
+  background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);
+  padding:24px 40px;border-radius:2px;margin-bottom:40px;
+  animation:konami-fade 1s ease-in-out .6s both;
+}
+.konami-secret-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.konami-secret-val{font-size:16px;font-weight:500;color:var(--ink)}
+.konami-dismiss{
+  background:transparent;border:1px solid rgba(200,169,110,.35);
+  color:var(--gold);padding:12px 32px;
+  font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  border-radius:2px;cursor:pointer;transition:all .2s;
+  animation:konami-fade 1s ease-in-out .9s both;
+}
+.konami-dismiss:hover{background:rgba(200,169,110,.1)}
+
 @media(max-width:960px){
   .about-grid,.edu-inner{grid-template-columns:1fr;gap:60px}
   .about-photo-col{position:relative;top:0;max-width:380px}
@@ -797,6 +997,7 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
 <script>
 /* LOADER */
 requestAnimationFrame(()=>{ document.getElementById('ll').classList.add('go') })
+
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('ldr').classList.add('out'),900))
 
 /* CURSOR */
@@ -879,6 +1080,445 @@ const io=new IntersectionObserver(entries=>{
   })
 },{threshold:.1})
 document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el))
+</script>
+
+<!-- ══ TERMINAL BUTTON ══ -->
+<button id="term-btn" title="Open Terminal" aria-label="Open terminal">
+  <i class="fas fa-terminal"></i>
+</button>
+
+<!-- ══ TYPING BUTTON ══ -->
+<button id="typing-btn" title="Typing Speed Test" aria-label="Open typing test">
+  <i class="fas fa-keyboard"></i>
+</button>
+
+<!-- ══ TERMINAL MODAL ══ -->
+<div id="term-overlay" role="dialog" aria-label="Terminal">
+  <div id="term-box">
+    <div class="term-topbar">
+      <div class="term-dot r" id="term-close-btn"></div>
+      <div class="term-dot y"></div>
+      <div class="term-dot g"></div>
+      <div class="term-title">mbm@portfolio ~ %</div>
+    </div>
+    <div id="term-output"></div>
+    <div class="term-input-row">
+      <span class="term-prompt-label">mbm@portfolio:~$</span>
+      <input id="term-input" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="type a command…">
+    </div>
+  </div>
+</div>
+
+<!-- ══ TYPING TEST MODAL ══ -->
+<div id="typing-overlay" role="dialog" aria-label="Typing speed test">
+  <div id="typing-box">
+    <div class="typing-header">
+      <div class="typing-title">Typing Speed Test</div>
+      <button class="typing-close" id="typing-close">×</button>
+    </div>
+    <div class="typing-stats">
+      <div class="typing-stat">
+        <span class="typing-stat-val" id="wpm-val">—</span>
+        <span class="typing-stat-lbl">WPM</span>
+      </div>
+      <div class="typing-stat">
+        <span class="typing-stat-val" id="acc-val">—</span>
+        <span class="typing-stat-lbl">Accuracy</span>
+      </div>
+      <div class="typing-stat">
+        <span class="typing-stat-val" id="time-val">30</span>
+        <span class="typing-stat-lbl">Seconds</span>
+      </div>
+    </div>
+    <div id="typing-passage"></div>
+    <input id="typing-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Start typing to begin the test…">
+    <div class="typing-actions">
+      <span class="typing-hint" id="typing-hint">30 seconds — type as fast as you can</span>
+      <button class="btn-restart" id="typing-restart">↺ Restart</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ KONAMI EASTER EGG ══ -->
+<div id="konami-overlay">
+  <canvas class="konami-particles" id="kcanvas"></canvas>
+  <div class="konami-content">
+    <div class="konami-title">YOU<br>FOUND IT</div>
+    <div class="konami-sub">↑ ↑ ↓ ↓ ← → ← → B A</div>
+    <div class="konami-code">// Secret unlocked: developer mode</div>
+    <div class="konami-secret">
+      <div class="konami-secret-lbl">Direct line</div>
+      <div class="konami-secret-val">mbryanmandey@gmail.com · +62 812-9730-0254</div>
+    </div>
+    <button class="konami-dismiss" id="konami-dismiss">← Back to portfolio</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════ TERMINAL ══════════════ */
+const termOverlay=document.getElementById('term-overlay')
+const termOutput=document.getElementById('term-output')
+const termInput=document.getElementById('term-input')
+const termBtn=document.getElementById('term-btn')
+const termCloseBtn=document.getElementById('term-close-btn')
+
+const COMMANDS={
+  help:{desc:'Show available commands',fn:()=>[
+    {t:'gold',v:'Available commands:'},
+    {t:'',v:'  help        — show this list'},
+    {t:'',v:'  about       — who is Michael?'},
+    {t:'',v:'  skills      — tech stack & proficiency'},
+    {t:'',v:'  projects    — shipped work'},
+    {t:'',v:'  education   — academic background'},
+    {t:'',v:'  contact     — get in touch'},
+    {t:'',v:'  socials     — links'},
+    {t:'',v:'  hire        — why hire me?'},
+    {t:'',v:'  clear       — clear terminal'},
+    {t:'dim',v:'Tip: press ↑ to recall last command'},
+  ]},
+  about:{desc:'Who is Michael',fn:()=>[
+    {t:'gold',v:'Michael Bryan Mandey'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'',v:'IT Student @ President University, Bekasi.'},
+    {t:'',v:'Obsessed with writing code that holds up.'},
+    {t:'',v:'Full-stack: backend to browser, no friction.'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'',v:'Status: Open to work ●'},
+  ]},
+  skills:{desc:'Tech stack',fn:()=>[
+    {t:'gold',v:'Tech Stack'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'',v:'  Java         ████████████████████  90%'},
+    {t:'',v:'  JavaScript   ████████████████████  85%'},
+    {t:'',v:'  Python       ████████████████████  85%'},
+    {t:'',v:'  PHP          ████████████████████  80%'},
+    {t:'',v:'  Databases    ████████████████████  80%'},
+    {t:'',v:'  C++          ████████████████████  75%'},
+    {t:'dim',v:'Also: HTML/CSS · Git · Vercel · Linux'},
+  ]},
+  projects:{desc:'Shipped work',fn:()=>[
+    {t:'gold',v:'Projects'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'green',v:'[01] Church Website'},
+    {t:'',v:'     https://gbiglowbekasi.vercel.app'},
+    {t:'dim',v:'     HTML · CSS · JS · PHP'},
+    {t:'',v:''},
+    {t:'green',v:'[02] President Cupid'},
+    {t:'',v:'     https://cupid.threeds.uno'},
+    {t:'dim',v:'     Matchmaking platform · Real users'},
+    {t:'',v:''},
+    {t:'green',v:'[03] Student Org System'},
+    {t:'',v:'     github.com/MICHAELCUY-lang/student_organization_attendance'},
+    {t:'dim',v:'     Open source · RBAC · MySQL'},
+  ]},
+  education:{desc:'Academic background',fn:()=>[
+    {t:'gold',v:'Education'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'',v:'2023–Now   President University'},
+    {t:'dim',v:'           B.S. Information Technology'},
+    {t:'',v:'2021–2023  Ananda High School'},
+    {t:'dim',v:'           Science Major'},
+    {t:'',v:'2018–2021  Strada Middle School'},
+    {t:'dim',v:'           First line of code written here'},
+  ]},
+  contact:{desc:'Get in touch',fn:()=>[
+    {t:'gold',v:'Contact'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'',v:'Email    mbryanmandey@gmail.com'},
+    {t:'',v:'WA       +62 812-9730-0254'},
+    {t:'',v:'Location Bekasi, Indonesia'},
+    {t:'green',v:'Status   Open to work ●'},
+  ]},
+  socials:{desc:'Social links',fn:()=>[
+    {t:'gold',v:'Socials'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'',v:'GitHub     github.com/MICHAELCUY-lang'},
+    {t:'',v:'LinkedIn   linkedin.com/in/michael-bryan-mandey-34b673250'},
+    {t:'',v:'Instagram  instagram.com/michael.mandey.79/'},
+  ]},
+  hire:{desc:'Why hire me',fn:()=>[
+    {t:'gold',v:'Why hire Michael?'},
+    {t:'dim',v:'────────────────────────────────'},
+    {t:'green',v:'✓ Writes clean, maintainable code'},
+    {t:'green',v:'✓ Full-stack — no hand-offs needed'},
+    {t:'green',v:'✓ Ships real projects (not just coursework)'},
+    {t:'green',v:'✓ Fast learner, obsessive about quality'},
+    {t:'green',v:'✓ Already comfortable with production deploys'},
+    {t:'',v:''},
+    {t:'',v:'→ mbryanmandey@gmail.com'},
+  ]},
+  clear:{desc:'Clear terminal',fn:()=>null},
+}
+
+const WELCOME=[
+  {t:'gold',v:'Michael Bryan Mandey — Portfolio Terminal'},
+  {t:'dim',v:'─────────────────────────────────────────'},
+  {t:'',v:'Type "help" to see available commands.'},
+  {t:'dim',v:''},
+]
+
+function printLines(lines){
+  lines.forEach(({t,v})=>{
+    const d=document.createElement('div')
+    d.className='t-line'+(t?' t-'+t:'')
+    d.textContent=v
+    termOutput.appendChild(d)
+  })
+  termOutput.scrollTop=termOutput.scrollHeight
+}
+
+function printPrompt(cmd){
+  const d=document.createElement('div')
+  d.className='t-line'
+  d.innerHTML=`<span class="t-prompt">mbm@portfolio:~$</span> <span class="t-ink">${cmd}</span>`
+  termOutput.appendChild(d)
+}
+
+function runCmd(raw){
+  const cmd=raw.trim().toLowerCase()
+  if(!cmd) return
+  printPrompt(cmd)
+  if(cmd==='clear'){termOutput.innerHTML='';printLines(WELCOME);return}
+  const match=COMMANDS[cmd]
+  if(match){
+    const out=match.fn()
+    if(out) printLines(out)
+  } else {
+    printLines([{t:'red',v:`command not found: ${cmd} — try "help"`}])
+  }
+}
+
+let termHistory=[],termHistIdx=-1
+
+termInput.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    const v=termInput.value
+    if(v.trim()) termHistory.unshift(v)
+    termHistIdx=-1
+    runCmd(v)
+    termInput.value=''
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault()
+    if(termHistIdx<termHistory.length-1){termHistIdx++;termInput.value=termHistory[termHistIdx]}
+  } else if(e.key==='ArrowDown'){
+    e.preventDefault()
+    if(termHistIdx>0){termHistIdx--;termInput.value=termHistory[termHistIdx]}
+    else{termHistIdx=-1;termInput.value=''}
+  } else if(e.key==='Escape'){
+    closeTerminal()
+  }
+})
+
+function openTerminal(){
+  termOverlay.classList.add('open')
+  if(!termOutput.children.length) printLines(WELCOME)
+  setTimeout(()=>termInput.focus(),100)
+  document.body.style.overflow='hidden'
+}
+function closeTerminal(){
+  termOverlay.classList.remove('open')
+  document.body.style.overflow=''
+}
+termBtn.addEventListener('click',openTerminal)
+termCloseBtn.addEventListener('click',closeTerminal)
+termOverlay.addEventListener('click',e=>{if(e.target===termOverlay)closeTerminal()})
+
+/* ══════════════ TYPING TEST ══════════════ */
+const PASSAGES=[
+  "The best code is the code you don't have to explain. It reads like prose, runs like a machine, and holds up long after you've forgotten writing it.",
+  "Programming is not about typing fast. It's about thinking clearly. The keyboard is just where the thinking lands.",
+  "Every bug is a lesson. Every fix is progress. Every refactor is respect for the next developer who reads your work.",
+  "Object-oriented programming is not about objects. It's about responsibilities. Know what each piece owns, and the system becomes obvious.",
+  "A developer who ships is worth more than a developer who theorizes. Write the code. Deploy it. Learn from what breaks.",
+  "The difference between a junior and a senior developer is not how much they know. It's knowing what questions to ask before writing a single line.",
+]
+
+let typingActive=false,typingTimer=null,typingStart=null
+let currentPassage='',typingSeconds=30,charIdx=0,errors=0,totalTyped=0
+
+const typingOverlay=document.getElementById('typing-overlay')
+const typingPassage=document.getElementById('typing-passage')
+const typingInputEl=document.getElementById('typing-input')
+const wpmVal=document.getElementById('wpm-val')
+const accVal=document.getElementById('acc-val')
+const timeVal=document.getElementById('time-val')
+const typingHint=document.getElementById('typing-hint')
+
+function pickPassage(){
+  return PASSAGES[Math.floor(Math.random()*PASSAGES.length)]
+}
+
+function renderPassage(){
+  typingPassage.innerHTML=''
+  for(let i=0;i<currentPassage.length;i++){
+    const s=document.createElement('span')
+    s.textContent=currentPassage[i]
+    if(i===charIdx) s.classList.add('tp-cursor')
+    else if(i<charIdx) s.classList.add('tp-correct')
+    else s.classList.add('tp-remaining')
+    typingPassage.appendChild(s)
+  }
+}
+
+function resetTyping(){
+  clearInterval(typingTimer)
+  typingActive=false
+  typingStart=null
+  charIdx=0;errors=0;totalTyped=0
+  typingSeconds=30
+  currentPassage=pickPassage()
+  typingInputEl.value=''
+  typingInputEl.disabled=false
+  wpmVal.textContent='—'
+  accVal.textContent='—'
+  timeVal.textContent='30'
+  typingHint.textContent='30 seconds — type as fast as you can'
+  renderPassage()
+  setTimeout(()=>typingInputEl.focus(),50)
+}
+
+function calcWPM(){
+  if(!typingStart) return 0
+  const elapsed=(Date.now()-typingStart)/1000/60
+  const words=charIdx/5
+  return Math.round(words/elapsed)||0
+}
+
+typingInputEl.addEventListener('input',e=>{
+  if(!typingActive&&typingInputEl.value.length>0){
+    typingActive=true
+    typingStart=Date.now()
+    typingTimer=setInterval(()=>{
+      typingSeconds--
+      timeVal.textContent=typingSeconds
+      wpmVal.textContent=calcWPM()
+      const acc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100
+      accVal.textContent=acc+'%'
+      if(typingSeconds<=0){
+        clearInterval(typingTimer)
+        typingInputEl.disabled=true
+        const finalWpm=calcWPM()
+        const finalAcc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100
+        wpmVal.textContent=finalWpm
+        accVal.textContent=finalAcc+'%'
+        typingHint.textContent=`Done! ${finalWpm} WPM · ${finalAcc}% accuracy — ${finalWpm>=60?'🔥 Impressive!':finalWpm>=40?'👍 Solid!':'Keep practicing!'}`
+      }
+    },1000)
+  }
+
+  const val=typingInputEl.value
+  const lastChar=val[val.length-1]
+  const expected=currentPassage[charIdx]
+
+  if(lastChar===expected){
+    charIdx++
+    totalTyped++
+    typingInputEl.value=''
+    if(charIdx>=currentPassage.length){
+      clearInterval(typingTimer)
+      typingInputEl.disabled=true
+      const finalWpm=calcWPM()
+      const finalAcc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100
+      wpmVal.textContent=finalWpm
+      accVal.textContent=finalAcc+'%'
+      timeVal.textContent='✓'
+      typingHint.textContent=`Passage complete! ${finalWpm} WPM · ${finalAcc}% accuracy`
+    }
+  } else if(val.length>0){
+    errors++
+    totalTyped++
+    typingInputEl.value=''
+    typingInputEl.style.borderColor='rgba(224,92,92,.5)'
+    setTimeout(()=>typingInputEl.style.borderColor='',180)
+  }
+  renderPassage()
+})
+
+document.getElementById('typing-restart').addEventListener('click',resetTyping)
+document.getElementById('typing-btn').addEventListener('click',()=>{
+  typingOverlay.classList.add('open')
+  resetTyping()
+  document.body.style.overflow='hidden'
+})
+document.getElementById('typing-close').addEventListener('click',()=>{
+  typingOverlay.classList.remove('open')
+  clearInterval(typingTimer)
+  document.body.style.overflow=''
+})
+typingOverlay.addEventListener('click',e=>{
+  if(e.target===typingOverlay){
+    typingOverlay.classList.remove('open')
+    clearInterval(typingTimer)
+    document.body.style.overflow=''
+  }
+})
+
+/* ══════════════ KONAMI CODE ══════════════ */
+const KONAMI=[38,38,40,40,37,39,37,39,66,65]
+let konamiIdx=0
+document.addEventListener('keydown',e=>{
+  if(e.keyCode===KONAMI[konamiIdx]){
+    konamiIdx++
+    if(konamiIdx===KONAMI.length){
+      konamiIdx=0
+      openKonami()
+    }
+  } else {
+    konamiIdx=e.keyCode===KONAMI[0]?1:0
+  }
+})
+
+function openKonami(){
+  const ov=document.getElementById('konami-overlay')
+  ov.classList.add('open')
+  document.body.style.overflow='hidden'
+  startKanamiParticles()
+}
+document.getElementById('konami-dismiss').addEventListener('click',()=>{
+  document.getElementById('konami-overlay').classList.remove('open')
+  document.body.style.overflow=''
+  stopParticles()
+})
+
+/* Particle canvas for konami */
+let kAnimId=null
+function stopParticles(){if(kAnimId){cancelAnimationFrame(kAnimId);kAnimId=null}}
+
+function startKanamiParticles(){
+  const canvas=document.getElementById('kcanvas')
+  const ctx=canvas.getContext('2d')
+  canvas.width=window.innerWidth
+  canvas.height=window.innerHeight
+
+  const chars='01MICHAELBRYANMANDEY{}[]();'.split('')
+  const particles=Array.from({length:80},()=>({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    vy:Math.random()*.8+.3,
+    vx:(Math.random()-.5)*.3,
+    alpha:Math.random()*.7+.1,
+    char:chars[Math.floor(Math.random()*chars.length)],
+    size:Math.random()*10+10,
+    color:Math.random()>.5?'#c8a96e':'#f0eee8',
+  }))
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    particles.forEach(p=>{
+      ctx.globalAlpha=p.alpha*.6
+      ctx.fillStyle=p.color
+      ctx.font=`${p.size}px 'DM Mono', monospace`
+      ctx.fillText(p.char,p.x,p.y)
+      p.y+=p.vy;p.x+=p.vx
+      if(p.y>canvas.height){p.y=-20;p.x=Math.random()*canvas.width}
+      p.char=chars[Math.floor(Math.random()*chars.length)]
+    })
+    ctx.globalAlpha=1
+    kAnimId=requestAnimationFrame(draw)
+  }
+  stopParticles()
+  draw()
+}
 </script>
 </body>
 </html>
