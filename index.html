@@ -16,20 +16,17 @@
   --ink2:#9996a0;
   --ink3:#4a4858;
   --gold:#c8a96e;
-  --gold2:rgba(200,169,110,.12);
   --line:rgba(240,238,232,.06);
   --line2:rgba(240,238,232,.12);
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
 
-/* CURSOR */
 #dot{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
 #ring{position:fixed;width:38px;height:38px;border:1px solid rgba(200,169,110,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
 body:has(a:hover) #ring,body:has(button:hover) #ring{width:60px;height:60px;border-color:rgba(200,169,110,.8)}
 body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 
-/* LOADER */
 #ldr{position:fixed;inset:0;z-index:8000;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .9s,visibility .9s}
 #ldr.out{opacity:0;visibility:hidden}
 .ldr-inner{text-align:center}
@@ -41,9 +38,7 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .ldr-line{width:0;height:1px;background:var(--gold);margin:20px auto 0;transition:width 1s ease}
 .ldr-line.go{width:160px}
 
-/* NAV */
 #nav{position:fixed;top:0;left:0;right:0;z-index:400;padding:28px 6%;display:flex;justify-content:space-between;align-items:center;transition:transform .4s ease}
-#nav.hide{transform:translateY(-100%)}
 .nav-mark{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;opacity:.85}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:color .2s}
@@ -52,58 +47,14 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .nav-avail::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ──────────────────────────────────
-   HERO — full viewport with layers
-────────────────────────────────── */
+/* HERO */
 #hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 6% 8%}
-
-/* Parallax photo — far back */
-.h-photo-wrap{
-  position:absolute;right:0;top:0;
-  width:58%;height:110%;
-  z-index:0;overflow:hidden;
-}
-.h-photo-wrap img{
-  width:100%;height:100%;
-  object-fit:cover;object-position:top center;
-  filter:grayscale(100%) contrast(1.1) brightness(.7);
-  transform:translateY(0) scale(1.12);
-  will-change:transform;
-}
-/* Horizontal gradient vignette */
+.h-photo-wrap{position:absolute;right:0;top:0;width:58%;height:110%;z-index:0;overflow:hidden}
+.h-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(100%) contrast(1.1) brightness(.7);transform:translateY(0) scale(1.12);will-change:transform}
 .h-fade-h{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 5%,rgba(4,4,10,.55) 52%,transparent 100%);z-index:1}
-/* Bottom vignette */
 .h-fade-v{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 55%);z-index:2}
-
-/* Giant background text — parallax layer 2 */
-.h-ghost{
-  position:absolute;bottom:-10px;left:0;
-  font-family:'Syne',sans-serif;
-  font-size:clamp(90px,15vw,210px);
-  font-weight:800;
-  letter-spacing:-.02em;
-  line-height:1;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(200,169,110,.07);
-  white-space:nowrap;
-  pointer-events:none;
-  user-select:none;
-  will-change:transform;
-  z-index:3;
-}
-
-/* Vertical label right edge */
-.h-vertical{
-  position:absolute;right:6%;top:50%;
-  transform:translateY(-50%) rotate(90deg);
-  transform-origin:center;
-  font-family:'DM Mono',monospace;
-  font-size:10px;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--ink3);
-  z-index:5;
-}
-
-/* Hero content */
+.h-ghost{position:absolute;bottom:-10px;left:0;font-family:'Syne',sans-serif;font-size:clamp(90px,15vw,210px);font-weight:800;letter-spacing:-.02em;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(200,169,110,.07);white-space:nowrap;pointer-events:none;user-select:none;will-change:transform;z-index:3}
+.h-vertical{position:absolute;right:6%;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink3);z-index:5}
 .h-content{position:relative;z-index:4;max-width:700px}
 .h-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px}
 .h-eyebrow-dash{width:32px;height:1px;background:var(--gold)}
@@ -119,28 +70,19 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .h-scroll::after{content:'';width:1px;height:55px;background:linear-gradient(to bottom,var(--ink3),transparent);animation:sc 2s ease-in-out infinite}
 @keyframes sc{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(1.1);opacity:1}}
 
-/* ──────────────────────────────────
-   ABOUT
-────────────────────────────────── */
+/* ABOUT */
 #about{padding:160px 6%;position:relative;overflow:hidden}
-.about-bg-num{
-  position:absolute;right:-2%;top:50%;transform:translateY(-50%);
-  font-family:'Syne',sans-serif;font-size:28vw;font-weight:800;
-  color:transparent;-webkit-text-stroke:1px rgba(240,238,232,.025);
-  pointer-events:none;user-select:none;will-change:transform;
-}
+.about-bg-num{position:absolute;right:-2%;top:50%;transform:translateY(-50%);font-family:'Syne',sans-serif;font-size:28vw;font-weight:800;color:transparent;-webkit-text-stroke:1px rgba(240,238,232,.025);pointer-events:none;user-select:none;will-change:transform}
 .about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:120px;align-items:start;position:relative;z-index:1}
 .about-photo-col{position:sticky;top:130px}
 .about-img-frame{position:relative}
 .about-img-frame img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;filter:contrast(1.05)}
-/* Corner accents */
 .about-img-frame::before,.about-img-frame::after{content:'';position:absolute;width:28px;height:28px;border-color:var(--gold);border-style:solid}
 .about-img-frame::before{top:-8px;left:-8px;border-width:1px 0 0 1px}
 .about-img-frame::after{bottom:-8px;right:-8px;border-width:0 1px 1px 0}
 .about-img-cap{margin-top:20px;display:flex;justify-content:space-between;align-items:center}
 .about-img-cap-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
 .about-img-cap-yr{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3)}
-
 .about-text{padding-top:12px}
 .section-label{display:flex;align-items:center;gap:12px;margin-bottom:48px}
 .section-label-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:.15em}
@@ -150,8 +92,6 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .about-headline em{font-style:normal;color:var(--gold)}
 .about-body{font-size:15px;line-height:1.9;color:var(--ink2);margin-bottom:20px}
 .about-rule{width:36px;height:1px;background:var(--ink3);margin:36px 0}
-
-/* Stack table */
 .stack-tbl{width:100%;border-collapse:collapse;margin-top:8px}
 .stack-tbl tr{border-bottom:1px solid var(--line)}
 .stack-tbl td{padding:14px 0;font-size:13px}
@@ -159,162 +99,84 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .stack-tbl td:nth-child(2){color:var(--ink3);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.05em}
 .stack-tbl td:last-child{text-align:right;color:var(--gold);font-family:'DM Mono',monospace;font-size:11px}
 
-/* ──────────────────────────────────
-   SKILLS — complete redesign
-   Alternating panels, large type
-────────────────────────────────── */
-#skills{background:var(--surface);padding:140px 0;overflow:hidden}
+/* ═══════════════════════════
+   SKILLS — clean 3-col grid
+═══════════════════════════ */
+#skills{background:var(--surface);padding:140px 6%}
 
-.skills-top{padding:0 6%;margin-bottom:100px;display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
-.skills-title{font-family:'Syne',sans-serif;font-size:clamp(52px,8vw,110px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink)}
-.skills-title .line2{display:block;-webkit-text-stroke:1px rgba(240,238,232,.2);color:transparent}
-.skills-intro-p{max-width:280px;font-size:14px;line-height:1.85;color:var(--ink2);padding-bottom:8px}
+.skills-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:72px}
+.skills-header-title{font-family:'Syne',sans-serif;font-size:clamp(48px,7vw,96px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink)}
+.skills-header-title span{display:block;color:var(--ink3)}
+.skills-header-p{font-size:13px;line-height:1.8;color:var(--ink2);max-width:240px;padding-bottom:6px}
 
-/* Each skill = a full-width horizontal strip */
-.skill-strip{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  border-top:1px solid var(--line);
-  position:relative;
-  transition:background .3s;
-  overflow:hidden;
-}
-.skill-strip:last-of-type{border-bottom:1px solid var(--line)}
-.skill-strip::after{
-  content:'';
-  position:absolute;left:0;bottom:0;top:0;width:0;
-  background:rgba(200,169,110,.04);
-  transition:width .5s cubic-bezier(.16,1,.3,1);
-  pointer-events:none;
-}
-.skill-strip:hover::after{width:100%}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
 
-/* Left cell: big name + bar */
-.sk-l{padding:48px 6%;display:flex;flex-direction:column;justify-content:space-between;gap:28px;border-right:1px solid var(--line)}
-.sk-big{font-family:'Syne',sans-serif;font-size:clamp(44px,6vw,80px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink);transition:color .3s}
-.skill-strip:hover .sk-big{color:var(--gold)}
-.sk-bar-wrap{display:flex;align-items:center;gap:16px}
-.sk-bar{flex:1;height:1px;background:var(--line2);position:relative;overflow:hidden}
-.sk-bar-inner{position:absolute;left:0;top:0;height:100%;background:var(--gold);width:0;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
-.sk-pct{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.sk-card{background:var(--surface);padding:40px 32px;position:relative;overflow:hidden;transition:background .3s}
+.sk-card:hover{background:#0e0e1c}
+.sk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:transparent;transition:background .3s}
+.sk-card:hover::before{background:var(--gold)}
 
-/* Right cell: details */
-.sk-r{padding:48px 5%;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
-.sk-cat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
-.sk-desc{font-size:14px;line-height:1.8;color:var(--ink2);max-width:380px}
-.sk-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}
-.sk-tag{font-size:11px;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--line2);color:var(--ink3);border-radius:1px;transition:all .25s}
-.skill-strip:hover .sk-tag{border-color:rgba(200,169,110,.25);color:var(--ink2)}
+.sk-lang{font-family:'Syne',sans-serif;font-size:clamp(26px,2.8vw,42px);font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1;margin-bottom:24px;transition:color .3s}
+.sk-card:hover .sk-lang{color:var(--gold)}
 
-/* Tools row at bottom */
-.skills-tools{
-  margin-top:2px;
-  padding:32px 6%;
-  border-top:1px solid var(--line);
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
-.tools-ttl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-right:12px}
-.tool-badge{font-size:12px;font-weight:400;padding:6px 16px;border:1px solid var(--line);color:var(--ink2);border-radius:200px;transition:all .2s}
-.tool-badge:hover{border-color:rgba(200,169,110,.3);color:var(--gold)}
+.sk-track{height:1px;background:var(--line2);margin-bottom:18px;position:relative;overflow:hidden}
+.sk-fill{position:absolute;left:0;top:0;height:100%;background:var(--gold);width:0;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
 
-/* ──────────────────────────────────
-   PROJECTS — cinematic full-bleed
-────────────────────────────────── */
-#projects{padding:0;background:var(--bg)}
+.sk-meta{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.sk-cat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+.sk-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold)}
 
-.projects-head{padding:140px 6% 80px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
-.projects-title{font-family:'Syne',sans-serif;font-size:clamp(52px,8vw,110px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink)}
-.projects-count{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3);letter-spacing:.1em;padding-bottom:12px}
+.sk-desc{font-size:13px;line-height:1.75;color:var(--ink3);transition:color .3s}
+.sk-card:hover .sk-desc{color:var(--ink2)}
 
-/* Each project = full-width cinematic panel */
-.proj{
-  position:relative;
-  height:90vh;
-  overflow:hidden;
-  display:flex;align-items:flex-end;
-  border-top:1px solid var(--line);
-}
-.proj-img{
-  position:absolute;inset:0;
-  will-change:transform;
-}
-.proj-img img{
-  width:100%;height:120%;
-  object-fit:cover;object-position:top;
-  transform:translateY(0);
-  filter:grayscale(20%) brightness(.5) contrast(1.1);
-  transition:filter .5s ease;
-}
-.proj:hover .proj-img img{filter:grayscale(0%) brightness(.6) contrast(1.1)}
-/* Diagonal overlay — unique per project */
-.proj-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(160deg,rgba(4,4,10,.75) 0%,rgba(4,4,10,.2) 60%,transparent 100%);
-  z-index:1;
-}
-/* Bottom gradient */
-.proj-fade{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,4,10,.95) 0%,rgba(4,4,10,.3) 45%,transparent 80%);z-index:2}
+.skills-also{margin-top:1px;background:var(--surface);padding:26px 32px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line)}
+.also-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-right:8px}
+.also-tag{font-family:'DM Mono',monospace;font-size:11px;padding:5px 14px;border:1px solid var(--line);color:var(--ink3);border-radius:1px;transition:all .2s}
+.also-tag:hover{border-color:rgba(200,169,110,.3);color:var(--ink2)}
 
-.proj-body{
-  position:relative;z-index:3;
-  padding:0 6% 56px;
-  width:100%;
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:flex-end;
-  gap:40px;
-}
-.proj-left{}
-.proj-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);margin-bottom:14px}
-.proj-name{font-family:'Syne',sans-serif;font-size:clamp(42px,6vw,88px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink);margin-bottom:20px}
-.proj-desc{font-size:14px;line-height:1.8;color:rgba(240,238,232,.7);max-width:420px;margin-bottom:28px}
-.proj-pills{display:flex;flex-wrap:wrap;gap:8px}
-.proj-pill{font-size:11px;letter-spacing:.08em;padding:5px 14px;border:1px solid rgba(240,238,232,.2);color:rgba(240,238,232,.6);border-radius:200px;backdrop-filter:blur(4px)}
+/* ═══════════════════════════
+   PROJECTS — clean list
+═══════════════════════════ */
+#projects{padding:140px 6%;background:var(--bg)}
 
-.proj-right{display:flex;flex-direction:column;align-items:flex-end;gap:16px;padding-bottom:4px}
-.proj-link{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 28px;
-  background:var(--gold);color:#04040a;
-  font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  text-decoration:none;border-radius:2px;
-  transition:all .25s;white-space:nowrap;
-}
+.projects-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:0}
+.projects-title{font-family:'Syne',sans-serif;font-size:clamp(48px,7vw,96px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink);margin-bottom:72px}
+.projects-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.12em;padding-bottom:10px}
+
+.proj-item{border-top:1px solid var(--line);padding:52px 0;display:grid;grid-template-columns:72px 1fr auto;gap:40px;align-items:start;transition:border-color .3s}
+.proj-item:hover{border-color:rgba(200,169,110,.25)}
+.proj-item:last-of-type{border-bottom:1px solid var(--line)}
+
+.proj-index{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.15em;padding-top:4px}
+
+.proj-type{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.proj-name{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,52px);font-weight:800;letter-spacing:-.02em;line-height:.95;color:var(--ink);margin-bottom:18px;transition:color .3s}
+.proj-item:hover .proj-name{color:var(--gold)}
+.proj-desc{font-size:14px;line-height:1.8;color:var(--ink2);max-width:480px;margin-bottom:20px}
+.proj-stack{display:flex;flex-wrap:wrap;gap:6px}
+.proj-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;padding:4px 10px;border:1px solid var(--line2);color:var(--ink3);border-radius:1px}
+
+.proj-action{padding-top:4px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.proj-link{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:#04040a;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .25s;white-space:nowrap}
 .proj-link:hover{background:var(--ink);transform:translateY(-2px)}
-.proj-link-ghost{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:13px 28px;
-  border:1px solid rgba(200,169,110,.35);color:var(--gold);
-  font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  text-decoration:none;border-radius:2px;
-  transition:all .25s;white-space:nowrap;
-  backdrop-filter:blur(4px);
-}
-.proj-link-ghost:hover{background:rgba(200,169,110,.1);transform:translateY(-2px)}
+.proj-link-ghost{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:1px solid rgba(200,169,110,.3);color:var(--gold);font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .25s;white-space:nowrap}
+.proj-link-ghost:hover{background:rgba(200,169,110,.08);transform:translateY(-2px)}
 
-/* "More in progress" row */
-.proj-more{
-  padding:60px 6%;
-  border-top:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;gap:40px;
-}
-.proj-more-txt{font-family:'Syne',sans-serif;font-size:clamp(18px,2.5vw,32px);font-weight:700;color:var(--ink3)}
-.proj-more-dots{display:flex;gap:8px}
-.proj-more-dot{width:7px;height:7px;border-radius:50%;background:var(--ink3)}
+.proj-more{padding:40px 0;display:flex;align-items:center;gap:14px}
+.proj-more-txt{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink3)}
+.proj-more-dots{display:flex;gap:6px}
+.proj-more-dot{width:5px;height:5px;border-radius:50%;background:var(--ink3)}
 .proj-more-dot:nth-child(1){animation:dot-blink 1.6s .0s ease-in-out infinite}
 .proj-more-dot:nth-child(2){animation:dot-blink 1.6s .25s ease-in-out infinite}
 .proj-more-dot:nth-child(3){animation:dot-blink 1.6s .5s ease-in-out infinite}
 @keyframes dot-blink{0%,100%{background:var(--ink3)}50%{background:var(--gold)}}
 
-/* ──────────────────────────────────
-   EDUCATION
-────────────────────────────────── */
+/* EDUCATION */
 #education{background:var(--surface);padding:140px 6%}
 .edu-inner{display:grid;grid-template-columns:300px 1fr;gap:100px}
 .edu-left{position:sticky;top:130px;height:fit-content}
 .edu-title{font-family:'Syne',sans-serif;font-size:clamp(42px,6vw,80px);font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--ink)}
 .edu-subtitle{font-size:14px;color:var(--ink3);line-height:1.7;margin-top:20px}
-.edu-items{}
 .edu-item{padding:48px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:180px 1fr;gap:32px}
 .edu-item:last-child{border-bottom:1px solid var(--line)}
 .edu-period{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;padding-top:6px}
@@ -324,23 +186,15 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .edu-item:not(:first-child) .edu-degree{color:var(--ink3)}
 .edu-note{font-size:13.5px;line-height:1.85;color:var(--ink2)}
 
-/* ──────────────────────────────────
-   CONTACT
-────────────────────────────────── */
+/* CONTACT */
 #contact{background:var(--bg);padding:140px 6%;position:relative;overflow:hidden}
-.contact-bg{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-family:'Syne',sans-serif;font-size:22vw;font-weight:800;
-  color:transparent;-webkit-text-stroke:1px rgba(200,169,110,.04);
-  pointer-events:none;user-select:none;white-space:nowrap;will-change:transform;
-}
+.contact-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Syne',sans-serif;font-size:22vw;font-weight:800;color:transparent;-webkit-text-stroke:1px rgba(200,169,110,.04);pointer-events:none;user-select:none;white-space:nowrap;will-change:transform}
 .contact-inner{position:relative;z-index:1}
 .contact-giant{font-family:'Syne',sans-serif;font-size:clamp(52px,9vw,130px);font-weight:800;letter-spacing:-.03em;line-height:.9;margin-bottom:80px;overflow:hidden}
 .cg-row{overflow:hidden;display:block}
 .cg-inner{display:block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
 .cg-inner.up{transform:translateY(0)}
 .cg-hollow{-webkit-text-stroke:1px rgba(240,238,232,.18);color:transparent}
-
 .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
 .c-cell{padding:32px 28px;border-right:1px solid var(--line);transition:background .2s}
 .c-cell:last-child{border-right:none}
@@ -348,7 +202,6 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 .c-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
 .c-val{font-size:14px;font-weight:500;color:var(--ink)}
 .c-val.live{color:var(--gold)}
-
 .contact-foot{margin-top:60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;border-top:1px solid var(--line);padding-top:48px}
 .c-socials{display:flex;gap:12px}
 .c-soc{width:44px;height:44px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:16px;text-decoration:none;border-radius:2px;transition:all .2s}
@@ -359,215 +212,74 @@ body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px}
 footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .ft{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.05em}
 
-/* ──────────────────────────────────
-   PARALLAX REVEAL
-────────────────────────────────── */
+/* REVEAL */
 .reveal{opacity:0;transform:translateY(48px);transition:opacity .95s ease,transform .95s ease}
 .reveal.show{opacity:1;transform:translateY(0)}
 .reveal-l{opacity:0;transform:translateX(-48px);transition:opacity .95s ease,transform .95s ease}
 .reveal-l.show{opacity:1;transform:translateX(0)}
-.reveal-r{opacity:0;transform:translateX(48px);transition:opacity .95s ease,transform .95s ease}
-.reveal-r.show{opacity:1;transform:translateX(0)}
 
-/* ─── RESPONSIVE ─── */
-/* ══════════════════════════════════════
-   TERMINAL MODAL
-══════════════════════════════════════ */
-#term-btn{
-  position:fixed;bottom:32px;right:32px;z-index:600;
-  width:52px;height:52px;
-  background:var(--gold);color:#04040a;
-  border:none;border-radius:2px;cursor:none;
-  font-size:20px;display:flex;align-items:center;justify-content:center;
-  transition:all .2s;box-shadow:0 0 0 0 rgba(200,169,110,.4);
-  animation:term-pulse 3s ease-in-out infinite;
-}
+/* TERMINAL */
+#term-btn{position:fixed;bottom:32px;right:32px;z-index:600;width:52px;height:52px;background:var(--gold);color:#04040a;border:none;border-radius:2px;cursor:none;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;animation:term-pulse 3s ease-in-out infinite}
 #term-btn:hover{transform:scale(1.1)}
 @keyframes term-pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,169,110,.4)}50%{box-shadow:0 0 0 12px rgba(200,169,110,0)}}
-
-#term-overlay{
-  position:fixed;inset:0;z-index:700;
-  background:rgba(4,4,10,.92);
-  backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;
-  transition:opacity .3s,visibility .3s;
-}
+#term-overlay{position:fixed;inset:0;z-index:700;background:rgba(4,4,10,.92);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 #term-overlay.open{opacity:1;visibility:visible}
-
-#term-box{
-  width:min(720px,92vw);
-  background:#0a0a14;
-  border:1px solid rgba(200,169,110,.2);
-  border-radius:4px;
-  overflow:hidden;
-  transform:translateY(20px);
-  transition:transform .35s cubic-bezier(.16,1,.3,1);
-}
+#term-box{width:min(720px,92vw);background:#0a0a14;border:1px solid rgba(200,169,110,.2);border-radius:4px;overflow:hidden;transform:translateY(20px);transition:transform .35s cubic-bezier(.16,1,.3,1)}
 #term-overlay.open #term-box{transform:translateY(0)}
-.term-topbar{
-  display:flex;align-items:center;gap:8px;
-  padding:12px 16px;
-  background:#060610;
-  border-bottom:1px solid rgba(200,169,110,.1);
-}
+.term-topbar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#060610;border-bottom:1px solid rgba(200,169,110,.1)}
 .term-dot{width:12px;height:12px;border-radius:50%}
-.term-dot.r{background:#ff5f57}
-.term-dot.y{background:#febc2e}
-.term-dot.g{background:#28c840}
-.term-dot.r{cursor:pointer}
+.term-dot.r{background:#ff5f57;cursor:pointer}.term-dot.y{background:#febc2e}.term-dot.g{background:#28c840}
 .term-title{flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3);letter-spacing:.1em}
-
-#term-output{
-  height:340px;overflow-y:auto;
-  padding:20px 20px 0;
-  font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;
-  color:#c8c4b8;
-  scroll-behavior:smooth;
-}
+#term-output{height:340px;overflow-y:auto;padding:20px 20px 0;font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;color:#c8c4b8;scroll-behavior:smooth}
 #term-output::-webkit-scrollbar{width:4px}
-#term-output::-webkit-scrollbar-track{background:transparent}
 #term-output::-webkit-scrollbar-thumb{background:rgba(200,169,110,.2);border-radius:4px}
 .t-line{margin-bottom:2px;white-space:pre-wrap;word-break:break-all}
-.t-gold{color:var(--gold)}
-.t-dim{color:var(--ink3)}
-.t-ink{color:var(--ink)}
-.t-green{color:#5dca87}
-.t-red{color:#e05c5c}
-.t-prompt{color:var(--gold)}
-
-.term-input-row{
-  display:flex;align-items:center;gap:10px;
-  padding:14px 20px;
-  border-top:1px solid rgba(200,169,110,.1);
-}
+.t-gold{color:var(--gold)}.t-dim{color:var(--ink3)}.t-ink{color:var(--ink)}.t-green{color:#5dca87}.t-red{color:#e05c5c}.t-prompt{color:var(--gold)}
+.term-input-row{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:1px solid rgba(200,169,110,.1)}
 .term-prompt-label{font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);white-space:nowrap}
-#term-input{
-  flex:1;background:transparent;border:none;outline:none;
-  font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);
-  caret-color:var(--gold);
-}
+#term-input{flex:1;background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);caret-color:var(--gold)}
 #term-input::placeholder{color:var(--ink3)}
 
-/* ══════════════════════════════════════
-   TYPING SPEED TEST MODAL
-══════════════════════════════════════ */
-#typing-btn{
-  position:fixed;bottom:32px;right:96px;z-index:600;
-  width:52px;height:52px;
-  background:transparent;color:var(--gold);
-  border:1px solid rgba(200,169,110,.35);border-radius:2px;cursor:none;
-  font-size:18px;display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
-}
+/* TYPING */
+#typing-btn{position:fixed;bottom:32px;right:96px;z-index:600;width:52px;height:52px;background:transparent;color:var(--gold);border:1px solid rgba(200,169,110,.35);border-radius:2px;cursor:none;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s}
 #typing-btn:hover{background:rgba(200,169,110,.08);transform:scale(1.08)}
-
-#typing-overlay{
-  position:fixed;inset:0;z-index:700;
-  background:rgba(4,4,10,.94);
-  backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;
-  transition:opacity .3s,visibility .3s;
-}
+#typing-overlay{position:fixed;inset:0;z-index:700;background:rgba(4,4,10,.94);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 #typing-overlay.open{opacity:1;visibility:visible}
-#typing-box{
-  width:min(780px,92vw);
-  background:#0a0a14;
-  border:1px solid rgba(200,169,110,.2);
-  border-radius:4px;
-  padding:40px;
-  transform:translateY(20px);
-  transition:transform .35s cubic-bezier(.16,1,.3,1);
-}
+#typing-box{width:min(780px,92vw);background:#0a0a14;border:1px solid rgba(200,169,110,.2);border-radius:4px;padding:40px;transform:translateY(20px);transition:transform .35s cubic-bezier(.16,1,.3,1)}
 #typing-overlay.open #typing-box{transform:translateY(0)}
-
 .typing-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
 .typing-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--ink)}
 .typing-close{background:none;border:none;color:var(--ink3);font-size:22px;cursor:pointer;transition:color .2s;line-height:1}
 .typing-close:hover{color:var(--gold)}
-
 .typing-stats{display:flex;gap:32px;margin-bottom:32px}
 .typing-stat{text-align:center}
 .typing-stat-val{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--gold);line-height:1;display:block}
 .typing-stat-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-top:4px;display:block}
-
-#typing-passage{
-  font-family:'DM Mono',monospace;font-size:16px;line-height:1.9;
-  background:rgba(240,238,232,.03);
-  border:1px solid rgba(200,169,110,.1);
-  padding:24px;border-radius:2px;
-  margin-bottom:20px;
-  user-select:none;letter-spacing:.02em;
-  min-height:100px;
-}
-.tp-correct{color:var(--gold)}
-.tp-wrong{color:#e05c5c;text-decoration:underline}
-.tp-cursor{border-right:2px solid var(--gold);animation:tp-blink .7s step-end infinite}
+#typing-passage{font-family:'DM Mono',monospace;font-size:16px;line-height:1.9;background:rgba(240,238,232,.03);border:1px solid rgba(200,169,110,.1);padding:24px;border-radius:2px;margin-bottom:20px;user-select:none;letter-spacing:.02em;min-height:100px}
+.tp-correct{color:var(--gold)}.tp-wrong{color:#e05c5c;text-decoration:underline}.tp-cursor{border-right:2px solid var(--gold);animation:tp-blink .7s step-end infinite}.tp-remaining{color:rgba(200,196,184,.3)}
 @keyframes tp-blink{0%,100%{opacity:1}50%{opacity:0}}
-.tp-remaining{color:rgba(200,196,184,.3)}
-
-#typing-input{
-  width:100%;background:rgba(240,238,232,.04);
-  border:1px solid rgba(200,169,110,.2);border-radius:2px;
-  padding:14px 18px;
-  font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);
-  outline:none;caret-color:var(--gold);
-  transition:border-color .2s;
-}
+#typing-input{width:100%;background:rgba(240,238,232,.04);border:1px solid rgba(200,169,110,.2);border-radius:2px;padding:14px 18px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none;caret-color:var(--gold);transition:border-color .2s}
 #typing-input:focus{border-color:rgba(200,169,110,.5)}
 #typing-input:disabled{opacity:.4}
-
 .typing-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
 .typing-hint{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.05em}
 .btn-restart{background:var(--gold);color:#04040a;border:none;padding:10px 24px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all .2s}
 .btn-restart:hover{background:var(--ink)}
 
-/* ══════════════════════════════════════
-   KONAMI EASTER EGG
-══════════════════════════════════════ */
-#konami-overlay{
-  position:fixed;inset:0;z-index:800;
-  background:#04040a;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;
-  transition:opacity .5s;
-  overflow:hidden;
-}
+/* KONAMI */
+#konami-overlay{position:fixed;inset:0;z-index:800;background:#04040a;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .5s;overflow:hidden}
 #konami-overlay.open{opacity:1;visibility:visible}
 .konami-particles{position:absolute;inset:0;pointer-events:none}
 .konami-content{position:relative;z-index:1;text-align:center;padding:40px}
-.konami-title{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(48px,8vw,110px);
-  font-weight:800;letter-spacing:-.03em;
-  color:var(--gold);
-  line-height:.9;
-  margin-bottom:16px;
-  animation:konami-glow 2s ease-in-out infinite alternate;
-}
+.konami-title{font-family:'Syne',sans-serif;font-size:clamp(48px,8vw,110px);font-weight:800;letter-spacing:-.03em;color:var(--gold);line-height:.9;margin-bottom:16px;animation:konami-glow 2s ease-in-out infinite alternate}
 @keyframes konami-glow{from{text-shadow:0 0 20px rgba(200,169,110,.3)}to{text-shadow:0 0 60px rgba(200,169,110,.7),0 0 100px rgba(200,169,110,.3)}}
 .konami-sub{font-family:'DM Mono',monospace;font-size:14px;color:var(--ink2);letter-spacing:.15em;margin-bottom:48px}
-.konami-code{
-  font-family:'DM Mono',monospace;font-size:clamp(18px,3vw,28px);
-  color:var(--ink);letter-spacing:.1em;margin-bottom:48px;
-  animation:konami-fade 1s ease-in-out .3s both;
-}
+.konami-code{font-family:'DM Mono',monospace;font-size:clamp(18px,3vw,28px);color:var(--ink);letter-spacing:.1em;margin-bottom:48px;animation:konami-fade 1s ease-in-out .3s both}
 @keyframes konami-fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.konami-secret{
-  background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);
-  padding:24px 40px;border-radius:2px;margin-bottom:40px;
-  animation:konami-fade 1s ease-in-out .6s both;
-}
+.konami-secret{background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);padding:24px 40px;border-radius:2px;margin-bottom:40px;animation:konami-fade 1s ease-in-out .6s both}
 .konami-secret-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .konami-secret-val{font-size:16px;font-weight:500;color:var(--ink)}
-.konami-dismiss{
-  background:transparent;border:1px solid rgba(200,169,110,.35);
-  color:var(--gold);padding:12px 32px;
-  font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  border-radius:2px;cursor:pointer;transition:all .2s;
-  animation:konami-fade 1s ease-in-out .9s both;
-}
+.konami-dismiss{background:transparent;border:1px solid rgba(200,169,110,.35);color:var(--gold);padding:12px 32px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all .2s;animation:konami-fade 1s ease-in-out .9s both}
 .konami-dismiss:hover{background:rgba(200,169,110,.1)}
 
 @media(max-width:960px){
@@ -575,8 +287,9 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
   .about-photo-col{position:relative;top:0;max-width:380px}
   .nav-links{display:none}
   .contact-grid{grid-template-columns:1fr 1fr}
-  .proj-body{grid-template-columns:1fr}
-  .proj-right{align-items:flex-start}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .proj-item{grid-template-columns:60px 1fr;gap:24px}
+  .proj-action{grid-column:2;flex-direction:row}
 }
 @media(max-width:640px){
   body{cursor:auto}
@@ -584,9 +297,10 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
   .h-scroll{display:none}
   .contact-grid{grid-template-columns:1fr}
   .edu-item{grid-template-columns:1fr;gap:12px}
-  .skill-strip{grid-template-columns:1fr}
-  .sk-l{border-right:none;border-bottom:1px solid var(--line)}
-  .skills-top,.projects-head{flex-direction:column;align-items:flex-start}
+  .skills-grid{grid-template-columns:1fr}
+  .skills-header,.projects-header{flex-direction:column;align-items:flex-start}
+  .proj-item{grid-template-columns:1fr;gap:16px}
+  .proj-index{display:none}
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -612,24 +326,22 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Work</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-avail">Open to work</div>
 </nav>
 
-<!-- ════ HERO ════ -->
+<!-- HERO -->
 <section id="hero">
   <div class="h-photo-wrap">
     <img src="FOTO MICHAEL 2.jpg" alt="" id="himg">
     <div class="h-fade-h"></div>
     <div class="h-fade-v"></div>
   </div>
-
   <div class="h-ghost" id="hghost">MANDEY</div>
   <div class="h-vertical">Bekasi — Indonesia</div>
-
   <div class="h-content">
     <div class="h-eyebrow">
       <span class="h-eyebrow-dash"></span>
@@ -643,14 +355,14 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
     <div class="h-row">
       <p class="h-bio">Building clean, fast software that holds up under scrutiny. President University, Bekasi.</p>
       <div class="h-actions">
-        <a href="#projects" class="btn-primary">View Work ↓</a>
+        <a href="#projects" class="btn-primary">View Projects ↓</a>
         <div class="h-scroll">Scroll</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════ ABOUT ════ -->
+<!-- ABOUT -->
 <section id="about">
   <div class="about-bg-num" id="aboutbg">01</div>
   <div class="about-grid">
@@ -685,227 +397,119 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
   </div>
 </section>
 
-<!-- ════ SKILLS ════ -->
+<!-- SKILLS -->
 <section id="skills">
-  <div class="skills-top reveal">
-    <div class="skills-title">Skills<span class="line2">&amp; Stack</span></div>
-    <p class="skills-intro-p">Six languages, fluent in all of them. From low-level C++ to cloud-deployed web apps — no friction switching between layers.</p>
+  <div class="skills-header reveal">
+    <div class="skills-header-title">Skills<span>&amp; Stack</span></div>
+    <p class="skills-header-p">Six languages. From low-level C++ to cloud-deployed apps — no friction switching layers.</p>
   </div>
 
-  <div class="skill-strip reveal" data-pct="90">
-    <div class="sk-l">
-      <div class="sk-big">Java</div>
-      <div class="sk-bar-wrap">
-        <div class="sk-bar"><div class="sk-bar-inner"></div></div>
-        <span class="sk-pct">90%</span>
-      </div>
+  <div class="skills-grid">
+    <div class="sk-card reveal" data-pct="90">
+      <div class="sk-lang">Java</div>
+      <div class="sk-track"><div class="sk-fill"></div></div>
+      <div class="sk-meta"><span class="sk-cat">Backend · Systems</span><span class="sk-pct">90%</span></div>
+      <p class="sk-desc">My primary language — backends, data structures, Spring-based APIs.</p>
     </div>
-    <div class="sk-r">
-      <div>
-        <div class="sk-cat">Backend · Systems</div>
-        <p class="sk-desc">My primary language. I build backends, design data structures, and architect systems with Java — comfortable from raw algorithms to Spring-based APIs.</p>
-      </div>
-      <div class="sk-tags">
-        <span class="sk-tag">Object-Oriented</span><span class="sk-tag">Spring</span><span class="sk-tag">Data Structures</span><span class="sk-tag">Algorithms</span>
-      </div>
+    <div class="sk-card reveal" data-pct="85" style="transition-delay:.05s">
+      <div class="sk-lang">JavaScript</div>
+      <div class="sk-track"><div class="sk-fill"></div></div>
+      <div class="sk-meta"><span class="sk-cat">Frontend · Backend</span><span class="sk-pct">85%</span></div>
+      <p class="sk-desc">DOM, async patterns, REST APIs. No over-engineered abstractions.</p>
     </div>
-  </div>
-
-  <div class="skill-strip reveal" data-pct="85" style="transition-delay:.06s">
-    <div class="sk-l">
-      <div class="sk-big">JavaScript</div>
-      <div class="sk-bar-wrap">
-        <div class="sk-bar"><div class="sk-bar-inner"></div></div>
-        <span class="sk-pct">85%</span>
-      </div>
+    <div class="sk-card reveal" data-pct="85" style="transition-delay:.10s">
+      <div class="sk-lang">Python</div>
+      <div class="sk-track"><div class="sk-fill"></div></div>
+      <div class="sk-meta"><span class="sk-cat">Automation · Data</span><span class="sk-pct">85%</span></div>
+      <p class="sk-desc">Scripting, automation pipelines, and data wrangling done fast.</p>
     </div>
-    <div class="sk-r">
-      <div>
-        <div class="sk-cat">Frontend · Backend</div>
-        <p class="sk-desc">DOM manipulation, async patterns, fetch APIs, event-driven logic. I write JS that's readable — no magic, no over-engineered abstractions.</p>
-      </div>
-      <div class="sk-tags">
-        <span class="sk-tag">ES6+</span><span class="sk-tag">Async/Await</span><span class="sk-tag">REST APIs</span><span class="sk-tag">DOM</span>
-      </div>
+    <div class="sk-card reveal" data-pct="80" style="transition-delay:.15s">
+      <div class="sk-lang">PHP</div>
+      <div class="sk-track"><div class="sk-fill"></div></div>
+      <div class="sk-meta"><span class="sk-cat">Web Backend</span><span class="sk-pct">80%</span></div>
+      <p class="sk-desc">Server-side rendering, MVC, sessions. Where most shipped projects live.</p>
     </div>
-  </div>
-
-  <div class="skill-strip reveal" data-pct="85" style="transition-delay:.12s">
-    <div class="sk-l">
-      <div class="sk-big">Python</div>
-      <div class="sk-bar-wrap">
-        <div class="sk-bar"><div class="sk-bar-inner"></div></div>
-        <span class="sk-pct">85%</span>
-      </div>
+    <div class="sk-card reveal" data-pct="80" style="transition-delay:.20s">
+      <div class="sk-lang">Databases</div>
+      <div class="sk-track"><div class="sk-fill"></div></div>
+      <div class="sk-meta"><span class="sk-cat">Data Layer</span><span class="sk-pct">80%</span></div>
+      <p class="sk-desc">Schema design, complex queries, MySQL · PostgreSQL · NoSQL.</p>
     </div>
-    <div class="sk-r">
-      <div>
-        <div class="sk-cat">Automation · Data</div>
-        <p class="sk-desc">Scripting, automation pipelines, and data wrangling. Python is my tool when I need something done fast, cleanly, and maintainably.</p>
-      </div>
-      <div class="sk-tags">
-        <span class="sk-tag">Scripting</span><span class="sk-tag">Automation</span><span class="sk-tag">Pandas</span><span class="sk-tag">CLI Tools</span>
-      </div>
+    <div class="sk-card reveal" data-pct="75" style="transition-delay:.25s">
+      <div class="sk-lang">C++</div>
+      <div class="sk-track"><div class="sk-fill"></div></div>
+      <div class="sk-meta"><span class="sk-cat">Systems · Low-level</span><span class="sk-pct">75%</span></div>
+      <p class="sk-desc">Memory management, pointer arithmetic — keeps me honest about the machine.</p>
     </div>
   </div>
 
-  <div class="skill-strip reveal" data-pct="80" style="transition-delay:.18s">
-    <div class="sk-l">
-      <div class="sk-big">PHP</div>
-      <div class="sk-bar-wrap">
-        <div class="sk-bar"><div class="sk-bar-inner"></div></div>
-        <span class="sk-pct">80%</span>
-      </div>
-    </div>
-    <div class="sk-r">
-      <div>
-        <div class="sk-cat">Web Backend</div>
-        <p class="sk-desc">Server-side rendering, form handling, and dynamic web apps. PHP is where most of my shipped projects live — fast to build, fast to deploy.</p>
-      </div>
-      <div class="sk-tags">
-        <span class="sk-tag">MVC</span><span class="sk-tag">MySQL</span><span class="sk-tag">REST</span><span class="sk-tag">Sessions</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="skill-strip reveal" data-pct="80" style="transition-delay:.24s">
-    <div class="sk-l">
-      <div class="sk-big">Databases</div>
-      <div class="sk-bar-wrap">
-        <div class="sk-bar"><div class="sk-bar-inner"></div></div>
-        <span class="sk-pct">80%</span>
-      </div>
-    </div>
-    <div class="sk-r">
-      <div>
-        <div class="sk-cat">Data Layer</div>
-        <p class="sk-desc">Schema design, complex queries, and performance thinking. I know when to normalize, when to denormalize, and when to reach for NoSQL.</p>
-      </div>
-      <div class="sk-tags">
-        <span class="sk-tag">MySQL</span><span class="sk-tag">PostgreSQL</span><span class="sk-tag">Schema Design</span><span class="sk-tag">NoSQL</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="skill-strip reveal" data-pct="75" style="transition-delay:.3s">
-    <div class="sk-l">
-      <div class="sk-big">C++</div>
-      <div class="sk-bar-wrap">
-        <div class="sk-bar"><div class="sk-bar-inner"></div></div>
-        <span class="sk-pct">75%</span>
-      </div>
-    </div>
-    <div class="sk-r">
-      <div>
-        <div class="sk-cat">Systems · Low-level</div>
-        <p class="sk-desc">Memory management, pointer arithmetic, competitive programming problems. C++ keeps me honest about how software actually runs under the hood.</p>
-      </div>
-      <div class="sk-tags">
-        <span class="sk-tag">Memory Management</span><span class="sk-tag">Algorithms</span><span class="sk-tag">OOP</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="skills-tools reveal">
-    <span class="tools-ttl">Also</span>
-    <span class="tool-badge">HTML / CSS</span>
-    <span class="tool-badge">Git</span>
-    <span class="tool-badge">VS Code</span>
-    <span class="tool-badge">IntelliJ</span>
-    <span class="tool-badge">Vercel</span>
-    <span class="tool-badge">Linux CLI</span>
-    <span class="tool-badge">REST APIs</span>
-    <span class="tool-badge">Figma</span>
+  <div class="skills-also reveal">
+    <span class="also-lbl">Also</span>
+    <span class="also-tag">HTML / CSS</span>
+    <span class="also-tag">Git</span>
+    <span class="also-tag">VS Code</span>
+    <span class="also-tag">IntelliJ</span>
+    <span class="also-tag">Vercel</span>
+    <span class="also-tag">Linux CLI</span>
+    <span class="also-tag">REST APIs</span>
+    <span class="also-tag">Figma</span>
   </div>
 </section>
 
-<!-- ════ PROJECTS ════ -->
+<!-- PROJECTS -->
 <section id="projects">
-  <div class="projects-head">
-    <div class="projects-title reveal">Work</div>
-    <div class="projects-count reveal">03 projects live</div>
+  <div class="projects-header">
+    <div class="projects-title reveal">Projects</div>
+    <div class="projects-count reveal">03 live</div>
   </div>
 
-  <!-- Project 01 -->
-  <div class="proj reveal" id="proj0">
-    <div class="proj-img">
-      <img src="project.PNG" alt="Church Website" id="pimg0">
+  <div class="proj-item reveal">
+    <div class="proj-index">01</div>
+    <div class="proj-content">
+      <div class="proj-type">Church Website</div>
+      <div class="proj-name">GBI Glow Bekasi</div>
+      <p class="proj-desc">Full community website — event listings, service schedules, content management. Built from scratch, no CMS, deployed live.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span><span class="proj-tag">PHP</span><span class="proj-tag">Vercel</span>
+      </div>
     </div>
-    <div class="proj-overlay"></div>
-    <div class="proj-fade"></div>
-    <div class="proj-body">
-      <div class="proj-left">
-        <div class="proj-num">— 01 / CHURCH WEBSITE</div>
-        <div class="proj-name">GBI Glow<br>Bekasi</div>
-        <p class="proj-desc">Full community website for a Bekasi church — event listings, service schedules, and content management. Built entirely from scratch, no CMS, deployed live.</p>
-        <div class="proj-pills">
-          <span class="proj-pill">HTML</span>
-          <span class="proj-pill">CSS</span>
-          <span class="proj-pill">JavaScript</span>
-          <span class="proj-pill">PHP</span>
-          <span class="proj-pill">Live on Vercel</span>
-        </div>
-      </div>
-      <div class="proj-right">
-        <a class="proj-link" href="https://gbiglowbekasi.vercel.app" target="_blank">Visit site →</a>
-      </div>
+    <div class="proj-action">
+      <a class="proj-link" href="https://gbiglowbekasi.vercel.app" target="_blank">Visit →</a>
     </div>
   </div>
 
-  <!-- Project 02 -->
-  <div class="proj reveal" id="proj1">
-    <div class="proj-img">
-      <img src="image.png" alt="President Cupid" id="pimg1">
+  <div class="proj-item reveal" style="transition-delay:.07s">
+    <div class="proj-index">02</div>
+    <div class="proj-content">
+      <div class="proj-type">Matchmaking App</div>
+      <div class="proj-name">President Cupid</div>
+      <p class="proj-desc">Matchmaking platform for President University students. Profiles, compatibility engine, admin dashboard — launched with real users.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span><span class="proj-tag">PHP</span><span class="proj-tag">Real users</span>
+      </div>
     </div>
-    <div class="proj-overlay"></div>
-    <div class="proj-fade"></div>
-    <div class="proj-body">
-      <div class="proj-left">
-        <div class="proj-num">— 02 / MATCHMAKING APP</div>
-        <div class="proj-name">President<br>Cupid</div>
-        <p class="proj-desc">Matchmaking platform for President University students. User profiles, compatibility engine, admin dashboard — launched and actively used on campus.</p>
-        <div class="proj-pills">
-          <span class="proj-pill">HTML</span>
-          <span class="proj-pill">CSS</span>
-          <span class="proj-pill">JavaScript</span>
-          <span class="proj-pill">PHP</span>
-          <span class="proj-pill">Real users</span>
-        </div>
-      </div>
-      <div class="proj-right">
-        <a class="proj-link" href="https://cupid.threeds.uno" target="_blank">Visit site →</a>
-      </div>
+    <div class="proj-action">
+      <a class="proj-link" href="https://cupid.threeds.uno" target="_blank">Visit →</a>
     </div>
   </div>
 
-  <!-- Project 03 -->
-  <div class="proj reveal" id="proj2">
-    <div class="proj-img">
-      <img src="image1.png" alt="Student Org System" id="pimg2">
+  <div class="proj-item reveal" style="transition-delay:.14s">
+    <div class="proj-index">03</div>
+    <div class="proj-content">
+      <div class="proj-type">Open Source</div>
+      <div class="proj-name">Student Org System</div>
+      <p class="proj-desc">Attendance and membership management. Role-based access, tracking, report generation — replacing spreadsheet chaos.</p>
+      <div class="proj-stack">
+        <span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span><span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span>
+      </div>
     </div>
-    <div class="proj-overlay"></div>
-    <div class="proj-fade"></div>
-    <div class="proj-body">
-      <div class="proj-left">
-        <div class="proj-num">— 03 / OPEN SOURCE</div>
-        <div class="proj-name">Student Org<br>System</div>
-        <p class="proj-desc">Attendance and membership management for student organizations. Role-based access, attendance tracking, and report generation — replacing spreadsheet chaos.</p>
-        <div class="proj-pills">
-          <span class="proj-pill">HTML</span>
-          <span class="proj-pill">CSS</span>
-          <span class="proj-pill">JavaScript</span>
-          <span class="proj-pill">PHP</span>
-          <span class="proj-pill">MySQL</span>
-        </div>
-      </div>
-      <div class="proj-right">
-        <a class="proj-link-ghost" href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank">View code →</a>
-      </div>
+    <div class="proj-action">
+      <a class="proj-link-ghost" href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank">Code →</a>
     </div>
   </div>
 
   <div class="proj-more reveal">
-    <span class="proj-more-txt">More projects incoming —</span>
+    <span class="proj-more-txt">More incoming</span>
     <div class="proj-more-dots">
       <div class="proj-more-dot"></div>
       <div class="proj-more-dot"></div>
@@ -914,7 +518,7 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
   </div>
 </section>
 
-<!-- ════ EDUCATION ════ -->
+<!-- EDUCATION -->
 <section id="education">
   <div class="edu-inner">
     <div class="edu-left reveal-l">
@@ -950,7 +554,7 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
   </div>
 </section>
 
-<!-- ════ CONTACT ════ -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-bg" id="cbg">CONNECT</div>
   <div class="contact-inner">
@@ -960,22 +564,10 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
       <span class="cg-row"><span class="cg-inner" id="cg3">together.</span></span>
     </div>
     <div class="contact-grid reveal">
-      <div class="c-cell">
-        <div class="c-lbl">Email</div>
-        <div class="c-val">mbryanmandey@gmail.com</div>
-      </div>
-      <div class="c-cell">
-        <div class="c-lbl">Location</div>
-        <div class="c-val">Bekasi, Indonesia</div>
-      </div>
-      <div class="c-cell">
-        <div class="c-lbl">Status</div>
-        <div class="c-val live">● Open to work</div>
-      </div>
-      <div class="c-cell">
-        <div class="c-lbl">University</div>
-        <div class="c-val">President University</div>
-      </div>
+      <div class="c-cell"><div class="c-lbl">Email</div><div class="c-val">mbryanmandey@gmail.com</div></div>
+      <div class="c-cell"><div class="c-lbl">Location</div><div class="c-val">Bekasi, Indonesia</div></div>
+      <div class="c-cell"><div class="c-lbl">Status</div><div class="c-val live">● Open to work</div></div>
+      <div class="c-cell"><div class="c-lbl">University</div><div class="c-val">President University</div></div>
     </div>
     <div class="contact-foot reveal">
       <div class="c-socials">
@@ -995,104 +587,49 @@ footer{border-top:1px solid var(--line);padding:24px 6%;display:flex;justify-con
 </footer>
 
 <script>
-/* LOADER */
 requestAnimationFrame(()=>{ document.getElementById('ll').classList.add('go') })
-
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('ldr').classList.add('out'),900))
 
-/* CURSOR */
 const dot=document.getElementById('dot'),ring=document.getElementById('ring')
 let rx=0,ry=0,mx=0,my=0
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'})
 ;(function lp(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lp)})()
 
-/* PARALLAX LAYERS */
-const himg=document.getElementById('himg')
-const hghost=document.getElementById('hghost')
-const aimg=document.getElementById('aimg')
-const aboutbg=document.getElementById('aboutbg')
-const cbg=document.getElementById('cbg')
-const pimgs=[document.getElementById('pimg0'),document.getElementById('pimg1'),document.getElementById('pimg2')]
-const projs=[document.getElementById('proj0'),document.getElementById('proj1'),document.getElementById('proj2')]
-
+const himg=document.getElementById('himg'),hghost=document.getElementById('hghost'),aimg=document.getElementById('aimg'),aboutbg=document.getElementById('aboutbg'),cbg=document.getElementById('cbg')
 let lastSY=0
 const nav=document.getElementById('nav')
-nav.style.transition='transform .4s ease'
 
 function raf(){
   const sy=window.scrollY,vh=window.innerHeight
-
-  /* Hero photo deep parallax */
   if(himg) himg.style.transform=`translateY(${sy*.42}px) scale(1.12)`
-
-  /* Ghost text parallax — faster */
   if(hghost) hghost.style.transform=`translateY(${sy*-.18}px)`
-
-  /* About number parallax */
   const aboutEl=document.getElementById('about')
-  if(aboutEl&&aboutbg){
-    const t=-aboutEl.getBoundingClientRect().top
-    aboutbg.style.transform=`translateY(${t*.15}px)`
-    if(aimg) aimg.style.transform=`translateY(${t*.08}px)`
-  }
-
-  /* Project image parallax per section */
-  projs.forEach((p,i)=>{
-    if(!p||!pimgs[i]) return
-    const r=p.getBoundingClientRect()
-    const prog=(-r.top)/(r.height+vh)
-    pimgs[i].style.transform=`translateY(${prog*22}%)`
-  })
-
-  /* Contact bg parallax */
+  if(aboutEl&&aboutbg){const t=-aboutEl.getBoundingClientRect().top;aboutbg.style.transform=`translateY(${t*.15}px)`;if(aimg)aimg.style.transform=`translateY(${t*.08}px)`}
   const cEl=document.getElementById('contact')
-  if(cEl&&cbg){
-    const ct=-cEl.getBoundingClientRect().top
-    cbg.style.transform=`translate(-50%,calc(-50% + ${ct*.12}px))`
-  }
-
-  /* Contact text reveal */
-  if(cEl&&cEl.getBoundingClientRect().top<vh*.85){
-    document.getElementById('cg1').classList.add('up')
-    setTimeout(()=>document.getElementById('cg2').classList.add('up'),130)
-    setTimeout(()=>document.getElementById('cg3').classList.add('up'),260)
-  }
-
-  /* Nav */
-  if(sy>lastSY&&sy>100) nav.style.transform='translateY(-100%)'
-  else nav.style.transform='translateY(0)'
-  lastSY=sy
-
-  requestAnimationFrame(raf)
+  if(cEl&&cbg){const ct=-cEl.getBoundingClientRect().top;cbg.style.transform=`translate(-50%,calc(-50% + ${ct*.12}px))`}
+  if(cEl&&cEl.getBoundingClientRect().top<vh*.85){document.getElementById('cg1').classList.add('up');setTimeout(()=>document.getElementById('cg2').classList.add('up'),130);setTimeout(()=>document.getElementById('cg3').classList.add('up'),260)}
+  if(sy>lastSY&&sy>100)nav.style.transform='translateY(-100%)';else nav.style.transform='translateY(0)'
+  lastSY=sy;requestAnimationFrame(raf)
 }
 requestAnimationFrame(raf)
 
-/* SCROLL REVEAL + SKILL BARS */
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(!e.isIntersecting) return
+    if(!e.isIntersecting)return
     e.target.classList.add('show')
-    const fill=e.target.querySelector('.sk-bar-inner')
-    if(fill){
-      const pct=e.target.dataset.pct
-      setTimeout(()=>{fill.style.width=pct+'%'},200)
-    }
+    const fill=e.target.querySelector('.sk-fill')
+    if(fill){const pct=e.target.dataset.pct;setTimeout(()=>{fill.style.width=pct+'%'},200)}
   })
 },{threshold:.1})
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el))
+document.querySelectorAll('.reveal,.reveal-l').forEach(el=>io.observe(el))
 </script>
 
-<!-- ══ TERMINAL BUTTON ══ -->
-<button id="term-btn" title="Open Terminal" aria-label="Open terminal">
-  <i class="fas fa-terminal"></i>
-</button>
+<!-- TERMINAL BTN -->
+<button id="term-btn" title="Open Terminal" aria-label="Open terminal"><i class="fas fa-terminal"></i></button>
+<!-- TYPING BTN -->
+<button id="typing-btn" title="Typing Speed Test" aria-label="Open typing test"><i class="fas fa-keyboard"></i></button>
 
-<!-- ══ TYPING BUTTON ══ -->
-<button id="typing-btn" title="Typing Speed Test" aria-label="Open typing test">
-  <i class="fas fa-keyboard"></i>
-</button>
-
-<!-- ══ TERMINAL MODAL ══ -->
+<!-- TERMINAL MODAL -->
 <div id="term-overlay" role="dialog" aria-label="Terminal">
   <div id="term-box">
     <div class="term-topbar">
@@ -1109,7 +646,7 @@ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(
   </div>
 </div>
 
-<!-- ══ TYPING TEST MODAL ══ -->
+<!-- TYPING MODAL -->
 <div id="typing-overlay" role="dialog" aria-label="Typing speed test">
   <div id="typing-box">
     <div class="typing-header">
@@ -1117,18 +654,9 @@ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(
       <button class="typing-close" id="typing-close">×</button>
     </div>
     <div class="typing-stats">
-      <div class="typing-stat">
-        <span class="typing-stat-val" id="wpm-val">—</span>
-        <span class="typing-stat-lbl">WPM</span>
-      </div>
-      <div class="typing-stat">
-        <span class="typing-stat-val" id="acc-val">—</span>
-        <span class="typing-stat-lbl">Accuracy</span>
-      </div>
-      <div class="typing-stat">
-        <span class="typing-stat-val" id="time-val">30</span>
-        <span class="typing-stat-lbl">Seconds</span>
-      </div>
+      <div class="typing-stat"><span class="typing-stat-val" id="wpm-val">—</span><span class="typing-stat-lbl">WPM</span></div>
+      <div class="typing-stat"><span class="typing-stat-val" id="acc-val">—</span><span class="typing-stat-lbl">Accuracy</span></div>
+      <div class="typing-stat"><span class="typing-stat-val" id="time-val">30</span><span class="typing-stat-lbl">Seconds</span></div>
     </div>
     <div id="typing-passage"></div>
     <input id="typing-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Start typing to begin the test…">
@@ -1139,7 +667,7 @@ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(
   </div>
 </div>
 
-<!-- ══ KONAMI EASTER EGG ══ -->
+<!-- KONAMI -->
 <div id="konami-overlay">
   <canvas class="konami-particles" id="kcanvas"></canvas>
   <div class="konami-content">
@@ -1155,367 +683,67 @@ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(
 </div>
 
 <script>
-/* ══════════════ TERMINAL ══════════════ */
-const termOverlay=document.getElementById('term-overlay')
-const termOutput=document.getElementById('term-output')
-const termInput=document.getElementById('term-input')
-const termBtn=document.getElementById('term-btn')
-const termCloseBtn=document.getElementById('term-close-btn')
-
+/* TERMINAL */
+const termOverlay=document.getElementById('term-overlay'),termOutput=document.getElementById('term-output'),termInput=document.getElementById('term-input'),termBtn=document.getElementById('term-btn'),termCloseBtn=document.getElementById('term-close-btn')
 const COMMANDS={
-  help:{desc:'Show available commands',fn:()=>[
-    {t:'gold',v:'Available commands:'},
-    {t:'',v:'  help        — show this list'},
-    {t:'',v:'  about       — who is Michael?'},
-    {t:'',v:'  skills      — tech stack & proficiency'},
-    {t:'',v:'  projects    — shipped work'},
-    {t:'',v:'  education   — academic background'},
-    {t:'',v:'  contact     — get in touch'},
-    {t:'',v:'  socials     — links'},
-    {t:'',v:'  hire        — why hire me?'},
-    {t:'',v:'  clear       — clear terminal'},
-    {t:'dim',v:'Tip: press ↑ to recall last command'},
-  ]},
-  about:{desc:'Who is Michael',fn:()=>[
-    {t:'gold',v:'Michael Bryan Mandey'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'',v:'IT Student @ President University, Bekasi.'},
-    {t:'',v:'Obsessed with security and writing code that holds up.'},
-    {t:'',v:'Frontend, App developer, Cyber Security'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'',v:'Status: Open to work ●'},
-  ]},
-  skills:{desc:'Tech stack',fn:()=>[
-    {t:'gold',v:'Tech Stack'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'',v:'  PHP          ████████████████████  85%'},
-    {t:'',v:'  C++          ████████████████████  75%'},
-    {t:'',v:'  Databases    ████████████████████  70%'},
-    {t:'',v:'  JavaScript   ████████████████████  55%'},
-    {t:'',v:'  Java         ████████████████████  50%'},
-    {t:'dim',v:'Also: HTML/CSS · Git · Vercel · Kali Linux'},
-  ]},
-  projects:{desc:'Shipped work',fn:()=>[
-    {t:'gold',v:'Projects'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'green',v:'[01] Church Website'},
-    {t:'',v:'     https://gbiglowbekasi.vercel.app'},
-    {t:'dim',v:'     HTML · CSS · JS · PHP'},
-    {t:'',v:''},
-    {t:'green',v:'[02] President Cupid'},
-    {t:'',v:'     https://cupid.threeds.uno'},
-    {t:'dim',v:'     Matchmaking platform · Real users'},
-    {t:'',v:''},
-    {t:'green',v:'[03] Student Org System'},
-    {t:'',v:'     github.com/MICHAELCUY-lang/student_organization_attendance'},
-    {t:'dim',v:'     Open source · RBAC · MySQL'},
-  ]},
-  education:{desc:'Academic background',fn:()=>[
-    {t:'gold',v:'Education'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'',v:'2023–Now   President University'},
-    {t:'dim',v:'           B.S. Information Technology'},
-    {t:'',v:'2021–2023  Ananda High School'},
-    {t:'dim',v:'           Science Major'},
-    {t:'',v:'2018–2021  Strada Middle School'},
-  ]},
-  contact:{desc:'Get in touch',fn:()=>[
-    {t:'gold',v:'Contact'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'',v:'Email    mbryanmandey@gmail.com'},
-    {t:'',v:'Location Bekasi, Indonesia'},
-    {t:'green',v:'Status   Open to work ●'},
-  ]},
-  socials:{desc:'Social links',fn:()=>[
-    {t:'gold',v:'Socials'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'',v:'GitHub     github.com/MICHAELCUY-lang'},
-    {t:'',v:'LinkedIn   linkedin.com/in/michael-bryan-mandey-34b673250'},
-    {t:'',v:'Instagram  instagram.com/michael.mandey.79/'},
-  ]},
-  hire:{desc:'Why hire me',fn:()=>[
-    {t:'gold',v:'Why hire Michael?'},
-    {t:'dim',v:'────────────────────────────────'},
-    {t:'green',v:'✓ Writes clean, maintainable code'},
-    {t:'green',v:'✓ Full-stack — no hand-offs needed'},
-    {t:'green',v:'✓ Ships real projects (not just coursework)'},
-    {t:'green',v:'✓ Fast learner, obsessive about quality'},
-    {t:'green',v:'✓ Already comfortable with production deploys'},
-    {t:'',v:''},
-    {t:'',v:'→ mbryanmandey@gmail.com'},
-  ]},
-  clear:{desc:'Clear terminal',fn:()=>null},
+  help:{fn:()=>[{t:'gold',v:'Commands: help · about · skills · projects · education · contact · socials · hire · clear'},{t:'dim',v:'↑ to recall last command'}]},
+  about:{fn:()=>[{t:'gold',v:'Michael Bryan Mandey'},{t:'dim',v:'────────────────────────────────'},{t:'',v:'IT Student @ President University, Bekasi.'},{t:'',v:'Obsessed with clean code and security.'},{t:'green',v:'Status: Open to work ●'}]},
+  skills:{fn:()=>[{t:'gold',v:'Tech Stack'},{t:'dim',v:'────────────────────────────────'},{t:'',v:'  Java         90%'},{t:'',v:'  JavaScript   85%'},{t:'',v:'  Python       85%'},{t:'',v:'  PHP          80%'},{t:'',v:'  Databases    80%'},{t:'',v:'  C++          75%'},{t:'dim',v:'Also: HTML/CSS · Git · Vercel · Linux CLI'}]},
+  projects:{fn:()=>[{t:'gold',v:'Projects'},{t:'dim',v:'────────────────────────────────'},{t:'green',v:'[01] GBI Glow Bekasi'},{t:'',v:'     https://gbiglowbekasi.vercel.app'},{t:'green',v:'[02] President Cupid'},{t:'',v:'     https://cupid.threeds.uno'},{t:'green',v:'[03] Student Org System'},{t:'',v:'     github.com/MICHAELCUY-lang/student_organization_attendance'}]},
+  education:{fn:()=>[{t:'gold',v:'Education'},{t:'dim',v:'────────────────────────────────'},{t:'',v:'2023–Now   President University — B.S. IT'},{t:'',v:'2021–2023  Ananda High School — Science'},{t:'',v:'2018–2021  Strada Middle School'}]},
+  contact:{fn:()=>[{t:'gold',v:'Contact'},{t:'dim',v:'────────────────────────────────'},{t:'',v:'Email    mbryanmandey@gmail.com'},{t:'',v:'Location Bekasi, Indonesia'},{t:'green',v:'Status   Open to work ●'}]},
+  socials:{fn:()=>[{t:'gold',v:'Socials'},{t:'dim',v:'────────────────────────────────'},{t:'',v:'GitHub     github.com/MICHAELCUY-lang'},{t:'',v:'LinkedIn   linkedin.com/in/michael-bryan-mandey-34b673250'},{t:'',v:'Instagram  instagram.com/michael.mandey.79/'}]},
+  hire:{fn:()=>[{t:'gold',v:'Why hire Michael?'},{t:'dim',v:'────────────────────────────────'},{t:'green',v:'✓ Clean, maintainable code'},{t:'green',v:'✓ Full-stack — no hand-offs needed'},{t:'green',v:'✓ Ships real projects, not just coursework'},{t:'green',v:'✓ Already comfortable with production deploys'},{t:'',v:'→ mbryanmandey@gmail.com'}]},
+  clear:{fn:()=>null},
 }
+const WELCOME=[{t:'gold',v:'Michael Bryan Mandey — Portfolio Terminal'},{t:'dim',v:'─────────────────────────────────────────'},{t:'',v:'Type "help" for commands.'}]
 
-const WELCOME=[
-  {t:'gold',v:'Michael Bryan Mandey — Portfolio Terminal'},
-  {t:'dim',v:'─────────────────────────────────────────'},
-  {t:'',v:'Type "help" to see available commands.'},
-  {t:'dim',v:''},
-]
-
-function printLines(lines){
-  lines.forEach(({t,v})=>{
-    const d=document.createElement('div')
-    d.className='t-line'+(t?' t-'+t:'')
-    d.textContent=v
-    termOutput.appendChild(d)
-  })
-  termOutput.scrollTop=termOutput.scrollHeight
-}
-
-function printPrompt(cmd){
-  const d=document.createElement('div')
-  d.className='t-line'
-  d.innerHTML=`<span class="t-prompt">mbm@portfolio:~$</span> <span class="t-ink">${cmd}</span>`
-  termOutput.appendChild(d)
-}
-
-function runCmd(raw){
-  const cmd=raw.trim().toLowerCase()
-  if(!cmd) return
-  printPrompt(cmd)
-  if(cmd==='clear'){termOutput.innerHTML='';printLines(WELCOME);return}
-  const match=COMMANDS[cmd]
-  if(match){
-    const out=match.fn()
-    if(out) printLines(out)
-  } else {
-    printLines([{t:'red',v:`command not found: ${cmd} — try "help"`}])
-  }
-}
+function printLines(lines){lines.forEach(({t,v})=>{const d=document.createElement('div');d.className='t-line'+(t?' t-'+t:'');d.textContent=v;termOutput.appendChild(d)});termOutput.scrollTop=termOutput.scrollHeight}
+function printPrompt(cmd){const d=document.createElement('div');d.className='t-line';d.innerHTML=`<span class="t-prompt">mbm@portfolio:~$</span> <span class="t-ink">${cmd}</span>`;termOutput.appendChild(d)}
+function runCmd(raw){const cmd=raw.trim().toLowerCase();if(!cmd)return;printPrompt(cmd);if(cmd==='clear'){termOutput.innerHTML='';printLines(WELCOME);return}const match=COMMANDS[cmd];if(match){const out=match.fn();if(out)printLines(out)}else printLines([{t:'red',v:`command not found: ${cmd} — try "help"`}])}
 
 let termHistory=[],termHistIdx=-1
-
 termInput.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    const v=termInput.value
-    if(v.trim()) termHistory.unshift(v)
-    termHistIdx=-1
-    runCmd(v)
-    termInput.value=''
-  } else if(e.key==='ArrowUp'){
-    e.preventDefault()
-    if(termHistIdx<termHistory.length-1){termHistIdx++;termInput.value=termHistory[termHistIdx]}
-  } else if(e.key==='ArrowDown'){
-    e.preventDefault()
-    if(termHistIdx>0){termHistIdx--;termInput.value=termHistory[termHistIdx]}
-    else{termHistIdx=-1;termInput.value=''}
-  } else if(e.key==='Escape'){
-    closeTerminal()
-  }
+  if(e.key==='Enter'){const v=termInput.value;if(v.trim())termHistory.unshift(v);termHistIdx=-1;runCmd(v);termInput.value=''}
+  else if(e.key==='ArrowUp'){e.preventDefault();if(termHistIdx<termHistory.length-1){termHistIdx++;termInput.value=termHistory[termHistIdx]}}
+  else if(e.key==='ArrowDown'){e.preventDefault();if(termHistIdx>0){termHistIdx--;termInput.value=termHistory[termHistIdx]}else{termHistIdx=-1;termInput.value=''}}
+  else if(e.key==='Escape')closeTerminal()
 })
-
-function openTerminal(){
-  termOverlay.classList.add('open')
-  if(!termOutput.children.length) printLines(WELCOME)
-  setTimeout(()=>termInput.focus(),100)
-  document.body.style.overflow='hidden'
-}
-function closeTerminal(){
-  termOverlay.classList.remove('open')
-  document.body.style.overflow=''
-}
+function openTerminal(){termOverlay.classList.add('open');if(!termOutput.children.length)printLines(WELCOME);setTimeout(()=>termInput.focus(),100);document.body.style.overflow='hidden'}
+function closeTerminal(){termOverlay.classList.remove('open');document.body.style.overflow=''}
 termBtn.addEventListener('click',openTerminal)
 termCloseBtn.addEventListener('click',closeTerminal)
 termOverlay.addEventListener('click',e=>{if(e.target===termOverlay)closeTerminal()})
 
-/* ══════════════ TYPING TEST ══════════════ */
-const PASSAGES=[
-  "The best code is the code you don't have to explain. It reads like prose, runs like a machine, and holds up long after you've forgotten writing it.",
-  "Programming is not about typing fast. It's about thinking clearly. The keyboard is just where the thinking lands.",
-  "Every bug is a lesson. Every fix is progress. Every refactor is respect for the next developer who reads your work.",
-  "Object-oriented programming is not about objects. It's about responsibilities. Know what each piece owns, and the system becomes obvious.",
-  "A developer who ships is worth more than a developer who theorizes. Write the code. Deploy it. Learn from what breaks.",
-  "The difference between a junior and a senior developer is not how much they know. It's knowing what questions to ask before writing a single line.",
-]
+/* TYPING */
+const PASSAGES=["The best code is the code you don't have to explain. It reads like prose, runs like a machine, and holds up long after you've forgotten writing it.","Programming is not about typing fast. It's about thinking clearly. The keyboard is just where the thinking lands.","Every bug is a lesson. Every fix is progress. Every refactor is respect for the next developer who reads your work.","Object-oriented programming is not about objects. It's about responsibilities. Know what each piece owns, and the system becomes obvious.","A developer who ships is worth more than a developer who theorizes. Write the code. Deploy it. Learn from what breaks."]
+let typingActive=false,typingTimer=null,typingStart=null,currentPassage='',typingSeconds=30,charIdx=0,errors=0,totalTyped=0
+const typingOverlay=document.getElementById('typing-overlay'),typingPassage=document.getElementById('typing-passage'),typingInputEl=document.getElementById('typing-input'),wpmVal=document.getElementById('wpm-val'),accVal=document.getElementById('acc-val'),timeVal=document.getElementById('time-val'),typingHint=document.getElementById('typing-hint')
 
-let typingActive=false,typingTimer=null,typingStart=null
-let currentPassage='',typingSeconds=30,charIdx=0,errors=0,totalTyped=0
+function renderPassage(){typingPassage.innerHTML='';for(let i=0;i<currentPassage.length;i++){const s=document.createElement('span');s.textContent=currentPassage[i];if(i===charIdx)s.classList.add('tp-cursor');else if(i<charIdx)s.classList.add('tp-correct');else s.classList.add('tp-remaining');typingPassage.appendChild(s)}}
+function resetTyping(){clearInterval(typingTimer);typingActive=false;typingStart=null;charIdx=0;errors=0;totalTyped=0;typingSeconds=30;currentPassage=PASSAGES[Math.floor(Math.random()*PASSAGES.length)];typingInputEl.value='';typingInputEl.disabled=false;wpmVal.textContent='—';accVal.textContent='—';timeVal.textContent='30';typingHint.textContent='30 seconds — type as fast as you can';renderPassage();setTimeout(()=>typingInputEl.focus(),50)}
+function calcWPM(){if(!typingStart)return 0;const e=(Date.now()-typingStart)/1000/60;return Math.round((charIdx/5)/e)||0}
 
-const typingOverlay=document.getElementById('typing-overlay')
-const typingPassage=document.getElementById('typing-passage')
-const typingInputEl=document.getElementById('typing-input')
-const wpmVal=document.getElementById('wpm-val')
-const accVal=document.getElementById('acc-val')
-const timeVal=document.getElementById('time-val')
-const typingHint=document.getElementById('typing-hint')
-
-function pickPassage(){
-  return PASSAGES[Math.floor(Math.random()*PASSAGES.length)]
-}
-
-function renderPassage(){
-  typingPassage.innerHTML=''
-  for(let i=0;i<currentPassage.length;i++){
-    const s=document.createElement('span')
-    s.textContent=currentPassage[i]
-    if(i===charIdx) s.classList.add('tp-cursor')
-    else if(i<charIdx) s.classList.add('tp-correct')
-    else s.classList.add('tp-remaining')
-    typingPassage.appendChild(s)
-  }
-}
-
-function resetTyping(){
-  clearInterval(typingTimer)
-  typingActive=false
-  typingStart=null
-  charIdx=0;errors=0;totalTyped=0
-  typingSeconds=30
-  currentPassage=pickPassage()
-  typingInputEl.value=''
-  typingInputEl.disabled=false
-  wpmVal.textContent='—'
-  accVal.textContent='—'
-  timeVal.textContent='30'
-  typingHint.textContent='30 seconds — type as fast as you can'
-  renderPassage()
-  setTimeout(()=>typingInputEl.focus(),50)
-}
-
-function calcWPM(){
-  if(!typingStart) return 0
-  const elapsed=(Date.now()-typingStart)/1000/60
-  const words=charIdx/5
-  return Math.round(words/elapsed)||0
-}
-
-typingInputEl.addEventListener('input',e=>{
-  if(!typingActive&&typingInputEl.value.length>0){
-    typingActive=true
-    typingStart=Date.now()
-    typingTimer=setInterval(()=>{
-      typingSeconds--
-      timeVal.textContent=typingSeconds
-      wpmVal.textContent=calcWPM()
-      const acc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100
-      accVal.textContent=acc+'%'
-      if(typingSeconds<=0){
-        clearInterval(typingTimer)
-        typingInputEl.disabled=true
-        const finalWpm=calcWPM()
-        const finalAcc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100
-        wpmVal.textContent=finalWpm
-        accVal.textContent=finalAcc+'%'
-        typingHint.textContent=`Done! ${finalWpm} WPM · ${finalAcc}% accuracy — ${finalWpm>=60?'🔥 Impressive!':finalWpm>=40?'👍 Solid!':'Keep practicing!'}`
-      }
-    },1000)
-  }
-
-  const val=typingInputEl.value
-  const lastChar=val[val.length-1]
-  const expected=currentPassage[charIdx]
-
-  if(lastChar===expected){
-    charIdx++
-    totalTyped++
-    typingInputEl.value=''
-    if(charIdx>=currentPassage.length){
-      clearInterval(typingTimer)
-      typingInputEl.disabled=true
-      const finalWpm=calcWPM()
-      const finalAcc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100
-      wpmVal.textContent=finalWpm
-      accVal.textContent=finalAcc+'%'
-      timeVal.textContent='✓'
-      typingHint.textContent=`Passage complete! ${finalWpm} WPM · ${finalAcc}% accuracy`
-    }
-  } else if(val.length>0){
-    errors++
-    totalTyped++
-    typingInputEl.value=''
-    typingInputEl.style.borderColor='rgba(224,92,92,.5)'
-    setTimeout(()=>typingInputEl.style.borderColor='',180)
-  }
+typingInputEl.addEventListener('input',()=>{
+  if(!typingActive&&typingInputEl.value.length>0){typingActive=true;typingStart=Date.now();typingTimer=setInterval(()=>{typingSeconds--;timeVal.textContent=typingSeconds;wpmVal.textContent=calcWPM();const acc=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100;accVal.textContent=acc+'%';if(typingSeconds<=0){clearInterval(typingTimer);typingInputEl.disabled=true;const fw=calcWPM(),fa=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100;wpmVal.textContent=fw;accVal.textContent=fa+'%';typingHint.textContent=`Done! ${fw} WPM · ${fa}% accuracy — ${fw>=60?'🔥 Impressive!':fw>=40?'👍 Solid!':'Keep practicing!'}`}},1000)}
+  const val=typingInputEl.value,lastChar=val[val.length-1],expected=currentPassage[charIdx]
+  if(lastChar===expected){charIdx++;totalTyped++;typingInputEl.value='';if(charIdx>=currentPassage.length){clearInterval(typingTimer);typingInputEl.disabled=true;const fw=calcWPM(),fa=totalTyped>0?Math.round(((totalTyped-errors)/totalTyped)*100):100;wpmVal.textContent=fw;accVal.textContent=fa+'%';timeVal.textContent='✓';typingHint.textContent=`Complete! ${fw} WPM · ${fa}% accuracy`}}
+  else if(val.length>0){errors++;totalTyped++;typingInputEl.value='';typingInputEl.style.borderColor='rgba(224,92,92,.5)';setTimeout(()=>typingInputEl.style.borderColor='',180)}
   renderPassage()
 })
-
 document.getElementById('typing-restart').addEventListener('click',resetTyping)
-document.getElementById('typing-btn').addEventListener('click',()=>{
-  typingOverlay.classList.add('open')
-  resetTyping()
-  document.body.style.overflow='hidden'
-})
-document.getElementById('typing-close').addEventListener('click',()=>{
-  typingOverlay.classList.remove('open')
-  clearInterval(typingTimer)
-  document.body.style.overflow=''
-})
-typingOverlay.addEventListener('click',e=>{
-  if(e.target===typingOverlay){
-    typingOverlay.classList.remove('open')
-    clearInterval(typingTimer)
-    document.body.style.overflow=''
-  }
-})
+document.getElementById('typing-btn').addEventListener('click',()=>{typingOverlay.classList.add('open');resetTyping();document.body.style.overflow='hidden'})
+document.getElementById('typing-close').addEventListener('click',()=>{typingOverlay.classList.remove('open');clearInterval(typingTimer);document.body.style.overflow=''})
+typingOverlay.addEventListener('click',e=>{if(e.target===typingOverlay){typingOverlay.classList.remove('open');clearInterval(typingTimer);document.body.style.overflow=''}})
 
-/* ══════════════ KONAMI CODE ══════════════ */
-const KONAMI=[38,38,40,40,37,39,37,39,66,65]
-let konamiIdx=0
-document.addEventListener('keydown',e=>{
-  if(e.keyCode===KONAMI[konamiIdx]){
-    konamiIdx++
-    if(konamiIdx===KONAMI.length){
-      konamiIdx=0
-      openKonami()
-    }
-  } else {
-    konamiIdx=e.keyCode===KONAMI[0]?1:0
-  }
-})
-
-function openKonami(){
-  const ov=document.getElementById('konami-overlay')
-  ov.classList.add('open')
-  document.body.style.overflow='hidden'
-  startKanamiParticles()
-}
-document.getElementById('konami-dismiss').addEventListener('click',()=>{
-  document.getElementById('konami-overlay').classList.remove('open')
-  document.body.style.overflow=''
-  stopParticles()
-})
-
-/* Particle canvas for konami */
+/* KONAMI */
+const KONAMI=[38,38,40,40,37,39,37,39,66,65];let konamiIdx=0
+document.addEventListener('keydown',e=>{if(e.keyCode===KONAMI[konamiIdx]){konamiIdx++;if(konamiIdx===KONAMI.length){konamiIdx=0;openKonami()}}else{konamiIdx=e.keyCode===KONAMI[0]?1:0}})
+function openKonami(){document.getElementById('konami-overlay').classList.add('open');document.body.style.overflow='hidden';startKanamiParticles()}
+document.getElementById('konami-dismiss').addEventListener('click',()=>{document.getElementById('konami-overlay').classList.remove('open');document.body.style.overflow='';stopParticles()})
 let kAnimId=null
 function stopParticles(){if(kAnimId){cancelAnimationFrame(kAnimId);kAnimId=null}}
-
-function startKanamiParticles(){
-  const canvas=document.getElementById('kcanvas')
-  const ctx=canvas.getContext('2d')
-  canvas.width=window.innerWidth
-  canvas.height=window.innerHeight
-
-  const chars='01MICHAELBRYANMANDEY{}[]();'.split('')
-  const particles=Array.from({length:80},()=>({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    vy:Math.random()*.8+.3,
-    vx:(Math.random()-.5)*.3,
-    alpha:Math.random()*.7+.1,
-    char:chars[Math.floor(Math.random()*chars.length)],
-    size:Math.random()*10+10,
-    color:Math.random()>.5?'#c8a96e':'#f0eee8',
-  }))
-
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    particles.forEach(p=>{
-      ctx.globalAlpha=p.alpha*.6
-      ctx.fillStyle=p.color
-      ctx.font=`${p.size}px 'DM Mono', monospace`
-      ctx.fillText(p.char,p.x,p.y)
-      p.y+=p.vy;p.x+=p.vx
-      if(p.y>canvas.height){p.y=-20;p.x=Math.random()*canvas.width}
-      p.char=chars[Math.floor(Math.random()*chars.length)]
-    })
-    ctx.globalAlpha=1
-    kAnimId=requestAnimationFrame(draw)
-  }
-  stopParticles()
-  draw()
-}
+function startKanamiParticles(){const canvas=document.getElementById('kcanvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;const chars='01MICHAELBRYANMANDEY{}[]();'.split('');const particles=Array.from({length:80},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vy:Math.random()*.8+.3,vx:(Math.random()-.5)*.3,alpha:Math.random()*.7+.1,char:chars[Math.floor(Math.random()*chars.length)],size:Math.random()*10+10,color:Math.random()>.5?'#c8a96e':'#f0eee8'}));function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.globalAlpha=p.alpha*.6;ctx.fillStyle=p.color;ctx.font=`${p.size}px 'DM Mono',monospace`;ctx.fillText(p.char,p.x,p.y);p.y+=p.vy;p.x+=p.vx;if(p.y>canvas.height){p.y=-20;p.x=Math.random()*canvas.width}p.char=chars[Math.floor(Math.random()*chars.length)]});ctx.globalAlpha=1;kAnimId=requestAnimationFrame(draw)}stopParticles();draw()}
 </script>
 </body>
 </html>
