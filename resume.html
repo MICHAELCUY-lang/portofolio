@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM &mdash; Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+  .resume-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8rem;
+    margin-top: 1.5rem;
+  }
+
+  .resume-layout {
+    display: grid;
+    grid-template-columns: minmax(0, .86fr) minmax(360px, 1.14fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .resume-card {
+    border: 1px solid var(--border);
+    background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .resume-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 80px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .resume-summary {
+    padding: 2.2rem;
+  }
+
+  .resume-name {
+    font-family: var(--syne);
+    font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 3.6rem);
+    line-height: .95;
+    letter-spacing: -.035em;
+    margin-bottom: 1rem;
+  }
+
+  .resume-role {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .resume-copy {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted2);
+    max-width: 560px;
+  }
+
+  .resume-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .resume-fact {
+    padding: 1.25rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .resume-fact:last-child {
+    border-right: none;
+  }
+
+  .resume-fact strong {
+    display: block;
+    font-family: var(--syne);
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: .45rem;
+  }
+
+  .resume-fact span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .resume-block {
+    padding: 1.7rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .resume-block:first-child {
+    border-top: none;
+  }
+
+  .resume-block-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .resume-list {
+    display: grid;
+    gap: .95rem;
+  }
+
+  .resume-item {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 1rem;
+    padding-bottom: .95rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .resume-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .resume-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .08em;
+  }
+
+  .resume-item h3 {
+    font-family: var(--syne);
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: -.015em;
+    margin-bottom: .35rem;
+  }
+
+  .resume-item p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--muted2);
+  }
+
+  .resume-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .resume-viewer {
+    min-height: 760px;
+    background: var(--surface);
+  }
+
+  .resume-viewer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .resume-viewer-head span:last-child {
+    color: var(--gold);
+  }
+
+  .resume-frame {
+    width: 100%;
+    height: 720px;
+    border: none;
+    display: block;
+    background: #1a1a1a;
+  }
+
+  @media (max-width: 900px) {
+    .resume-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .resume-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .resume-fact {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resume-fact:last-child {
+      border-bottom: none;
+    }
+
+    .resume-item {
+      grid-template-columns: 1fr;
+      gap: .35rem;
+    }
+
+    .resume-viewer,
+    .resume-frame {
+      min-height: 560px;
+      height: 560px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html" class="active">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">Resume</div>
+    <h1 class="header-title">The<br><span>Paperwork.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>A structured summary of my education, technical stack, and professional experience.</p>
+    <div class="resume-hero-actions">
+      <a href="assets/resume/CV_Michael%20Bryan%20Mandey(3).pdf" target="_blank" class="btn-gold">Download PDF</a>
+      <a href="#resume-preview" class="btn-ghost">Preview</a>
+    </div>
+  </div>
+</header>
+
+<section id="resume" style="padding-top:0">
+  <div class="section-inner" style="padding-top:0">
+    <div class="resume-layout">
+      <div class="resume-left">
+        <div class="resume-card resume-summary reveal-l">
+          <div class="resume-role">IT Student / Full-Stack Developer</div>
+          <h2 class="resume-name">Michael Bryan<br><span style="color:var(--gold)">Mandey.</span></h2>
+          <p class="resume-copy">A cleaner snapshot of my education, technical stack, and project experience. I focus on building readable systems, practical web apps, and reliable data-driven features.</p>
+
+          <div class="resume-facts">
+            <div class="resume-fact">
+              <strong>6</strong>
+              <span>Core Skills</span>
+            </div>
+            <div class="resume-fact">
+              <strong>IT</strong>
+              <span>President University</span>
+            </div>
+            <div class="resume-fact">
+              <strong>Open</strong>
+              <span>To Work</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-card reveal" style="margin-top:1.5rem">
+          <div class="resume-block">
+            <div class="resume-block-title">Profile</div>
+            <p class="resume-copy">Full-stack minded IT student based in Bekasi, Indonesia. Comfortable moving between frontend interfaces, backend logic, database design, and automation workflows.</p>
+          </div>
+
+          <div class="resume-block">
+            <div class="resume-block-title">Education</div>
+            <div class="resume-list">
+              <div class="resume-item">
+                <div class="resume-year">2023 - Now</div>
+                <div>
+                  <h3>President University</h3>
+                  <p>Information Technology student focused on software development, systems thinking, and applied problem solving.</p>
+                </div>
+              </div>
+              <div class="resume-item">
+                <div class="resume-year">Bekasi</div>
+                <div>
+                  <h3>Current Base</h3>
+                  <p>Available for internships, freelance projects, and collaboration opportunities.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-block">
+            <div class="resume-block-title">Technical Stack</div>
+            <div class="resume-pills">
+              <span class="proj-pill">Java</span>
+              <span class="proj-pill">JavaScript</span>
+              <span class="proj-pill">Python</span>
+              <span class="proj-pill">PHP</span>
+              <span class="proj-pill">C++</span>
+              <span class="proj-pill">MySQL</span>
+              <span class="proj-pill">PostgreSQL</span>
+              <span class="proj-pill">REST APIs</span>
+              <span class="proj-pill">Git</span>
+              <span class="proj-pill">Vercel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-card resume-viewer reveal" id="resume-preview">
+        <div class="resume-viewer-head">
+          <span>Embedded Resume</span>
+          <span>PDF Preview</span>
+        </div>
+        <object class="resume-frame" data="assets/resume/CV_Michael%20Bryan%20Mandey(3).pdf#toolbar=0" type="application/pdf"><div style="height:100%; display:flex; align-items:center; justify-content:center; padding:2rem; text-align:center; color:var(--muted2); font-size:14px; line-height:1.8;">Resume PDF belum ditemukan di folder assets/resume. Taruh file CV di path tersebut agar preview dan download aktif.</div></object>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script>
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>
+

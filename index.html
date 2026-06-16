@@ -1,0 +1,1056 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Bryan Mandey â€” Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+  .focus-stage {
+    overflow: hidden;
+    height: 590px;
+    padding: 18px 0 34px;
+  }
+
+  .focus-stage.cert-stage {
+    height: 470px;
+  }
+
+  .focus-track {
+    position: relative;
+    height: 100%;
+    display: block;
+    gap: 0;
+    transform: none !important;
+    transition: none;
+  }
+
+  .focus-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(58%, 680px);
+    height: calc(100% - 10px);
+    min-width: 0 !important;
+    transform: translateX(-50%) scale(.72);
+    opacity: 0;
+    filter: blur(5px);
+    pointer-events: none;
+    z-index: 0;
+    transition: transform .55s cubic-bezier(.22,.61,.36,1), opacity .35s ease, filter .35s ease, border-color .35s ease;
+  }
+
+  .focus-card.is-active {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    filter: blur(0);
+    pointer-events: auto;
+    z-index: 3;
+    border-color: var(--gold-line);
+    box-shadow: 0 28px 70px rgba(0,0,0,.36);
+  }
+
+  .focus-card.is-before {
+    transform: translateX(-112%) scale(.82);
+    opacity: .42;
+    filter: blur(3px);
+    z-index: 2;
+  }
+
+  .focus-card.is-after {
+    transform: translateX(12%) scale(.82);
+    opacity: .42;
+    filter: blur(3px);
+    z-index: 2;
+  }
+
+  .focus-card.is-far {
+    transform: translateX(-50%) scale(.68);
+    opacity: 0;
+    filter: blur(8px);
+  }
+
+  .focus-track .proj-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .focus-track .proj-card-body {
+    height: auto;
+    flex: 1;
+  }
+
+  .focus-track .cert-card {
+    width: min(52%, 540px);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+  }
+
+  .cert-preview {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .cert-preview img,
+  .cert-preview object {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+    object-fit: cover;
+    background: #f4f0e8;
+  }
+
+  .cert-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 62%, rgba(10,10,10,.72));
+    pointer-events: none;
+  }
+
+  .cert-preview-fallback {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: .08em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cert-card-body {
+    padding: 1.4rem 1.5rem 1.5rem;
+  }
+
+  .cert-card-link {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: .08em;
+    border-bottom: 1px solid var(--gold-line);
+    padding-bottom: 2px;
+  }
+
+  /* Modal Overlay with Fade-in Animation */
+  .tool-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .tool-modal.open {
+    display: flex;
+    opacity: 1;
+  }
+
+  /* Glassmorphism Container with Scale-in Animation */
+  .tool-panel {
+    width: min(920px, 100%);
+    max-height: min(760px, 88vh);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(20,20,20,0.65), rgba(10,10,10,0.85));
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    overflow: hidden;
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+  
+  .tool-modal.open .tool-panel {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  /* Sleek Header */
+  .tool-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.6rem;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .tool-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s ease;
+  }
+
+  .tool-close:hover {
+    background: rgba(255, 118, 118, 0.15);
+    color: #ff7676;
+    border-color: rgba(255, 118, 118, 0.4);
+    transform: rotate(90deg);
+  }
+
+  /* Custom Scrollbar for Terminal & overall panel */
+  .tool-panel *::-webkit-scrollbar {
+    width: 8px;
+  }
+  .tool-panel *::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+  }
+  .tool-panel *::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+  }
+  .tool-panel *::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Terminal Enhancements */
+  .terminal-body {
+    height: 440px;
+    overflow: auto;
+    padding: 1.6rem;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #e5e5e5;
+    background: transparent;
+    box-shadow: inset 0 20px 40px rgba(0,0,0,0.2);
+  }
+
+  .terminal-line strong {
+    color: #859900;
+    font-weight: 600;
+  }
+  
+  .terminal-line .cmd-prompt {
+    color: #268bd2;
+    margin-right: 8px;
+  }
+  
+  .terminal-line .cmd-prompt .user {
+    color: #859900;
+  }
+
+  .terminal-line .cmd-prompt .path {
+    color: #e5e5e5;
+  }
+
+  .terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: 1.2rem 1.6rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: rgba(0,0,0,0.3);
+  }
+  
+  .terminal-prompt {
+    color: #268bd2;
+    font-size: 13px;
+    white-space: pre;
+    line-height: 1.2;
+  }
+  
+  .terminal-prompt .user {
+    color: #859900;
+  }
+  
+  .terminal-prompt .path {
+    color: #e5e5e5;
+  }
+
+  .terminal-input-row input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #e5e5e5;
+    font: inherit;
+    font-size: 13px;
+  }
+
+  /* Typing Test Enhancements */
+  .typing-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: calc(88vh - 60px);
+    overflow-y: auto;
+  }
+
+  .typing-sample {
+    position: relative;
+    min-height: 100px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+    padding: 1.2rem;
+    color: var(--muted2);
+    font-size: 18px;
+    line-height: 1.6;
+    box-shadow: inset 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .typing-sample span {
+    transition: color 0.15s ease, text-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  .typing-cursor {
+    position: absolute;
+    width: 2px;
+    height: 1.2em;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold);
+    transition: transform 0.1s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s ease;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+  }
+  
+  .typing-cursor.show {
+    opacity: 1;
+    animation: blink 1s infinite step-end;
+  }
+
+  /* Stop blinking when typing */
+  .typing-cursor.typing {
+    animation: none;
+    opacity: 1;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .typing-sample span.correct {
+    color: var(--gold);
+    text-shadow: 0 0 8px rgba(212,175,55,0.3);
+  }
+
+  .typing-sample span.incorrect {
+    color: #ff7676;
+    background: rgba(255,118,118,.15);
+    border-radius: 3px;
+  }
+  
+  .typing-sample span.active {
+    color: var(--text);
+  }
+
+  .typing-input {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.3);
+    color: var(--text);
+    outline: 0;
+    padding: 1rem;
+    font: 15px/1.6 var(--mono);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+  }
+  
+  .typing-input:focus {
+    border-color: rgba(212,175,55,0.5);
+    background: rgba(0,0,0,0.4);
+    box-shadow: 0 0 0 4px rgba(212,175,55,0.1), inset 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .typing-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    border: none;
+  }
+
+  .typing-stat {
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .typing-stat:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .typing-stat strong {
+    display: block;
+    font-family: var(--syne);
+    font-size: 2rem;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: .6rem;
+  }
+
+  .typing-stat span {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .typing-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .focus-stage,
+    .focus-stage.cert-stage {
+      height: 600px;
+      padding-top: 6px;
+    }
+
+    .focus-card,
+    .focus-track .cert-card {
+      width: min(86%, 520px);
+    }
+
+    .focus-card.is-before {
+      transform: translateX(-118%) scale(.78);
+      opacity: .25;
+    }
+
+    .focus-card.is-after {
+      transform: translateX(18%) scale(.78);
+      opacity: .25;
+    }
+
+    .typing-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- â”€â”€ HERO â”€â”€ -->
+<section id="hero">
+  <div class="px-layer" id="px-grid"><div class="px-grid"></div></div>
+  <div class="px-layer" id="px-orb"><div class="px-orb"></div></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">Software Developer &amp; IT Student</div>
+    <h1 class="hero-name">
+      Michael<br>
+      <span class="hollow">Bryan</span><br>
+      <span class="gold">Mandey</span>
+    </h1>
+    <p class="hero-bio">Building clean, fast software that holds up under scrutiny. President University, Bekasi.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-gold">View Work â†“</a>
+      <a href="#contact" class="btn-ghost">Contact me</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">03</div><div class="hero-stat-lbl">Live projects</div></div>
+      <div><div class="hero-stat-num">6+</div><div class="hero-stat-lbl">Languages</div></div>
+      <div><div class="hero-stat-num">2023</div><div class="hero-stat-lbl">Since</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-ghost" id="px-ghost">MANDEY</div>
+    <div class="hero-photo-frame" id="px-photo">
+      <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
+      <div class="hero-photo-overlay"></div>
+      <div class="hero-photo-border"></div>
+      <div class="hero-photo-tag">
+        <span class="hero-photo-tag-name">Michael Bryan Mandey</span>
+        <span class="hero-photo-tag-loc">Bekasi, Indonesia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- â”€â”€ ABOUT â”€â”€ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="reveal-l">
+        <div class="about-img-wrap">
+          <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
+          <div class="about-img-border"></div>
+          <div class="about-img-cap">
+            <span>Michael Bryan Mandey</span><span>2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="sec-label">About</div>
+        <h2 class="about-headline">I write code that's <em>fast</em>, <em>deliberate</em>, and worth keeping.</h2>
+        <p class="about-body">IT student at President University with a real obsession for building well. Not just code that runs â€” code that's readable, efficient, and scales beyond the first version.</p>
+        <p class="about-body">I move freely across the full stack. Java in the backend, JavaScript in the browser, Python for anything in between, databases tying it all together.</p>
+        <div class="about-rule"></div>
+        <table class="stack-tbl">
+          <tr><td>Java</td><td>OOP Â· Spring Â· DSA</td><td></td></tr>
+          <tr><td>JavaScript</td><td>ES6+ Â· Async Â· REST</td><td></td></tr>
+          <tr><td>Python</td><td>Scripting Â· Automation</td><td></td></tr>
+          <tr><td>PHP</td><td>MVC Â· Server-side</td><td></td></tr>
+          <tr><td>Databases</td><td>MySQL Â· PostgreSQL</td><td></td></tr>
+          <tr><td>C++</td><td>Algorithms Â· Memory</td><td></td></tr>
+        </table>
+        <div style="margin-top:2rem"><a href="about.html" class="btn-ghost">Full About â†’</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- â”€â”€ PROJECTS SLIDER â”€â”€ -->
+<section id="projects" class="slider-section">
+  <div class="section-inner">
+    <div class="slider-header reveal">
+      <div>
+        <div class="sec-label">Work</div>
+        <h2 class="sec-title">Selected<br>Projects</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1.5rem">
+        <div style="font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em">03 projects live</div>
+        <div class="slider-controls">
+          <button class="slider-btn" id="proj-prev" aria-label="Previous project"><i class="fas fa-arrow-left"></i></button>
+          <button class="slider-btn" id="proj-next" aria-label="Next project"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="slider-track-wrap reveal">
+      <div class="slider-track" id="proj-track">
+
+        <div class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img class="proj-card-bg" src="assets/images/project.PNG" alt="GBI Glow Bekasi">
+          <div class="proj-card-overlay-base"></div>
+        </div>
+        <div class="proj-card-header">
+          <span class="proj-card-num">01 / Church Website</span>
+          <h3 class="proj-card-title-front">GBI Glow Bekasi</h3>
+        </div>
+        <div class="proj-card-body">
+          <button class="proj-close-btn" aria-label="Close details">&times;</button>
+          <div class="proj-card-body-inner">
+            <div class="proj-card-title">GBI Glow Bekasi</div>
+            <p class="proj-card-desc">Full community website for a Bekasi church â€” event listings, service schedules, and content management. Built entirely from scratch, no CMS, deployed live.</p>
+            
+            <div class="proj-features-section">
+              <div class="proj-features-title"><i class="fas fa-layer-group"></i> Key Features:</div>
+              <ul class="proj-features-list">
+                <li><i class="fas fa-check-circle"></i> <strong>Schedules & Events:</strong> Live community updates, calendars, and weekly service programs.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Custom Admin Portal:</strong> Secure dashboard allowing easy content and news updates.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Optimized Assets:</strong> High-performance, SEO-friendly site deployed on Vercel.</li>
+              </ul>
+            </div>
+
+            <div class="proj-card-pills">
+              <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">Vercel</span>
+            </div>
+            <a href="https://gbiglowbekasi.vercel.app" target="_blank" class="proj-card-link">Visit site â†’</a>
+          </div>
+        </div>
+      </div>
+
+        <div class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img class="proj-card-bg" src="assets/images/image.png" alt="President Cupid">
+          <div class="proj-card-overlay-base"></div>
+        </div>
+        <div class="proj-card-header">
+          <span class="proj-card-num">02 / Matchmaking App</span>
+          <h3 class="proj-card-title-front">President Cupid</h3>
+        </div>
+        <div class="proj-card-body">
+          <button class="proj-close-btn" aria-label="Close details">&times;</button>
+          <div class="proj-card-body-inner">
+            <div class="proj-card-title">President Cupid</div>
+            <p class="proj-card-desc">Matchmaking platform for President University students. User profiles, compatibility engine, admin dashboard â€” launched and actively used on campus.</p>
+            
+            <div class="proj-features-section">
+              <div class="proj-features-title"><i class="fas fa-layer-group"></i> Key Features:</div>
+              <ul class="proj-features-list">
+                <li><i class="fas fa-check-circle"></i> <strong>Compatibility Engine:</strong> Advanced preference matching algorithm for students.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Verified Student Profiles:</strong> Secured access using campus email domain check.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Admin Analytics:</strong> Interactive dashboard tracking user match rates and active users.</li>
+              </ul>
+            </div>
+
+            <div class="proj-card-pills">
+              <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">Real users</span>
+            </div>
+            <a href="https://cupid.threeds.uno" target="_blank" class="proj-card-link">Visit site â†’</a>
+          </div>
+        </div>
+      </div>
+
+        <div class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img class="proj-card-bg" src="assets/images/image1.png" alt="Student Org System">
+          <div class="proj-card-overlay-base"></div>
+        </div>
+        <div class="proj-card-header">
+          <span class="proj-card-num">03 / Open Source</span>
+          <h3 class="proj-card-title-front">Student Org System</h3>
+        </div>
+        <div class="proj-card-body">
+          <button class="proj-close-btn" aria-label="Close details">&times;</button>
+          <div class="proj-card-body-inner">
+            <div class="proj-card-title">Student Org System</div>
+            <p class="proj-card-desc">Attendance and membership management for student organizations. Role-based access, attendance tracking, and report generation â€” replacing spreadsheet chaos.</p>
+            
+            <div class="proj-features-section">
+              <div class="proj-features-title"><i class="fas fa-layer-group"></i> Key Features:</div>
+              <ul class="proj-features-list">
+                <li><i class="fas fa-check-circle"></i> <strong>QR Attendance System:</strong> Scan and log student attendance instantly.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Role-Based Permissions:</strong> Secure panel for moderators, admins, and members.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Exportable Reports:</strong> Generate spreadsheet reports for meetings and attendance metrics.</li>
+              </ul>
+            </div>
+
+            <div class="proj-card-pills">
+              <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">MySQL</span>
+            </div>
+            <a href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank" class="proj-card-link">View code â†’</a>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+    <div class="slider-dots" id="proj-dots"></div>
+    <div class="more-row reveal"><a href="portfolio.html" class="btn-ghost">Full Portfolio â†’</a></div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- â”€â”€ CERTIFICATES SLIDER â”€â”€ -->
+<section id="certs" class="slider-section">
+  <div class="section-inner">
+    <div class="slider-header reveal">
+      <div>
+        <div class="sec-label">Certificates</div>
+        <h2 class="sec-title">Credentials<br>&amp; Awards</h2>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-btn" id="cert-prev" aria-label="Previous cert"><i class="fas fa-arrow-left"></i></button>
+        <button class="slider-btn" id="cert-next" aria-label="Next cert"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="slider-track-wrap reveal">
+      <div class="slider-track" id="cert-track">
+
+        <div class="cert-card">
+          <div class="cert-preview">
+            <img src="assets/certificates/SERTIFIKAT ICON.png" alt="Certificate preview">
+          </div>
+          <div class="cert-card-body">
+            <div class="cert-card-icon"><i class="fas fa-award"></i></div>
+            <div class="cert-card-issuer">ICON</div>
+            <div class="cert-card-title">Certificate Preview</div>
+            <div class="cert-card-date">2024</div>
+            <a class="cert-card-link" href="assets/certificates/SERTIFIKAT ICON.png" target="_blank">Open certificate</a>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-preview">
+            <img src="assets/certificates/SERTIFIKAT Company Visit1.png" alt="Company visit certificate preview">
+          </div>
+          <div class="cert-card-body">
+            <div class="cert-card-icon"><i class="fas fa-building"></i></div>
+            <div class="cert-card-issuer">Company Visit</div>
+            <div class="cert-card-title">Company Visit Certificate</div>
+            <div class="cert-card-date">2024</div>
+            <a class="cert-card-link" href="assets/certificates/SERTIFIKAT Company Visit1.png" target="_blank">Open certificate</a>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-preview">
+            <object data="assets/certificates/Michael Bryan Mandey.pdf#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
+              <div class="cert-preview-fallback">PDF Preview</div>
+            </object>
+          </div>
+          <div class="cert-card-body">
+            <div class="cert-card-icon"><i class="fas fa-file-pdf"></i></div>
+            <div class="cert-card-issuer">Certificate</div>
+            <div class="cert-card-title">Michael Bryan Mandey</div>
+            <div class="cert-card-date">2024</div>
+            <a class="cert-card-link" href="assets/certificates/Michael Bryan Mandey.pdf" target="_blank">Open certificate</a>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-preview">
+            <object data="assets/certificates/sertifikat_course_Michael Bryan Mandey.pdf#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
+              <div class="cert-preview-fallback">PDF Preview</div>
+            </object>
+          </div>
+          <div class="cert-card-body">
+            <div class="cert-card-icon"><i class="fas fa-code"></i></div>
+            <div class="cert-card-issuer">Dicoding</div>
+            <div class="cert-card-title">Course Certificate</div>
+            <div class="cert-card-date">2024</div>
+            <a class="cert-card-link" href="assets/certificates/sertifikat_course_Michael Bryan Mandey.pdf" target="_blank">Open certificate</a>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-preview">
+            <object data="assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.pdf#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
+              <div class="cert-preview-fallback">PDF Preview</div>
+            </object>
+          </div>
+          <div class="cert-card-body">
+            <div class="cert-card-icon"><i class="fas fa-laptop-code"></i></div>
+            <div class="cert-card-issuer">Junior Web Developer</div>
+            <div class="cert-card-title">Junior Web Developer Certificate</div>
+            <div class="cert-card-date">2024</div>
+            <a class="cert-card-link" href="assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.pdf" target="_blank">Open certificate</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="slider-dots" id="cert-dots"></div>
+    <div class="more-row reveal"><a href="certificates.html" class="btn-ghost">Full Gallery â†’</a></div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- â”€â”€ EDUCATION â”€â”€ -->
+<section id="edu-preview">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="sec-label">Education</div>
+      <h2 class="sec-title">Three schools.<br><span style="color:var(--gold)">One path.</span></h2>
+    </div>
+    <div style="margin-top:4rem">
+      <div class="edu-row" id="e1">
+        <div class="edu-meta"><div class="edu-period">2023 â€” Present</div><div class="edu-idx">01 / 03</div></div>
+        <div class="edu-line-col"><div class="edu-dot"></div><div class="edu-vline"></div></div>
+        <div class="edu-body">
+          <div class="edu-logo"><img src="assets/img/president.png" alt="President University"></div>
+          <div class="edu-school">President University</div>
+          <div class="edu-degree">Bachelor's â€” Information Technology</div>
+          <p class="edu-note">Focused on software development, data structures, and system architecture. Shipping real projects every semester.</p>
+        </div>
+      </div>
+      <div class="edu-row" id="e2" style="transition-delay:.1s">
+        <div class="edu-meta"><div class="edu-period">2021 â€” 2023</div><div class="edu-idx">02 / 03</div></div>
+        <div class="edu-line-col"><div class="edu-dot"></div><div class="edu-vline"></div></div>
+        <div class="edu-body">
+          <div class="edu-logo"><img src="assets/img/ananda.png" alt="Ananda High School"></div>
+          <div class="edu-school">Ananda High School</div>
+          <div class="edu-degree">Science Major</div>
+          <p class="edu-note">Competed in programming events. Started taking software seriously as a craft, not just a class.</p>
+        </div>
+      </div>
+      <div class="edu-row" id="e3" style="transition-delay:.2s">
+        <div class="edu-meta"><div class="edu-period">2018 â€” 2021</div><div class="edu-idx">03 / 03</div></div>
+        <div class="edu-line-col"><div class="edu-dot"></div><div class="edu-vline"></div></div>
+        <div class="edu-body">
+          <div class="edu-logo"><img src="assets/img/strada.png" alt="Strada Middle School"></div>
+          <div class="edu-school">Strada Middle School</div>
+          <div class="edu-degree">General Studies</div>
+          <p class="edu-note">First line of code. First taste of building something from nothing.</p>
+        </div>
+      </div>
+    </div>
+    <div class="more-row reveal"><a href="education.html" class="btn-ghost">Full Education â†’</a></div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- â”€â”€ CONTACT â”€â”€ -->
+<section id="contact">
+  <div class="section-inner contact-rel">
+    <div class="contact-ghost">CONNECT</div>
+    <div class="reveal">
+      <div class="sec-label">Contact</div>
+      <div class="contact-big">
+        Let's build<br>
+        <span class="hollow">something</span><br>
+        together.
+      </div>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="c-cell"><div class="c-lbl">Email</div><div class="c-val">mbryanmandey@gmail.com</div></div>
+      <div class="c-cell"><div class="c-lbl">Location</div><div class="c-val">Bekasi, Indonesia</div></div>
+      <div class="c-cell"><div class="c-lbl">Status</div><div class="c-val live">Open to work</div></div>
+      <div class="c-cell"><div class="c-lbl">University</div><div class="c-val">President University</div></div>
+    </div>
+    <div class="contact-foot reveal">
+      <div class="c-socials">
+        <a class="c-soc" href="https://github.com/MICHAELCUY-lang" target="_blank"><i class="fab fa-github"></i></a>
+        <a class="c-soc" href="https://www.linkedin.com/in/michael-bryan-mandey-34b673250" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a class="c-soc" href="https://www.instagram.com/michael.mandey.79/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a class="c-soc" href="https://wa.me/6281297300254" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <a class="c-cta" href="mailto:mbryanmandey@gmail.com">Send email â†’</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<button id="term-btn" title="Open Terminal" aria-label="Open terminal"
+  style="position:fixed;bottom:2rem;right:6rem;z-index:300;width:48px;height:48px;
+  border:1px solid var(--border-h);background:var(--surface);color:var(--muted2);
+  cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s">
+  <i class="fas fa-terminal"></i>
+</button>
+<button id="typing-btn" title="Typing Speed Test" aria-label="Open typing test"
+  style="position:fixed;bottom:2rem;right:2rem;z-index:300;width:48px;height:48px;
+  border:1px solid var(--border-h);background:var(--surface);color:var(--muted2);
+  cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s">
+  <i class="fas fa-keyboard"></i>
+</button>
+
+<div class="tool-modal" id="terminal-modal" aria-hidden="true">
+  <div class="tool-panel" role="dialog" aria-modal="true" aria-label="Portfolio terminal">
+    <div class="tool-head">
+      <span>root@mbm:~</span>
+      <button class="tool-close" data-close="terminal-modal" aria-label="Close terminal"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="terminal-body" id="terminal-output">
+      <div class="term-line" style="margin-bottom: 1rem;">
+        <pre style="color: #268bd2; font-size: 10px; line-height: 1.1; margin: 0;">
+  _______                  _             _ 
+ |__   __|                (_)           | |
+    | | ___ _ __ _ __ ___  _ _ __   __ _| |
+    | |/ _ \ '__| '_ ` _ \| | '_ \ / _` | |
+    | |  __/ |  | | | | | | | | | | (_| | |
+    |_|\___|_|  |_| |_| |_|_|_| |_|\__,_|_|
+        </pre>
+        <br>
+        Welcome to MBM Terminal v1.0<br>
+        Type <strong>--help</strong> to see available commands.
+      </div>
+    </div>
+    <form class="terminal-input-row" id="terminal-form">
+      <span class="terminal-prompt">(<span class="user">mbmportfolio</span>)-[<span class="path">~</span>]<br></span>
+      <input id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command">
+    </form>
+  </div>
+</div>
+
+<div class="tool-modal" id="typing-modal" aria-hidden="true">
+  <div class="tool-panel" role="dialog" aria-modal="true" aria-label="Typing speed test">
+    <div class="tool-head">
+      <span>Typing Speed Test</span>
+      <button class="tool-close" data-close="typing-modal" aria-label="Close typing test"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="typing-body">
+      <div class="typing-sample" id="typing-sample"></div>
+      <textarea class="typing-input" id="typing-input" placeholder="Start typing here..." spellcheck="false"></textarea>
+      <div class="typing-stats">
+        <div class="typing-stat"><strong id="typing-wpm">0</strong><span>WPM</span></div>
+        <div class="typing-stat"><strong id="typing-accuracy">100%</strong><span>Accuracy</span></div>
+        <div class="typing-stat"><strong id="typing-time">0s</strong><span>Time</span></div>
+        <div class="typing-stat"><strong id="typing-progress">0%</strong><span>Progress</span></div>
+      </div>
+      <div class="typing-actions">
+        <button class="btn-ghost" type="button" id="typing-reset">Reset</button>
+        <button class="btn-gold" type="button" id="typing-new">New Text</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/shared.js"></script>
+<script>
+/* CURSOR GLOW */
+document.addEventListener('mousemove',e=>{
+  const g=document.getElementById('glow');
+  g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';
+});
+
+/* â”€â”€ PARALLAX â”€â”€ */
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(doParallax);ticking=true;}
+});
+function doParallax(){
+  const sy=window.scrollY;
+  const grid=document.getElementById('px-grid');
+  const orb=document.getElementById('px-orb');
+  const ghost=document.getElementById('px-ghost');
+  const photo=document.getElementById('px-photo');
+  if(grid) grid.style.transform=`translateY(${sy*.15}px)`;
+  if(orb)  orb.style.transform=`translateY(${sy*.25}px)`;
+  if(ghost)ghost.style.transform=`translateY(calc(-50% + ${sy*.08}px))`;
+  if(photo)photo.style.transform=`translateY(${sy*.06}px)`;
+  ticking=false;
+}
+
+/* â”€â”€ FOCUS CAROUSEL â”€â”€ */
+function makeFocusSlider(trackId,prevId,nextId,dotsId,options={}){
+  const track=document.getElementById(trackId);
+  const prev=document.getElementById(prevId);
+  const next=document.getElementById(nextId);
+  const dotsEl=document.getElementById(dotsId);
+  if(!track||!prev||!next||!dotsEl)return;
+
+  const cards=Array.from(track.children);
+  const total=cards.length;
+  let cur=options.start||0;
+  let startX=0;
+  let isDragging=false;
+
+  track.classList.add('focus-track');
+  track.parentElement.classList.add('focus-stage');
+  if(options.kind==='cert')track.parentElement.classList.add('cert-stage');
+  cards.forEach((card,i)=>{
+    card.classList.add('focus-card');
+    card.setAttribute('data-slide',String(i));
+  });
+
+  dotsEl.innerHTML='';
+  cards.forEach((_,i)=>{
+    const dot=document.createElement('div');
+    dot.className='slider-dot';
+    dot.addEventListener('click',()=>go(i));
+    dotsEl.appendChild(dot);
+  });
+
+  function wrapIndex(idx){
+    return (idx+total)%total;
+  }
+
+  function go(idx){
+    cur=wrapIndex(idx);
+    const prevIdx=wrapIndex(cur-1);
+    const nextIdx=wrapIndex(cur+1);
+
+    cards.forEach((card,i)=>{
+      card.classList.remove('is-active','is-before','is-after','is-far');
+      card.setAttribute('aria-hidden',i===cur?'false':'true');
+
+      if(i===cur)card.classList.add('is-active');
+      else if(i===prevIdx)card.classList.add('is-before');
+      else if(i===nextIdx)card.classList.add('is-after');
+      else card.classList.add('is-far');
+    });
+
+    dotsEl.querySelectorAll('.slider-dot').forEach((dot,i)=>{
+      dot.classList.toggle('active',i===cur);
+    });
+  }
+
+  prev.addEventListener('click',()=>go(cur-1));
+  next.addEventListener('click',()=>go(cur+1));
+
+  track.addEventListener('mousedown',e=>{
+    startX=e.clientX;
+    isDragging=true;
+  });
+  track.addEventListener('mousemove',e=>{
+    if(isDragging)e.preventDefault();
+  });
+  window.addEventListener('mouseup',e=>{
+    if(!isDragging)return;
+    isDragging=false;
+    const dx=e.clientX-startX;
+    if(dx<-50)go(cur+1);
+    if(dx>50)go(cur-1);
+  });
+  track.addEventListener('touchstart',e=>{
+    startX=e.touches[0].clientX;
+  },{passive:true});
+  track.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-startX;
+    if(dx<-50)go(cur+1);
+    if(dx>50)go(cur-1);
+  });
+
+  go(cur);
+}
+
+makeFocusSlider('proj-track','proj-prev','proj-next','proj-dots',{kind:'project'});
+makeFocusSlider('cert-track','cert-prev','cert-next','cert-dots',{kind:'cert'});
+
+/* â”€â”€ SCROLL REVEAL â”€â”€ */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target);}
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-l,.edu-row').forEach(el=>obs.observe(el));
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>

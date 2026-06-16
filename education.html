@@ -1,0 +1,127 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM â€” Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill">Open to work</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">Education</div>
+    <h1 class="header-title">Three<br>schools.<br><span>One path.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>Three schools, one obsession â€” building things with code. Every classroom was just a starting point.</p>
+  </div>
+</header>
+
+<section class="timeline-section">
+  <div class="timeline-divider"></div>
+
+  <div class="timeline-wrapper">
+
+    <div class="school-card" id="c1">
+      <div class="card-meta">
+        <div class="card-period">2023 â€” Present</div>
+        <div class="card-index">01 / 03</div>
+      </div>
+      <div class="card-line-col">
+        <div class="card-dot"></div>
+        <div class="card-vline"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-number">01</div>
+        <div class="logo-badge">
+          <img src="assets/img/president.png" alt="President University logo">
+        </div>
+        <div class="card-school">President University</div>
+        <div class="card-degree">Bachelor's â€” Information Technology</div>
+        <p class="card-note">Focused on software development, data structures, and system architecture. Shipping real projects every semester.</p>
+      </div>
+    </div>
+
+    <div class="school-card" id="c2" style="transition-delay:.12s">
+      <div class="card-meta">
+        <div class="card-period">2021 â€” 2023</div>
+        <div class="card-index">02 / 03</div>
+      </div>
+      <div class="card-line-col">
+        <div class="card-dot"></div>
+        <div class="card-vline"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-number">02</div>
+        <div class="logo-badge">
+          <img src="assets/img/ananda.png" alt="Ananda High School logo">
+        </div>
+        <div class="card-school">Ananda High School</div>
+        <div class="card-degree">Science Major</div>
+        <p class="card-note">Competed in programming events. Started taking software seriously as a craft, not just a class.</p>
+      </div>
+    </div>
+
+    <div class="school-card" id="c3" style="transition-delay:.24s">
+      <div class="card-meta">
+        <div class="card-period">2018 â€” 2021</div>
+        <div class="card-index">03 / 03</div>
+      </div>
+      <div class="card-line-col">
+        <div class="card-dot"></div>
+        <div class="card-vline"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-number">03</div>
+        <div class="logo-badge">
+          <img src="assets/img/strada.png" alt="Strada Middle School logo">
+        </div>
+        <div class="card-school">Strada Middle School</div>
+        <div class="card-degree">General Studies</div>
+        <p class="card-note">First line of code. First taste of building something from nothing.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script>
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+  const cards = document.querySelectorAll('.school-card');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(c => obs.observe(c));
+  setTimeout(() => document.getElementById('c1').classList.add('visible'), 180);
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>

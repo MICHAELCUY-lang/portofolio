@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM â€” Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+  /* â”€â”€ Project cards â”€â”€ */
+  .proj-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .proj-row {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 440px;
+    border-radius: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.3s;
+  }
+
+  .proj-row.open {
+    border-color: rgba(255,255,255,0.13);
+  }
+
+  /* Thumbnail */
+  .proj-thumb {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    height: 100%;
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .proj-row.open .proj-thumb {
+    width: 100%;
+  }
+
+  .proj-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.55s ease, filter 0.4s ease;
+    filter: brightness(0.72);
+  }
+
+  .proj-thumb:hover img {
+    transform: scale(1.04);
+    filter: brightness(0.82);
+  }
+
+  .proj-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .proj-thumb-meta {
+    position: absolute;
+    bottom: 22px;
+    left: 24px;
+    pointer-events: none;
+  }
+
+  .proj-thumb-cat {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 5px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .proj-thumb-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .proj-thumb-num {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.06em;
+  }
+
+  .proj-thumb-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 20;
+  }
+
+  .proj-thumb-btn i {
+    font-size: 13px;
+    color: #fff;
+    transition: transform 0.35s ease;
+  }
+
+  .proj-row.open .proj-thumb-btn i {
+    transform: rotate(45deg);
+  }
+
+  .proj-thumb:hover .proj-thumb-btn {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .proj-detail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 28px 30px;
+    padding-right: 64px;
+    z-index: 10;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .proj-detail::-webkit-scrollbar {
+    width: 4px;
+  }
+  .proj-detail::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .proj-row.open .proj-detail {
+    transform: translateX(0);
+  }
+
+  .proj-detail-num {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .proj-detail-title {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .proj-detail-desc {
+    font-size: 13.5px;
+    line-height: 1.7;
+    opacity: 0.6;
+    margin-bottom: 18px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .proj-detail-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    margin: 0 0 16px;
+  }
+
+  .proj-feats {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .proj-feats li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.7;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .proj-feats li i {
+    font-size: 12px;
+    color: #5DCAA5;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .proj-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .proj-pill {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 10px;
+    border-radius: 0;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .proj-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 9px 18px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.05);
+    transition: background 0.2s, border-color 0.2s;
+    width: fit-content;
+  }
+
+  .proj-link:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .proj-row {
+      height: 480px;
+    }
+    .proj-detail {
+      width: 100%;
+      padding: 24px 20px;
+      padding-right: 54px;
+    }
+    .proj-thumb {
+      height: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">Portfolio</div>
+    <h1 class="header-title">Selected<br><span>Projects.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>Real projects, shipped to production. Not just concepts â€” software that solves actual problems.</p>
+  </div>
+</header>
+
+<section id="projects" style="padding-top:0">
+  <div class="section-inner" style="padding-top:0">
+    <div class="proj-grid reveal">
+
+      <!-- Project 01 -->
+      <div class="proj-row" id="p1">
+        <div class="proj-thumb" onclick="toggleProj('p1')">
+          <img src="assets/images/project.PNG" alt="GBI Glow Bekasi">
+          <div class="proj-thumb-overlay"></div>
+          <span class="proj-thumb-num">01</span>
+          <div class="proj-thumb-meta">
+            <div class="proj-thumb-cat">Church Website</div>
+            <div class="proj-thumb-title">GBI Glow Bekasi</div>
+          </div>
+          <div class="proj-thumb-btn"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="proj-detail">
+          <div>
+            <div class="proj-detail-num">01 / Church Website</div>
+            <div class="proj-detail-title">GBI Glow Bekasi</div>
+            <p class="proj-detail-desc">Full community website for a Bekasi church â€” event listings, service schedules, and content management. Built entirely from scratch, no CMS, deployed live.</p>
+            <hr class="proj-detail-divider">
+            <ul class="proj-feats">
+              <li><i class="fas fa-check-circle"></i><span><strong>Schedules & Events</strong> â€” Live community updates, calendars, and weekly service programs.</span></li>
+              <li><i class="fas fa-check-circle"></i><span><strong>Custom Admin Portal</strong> â€” Secure dashboard allowing easy content and news updates.</span></li>
+              <li><i class="fas fa-check-circle"></i><span><strong>Optimized Assets</strong> â€” High-performance, SEO-friendly site deployed on Vercel.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="proj-pills">
+              <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">Vercel</span>
+            </div>
+            <a href="https://gbiglowbekasi.vercel.app" target="_blank" class="proj-link">Visit site <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 02 -->
+      <div class="proj-row" id="p2">
+        <div class="proj-thumb" onclick="toggleProj('p2')">
+          <img src="assets/images/image.png" alt="President Cupid">
+          <div class="proj-thumb-overlay"></div>
+          <span class="proj-thumb-num">02</span>
+          <div class="proj-thumb-meta">
+            <div class="proj-thumb-cat">Matchmaking App</div>
+            <div class="proj-thumb-title">President Cupid</div>
+          </div>
+          <div class="proj-thumb-btn"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="proj-detail">
+          <div>
+            <div class="proj-detail-num">02 / Matchmaking App</div>
+            <div class="proj-detail-title">President Cupid</div>
+            <p class="proj-detail-desc">Matchmaking platform for President University students. User profiles, compatibility engine, admin dashboard â€” launched and actively used on campus.</p>
+            <hr class="proj-detail-divider">
+            <ul class="proj-feats">
+              <li><i class="fas fa-check-circle"></i><span><strong>Compatibility Engine</strong> â€” Advanced preference matching algorithm for students.</span></li>
+              <li><i class="fas fa-check-circle"></i><span><strong>Verified Student Profiles</strong> â€” Secured access using campus email domain check.</span></li>
+              <li><i class="fas fa-check-circle"></i><span><strong>Admin Analytics</strong> â€” Interactive dashboard tracking user match rates and active users.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="proj-pills">
+              <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">Real users</span>
+            </div>
+            <a href="https://cupid.threeds.uno" target="_blank" class="proj-link">Visit site <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 03 -->
+      <div class="proj-row" id="p3">
+        <div class="proj-thumb" onclick="toggleProj('p3')">
+          <img src="assets/images/image1.png" alt="Student Org System">
+          <div class="proj-thumb-overlay"></div>
+          <span class="proj-thumb-num">03</span>
+          <div class="proj-thumb-meta">
+            <div class="proj-thumb-cat">Open Source</div>
+            <div class="proj-thumb-title">Student Org System</div>
+          </div>
+          <div class="proj-thumb-btn"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="proj-detail">
+          <div>
+            <div class="proj-detail-num">03 / Open Source</div>
+            <div class="proj-detail-title">Student Org System</div>
+            <p class="proj-detail-desc">Attendance and membership management for student organizations. Role-based access, attendance tracking, and report generation â€” replacing spreadsheet chaos.</p>
+            <hr class="proj-detail-divider">
+            <ul class="proj-feats">
+              <li><i class="fas fa-check-circle"></i><span><strong>QR Attendance System</strong> â€” Scan and log student attendance instantly.</span></li>
+              <li><i class="fas fa-check-circle"></i><span><strong>Role-Based Permissions</strong> â€” Secure panel for moderators, admins, and members.</span></li>
+              <li><i class="fas fa-check-circle"></i><span><strong>Exportable Reports</strong> â€” Generate spreadsheet reports for meetings and attendance metrics.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="proj-pills">
+              <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">MySQL</span>
+            </div>
+            <a href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank" class="proj-link">View code <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script>
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
+
+  function toggleProj(id) {
+    const row = document.getElementById(id);
+    const wasOpen = row.classList.contains('open');
+    document.querySelectorAll('.proj-row').forEach(r => r.classList.remove('open'));
+    if (!wasOpen) row.classList.add('open');
+  }
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>

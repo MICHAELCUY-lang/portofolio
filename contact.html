@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM â€” Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">Connect</div>
+    <h1 class="header-title">Let's build<br><span>together.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>Currently open to new opportunities, collaborations, and conversations about code.</p>
+  </div>
+</header>
+
+<section id="contact" style="padding-top:0">
+  <div class="section-inner contact-rel" style="padding-top:0">
+    <div class="contact-ghost" style="top:20%">CONNECT</div>
+    <div class="contact-grid reveal">
+      <div class="c-cell"><div class="c-lbl">Email</div><div class="c-val">mbryanmandey@gmail.com</div></div>
+      <div class="c-cell"><div class="c-lbl">Location</div><div class="c-val">Bekasi, Indonesia</div></div>
+      <div class="c-cell"><div class="c-lbl">Status</div><div class="c-val live">Open to work</div></div>
+      <div class="c-cell"><div class="c-lbl">University</div><div class="c-val">President University</div></div>
+    </div>
+    <div class="contact-foot reveal">
+      <div class="c-socials">
+        <a class="c-soc" href="https://github.com/MICHAELCUY-lang" target="_blank"><i class="fab fa-github"></i></a>
+        <a class="c-soc" href="https://www.linkedin.com/in/michael-bryan-mandey-34b673250" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a class="c-soc" href="https://www.instagram.com/michael.mandey.79/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a class="c-soc" href="https://wa.me/6281297300254" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <a class="c-cta" href="mailto:mbryanmandey@gmail.com">Send email â†’</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script>
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>

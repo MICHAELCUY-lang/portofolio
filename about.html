@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM â€” About</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">About Me</div>
+    <h1 class="header-title">Developer.<br>Student.<br><span>Builder.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>Driven by curiosity and a commitment to high-quality code. Building things that last.</p>
+  </div>
+</header>
+
+<section id="about" style="padding-top:0">
+  <div class="section-inner" style="padding-top:0">
+    <div class="about-grid">
+      <div class="reveal-l">
+        <div class="about-img-wrap">
+          <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
+          <div class="about-img-border"></div>
+          <div class="about-img-cap">
+            <span>Michael Bryan Mandey</span><span>2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="sec-label">My Story</div>
+        <h2 class="about-headline">I write code that's <em>fast</em>, <em>deliberate</em>, and worth keeping.</h2>
+        <p class="about-body">IT student at President University with a real obsession for building well. Not just code that runs â€” code that's readable, efficient, and scales beyond the first version.</p>
+        <p class="about-body">I move freely across the full stack. Java in the backend, JavaScript in the browser, Python for anything in between, databases tying it all together. Every language is just a tool to solve a problem.</p>
+        <p class="about-body">When I'm not studying or building web applications, you can find me diving into complex algorithms, learning new systems architecture, or refining my development workflow.</p>
+        <div class="about-rule"></div>
+        <table class="stack-tbl">
+          <tr><td>Current Focus</td><td>Full-Stack Web Dev</td><td></td></tr>
+          <tr><td>Based In</td><td>Bekasi, Indonesia</td><td></td></tr>
+          <tr><td>Availability</td><td>Open to work</td><td><span style="color:var(--gold)">â—</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script>
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>

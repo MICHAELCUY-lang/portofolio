@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM â€” Certificates</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* Clean Modal */
+.cert-modal {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(10,10,10,0.95); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.cert-modal.active { opacity: 1; pointer-events: auto; }
+.cert-modal-content {
+  background: var(--surface); border: 1px solid var(--border);
+  width: 90%; max-width: 900px; height: 85vh;
+  display: flex; flex-direction: column; position: relative;
+}
+.cert-modal-header {
+  padding: 1.5rem; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cert-modal-title { font-family: var(--syne); font-weight: 700; font-size: 1.2rem; color: var(--text); }
+.cert-modal-close {
+  background: transparent; border: none; color: var(--muted); font-size: 24px;
+  cursor: pointer; transition: color 0.2s;
+}
+.cert-modal-close:hover { color: var(--gold); }
+.cert-modal-body { flex: 1; overflow: hidden; position: relative; }
+</style>
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html" class="active">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">Certificates</div>
+    <h1 class="header-title">Credentials<br><span>&amp; Awards.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>Documented proof of knowledge, completed courses, and competitive achievements.</p>
+  </div>
+</header>
+
+<section id="certificates" style="padding-top:0">
+  <div class="section-inner" style="padding-top:0">
+    <div class="cert-grid" id="cert-gallery">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="cert-modal" id="cert-modal">
+  <div class="cert-modal-content">
+    <div class="cert-modal-header">
+      <div class="cert-modal-title" id="cert-modal-title">Certificate</div>
+      <button class="cert-modal-close" onclick="closeCertModal()">Ã—</button>
+    </div>
+    <div class="cert-modal-body" id="cert-modal-body"></div>
+  </div>
+</div>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+  const certificates = [
+    { title: "Junior Web Developer", org: "BNSP", date: "Nov 2023", file: "assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.pdf" },
+    { title: "Belajar Dasar Pemrograman Web", org: "Dicoding", date: "Sep 2023", file: "assets/certificates/sertifikat_course_Michael Bryan Mandey.pdf" },
+    { title: "Participant Certificate", org: "Event", date: "2024", file: "assets/certificates/Michael Bryan Mandey.pdf" },
+    { title: "Company Visit", org: "University", date: "2023", file: "assets/certificates/SERTIFIKAT Company Visit1.png" },
+    { title: "ICON Event", org: "Organization", date: "2023", file: "assets/certificates/SERTIFIKAT ICON.png" }
+  ];
+  
+  const gallery = document.getElementById('cert-gallery');
+  
+  certificates.forEach((cert, idx) => {
+    const isImage = cert.file.toLowerCase().endsWith('.png') || cert.file.toLowerCase().endsWith('.jpg');
+    const mediaId = `cert-media-${idx}`;
+    
+    gallery.innerHTML += `
+      <div class="cert-card reveal" style="cursor:pointer;" onclick="openCertModal('${cert.title}', '${cert.file}')">
+        <div style="width:100%; height:180px; margin-bottom:1.2rem; border:1px solid var(--border); overflow:hidden; position:relative; background:#fff">
+          ${isImage ? `<img src="${cert.file}" style="width:100%; height:100%; object-fit:cover;">` : `<canvas id="${mediaId}" style="width:100%; object-fit:cover;"></canvas>`}
+        </div>
+        <div class="cert-card-issuer">${cert.org}</div>
+        <div class="cert-card-title">${cert.title}</div>
+        <div class="cert-card-date">${cert.date}</div>
+      </div>
+    `;
+  });
+
+  certificates.forEach((cert, idx) => {
+    if (!cert.file.toLowerCase().endsWith('.png') && !cert.file.toLowerCase().endsWith('.jpg')) {
+      const loadingTask = pdfjsLib.getDocument(cert.file);
+      loadingTask.promise.then(pdf => {
+        pdf.getPage(1).then(page => {
+          const canvas = document.getElementById(`cert-media-${idx}`);
+          const context = canvas.getContext('2d');
+          const viewport = page.getViewport({ scale: 1.0 });
+          const scale = 600 / viewport.width;
+          const scaledViewport = page.getViewport({ scale: scale });
+          canvas.width = scaledViewport.width;
+          canvas.height = scaledViewport.height;
+          page.render({ canvasContext: context, viewport: scaledViewport });
+        });
+      }).catch(err => console.error("Error loading PDF thumbnail:", err));
+    }
+  });
+
+  function openCertModal(title, fileUrl) {
+    document.getElementById('cert-modal-title').innerText = title;
+    const body = document.getElementById('cert-modal-body');
+    const isImage = fileUrl.toLowerCase().endsWith('.png') || fileUrl.toLowerCase().endsWith('.jpg');
+    if (isImage) {
+      body.innerHTML = `<img src="${fileUrl}" style="width:100%; height:100%; object-fit:contain; padding:2rem;">`;
+    } else {
+      body.innerHTML = `<iframe src="${fileUrl}#toolbar=0" style="width:100%; height:100%; border:none;"></iframe>`;
+    }
+    document.getElementById('cert-modal').classList.add('active');
+  }
+
+  function closeCertModal() {
+    document.getElementById('cert-modal').classList.remove('active');
+    document.getElementById('cert-modal-body').innerHTML = '';
+  }
+
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+  
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  
+  setTimeout(() => {
+    document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
+  }, 100);
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>

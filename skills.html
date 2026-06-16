@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBM â€” Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="glow-cursor" id="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">MBM</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-dot"></div>Open to work</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div>
+    <div class="header-eyebrow">Skills & Stack</div>
+    <h1 class="header-title">Six languages.<br><span>Fluent in all.</span></h1>
+  </div>
+  <div class="header-right">
+    <p>From low-level C++ to cloud-deployed web apps â€” no friction switching between layers.</p>
+  </div>
+</header>
+
+<section id="skills" style="padding-top:0">
+  <div class="section-inner" style="padding-top:0">
+
+    <div class="about-grid">
+      <div class="reveal-l">
+        <div class="sec-label">Primary Stack</div>
+        <h2 class="about-headline">I build backends, design data structures, and architect systems.</h2>
+        <p class="about-body">Comfortable moving from raw algorithms to Spring-based APIs, async frontend logic, or database performance tuning.</p>
+        <div class="about-rule"></div>
+        <div style="font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1rem;">Tools & Platforms</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="proj-pill">HTML / CSS</span>
+          <span class="proj-pill">Git</span>
+          <span class="proj-pill">VS Code</span>
+          <span class="proj-pill">IntelliJ</span>
+          <span class="proj-pill">Vercel</span>
+          <span class="proj-pill">Linux CLI</span>
+          <span class="proj-pill">REST APIs</span>
+          <span class="proj-pill">Figma</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <table class="stack-tbl">
+          <tr>
+            <td style="font-size:16px; color:var(--text); padding-bottom:1.5rem; padding-top:1.5rem;">Java</td>
+            <td style="padding-bottom:1.5rem; padding-top:1.5rem;">Backend Â· Systems<br><span style="color:var(--muted2); font-size:12px;">Object-Oriented, Spring, DSA</span></td>
+            <td style="font-size:14px; padding-bottom:1.5rem; padding-top:1.5rem;"></td>
+          </tr>
+          <tr>
+            <td style="font-size:16px; color:var(--text); padding-bottom:1.5rem; padding-top:1.5rem;">JavaScript</td>
+            <td style="padding-bottom:1.5rem; padding-top:1.5rem;">Frontend Â· Backend<br><span style="color:var(--muted2); font-size:12px;">ES6+, Async, DOM</span></td>
+            <td style="font-size:14px; padding-bottom:1.5rem; padding-top:1.5rem;"></td>
+          </tr>
+          <tr>
+            <td style="font-size:16px; color:var(--text); padding-bottom:1.5rem; padding-top:1.5rem;">Python</td>
+            <td style="padding-bottom:1.5rem; padding-top:1.5rem;">Automation Â· Data<br><span style="color:var(--muted2); font-size:12px;">Scripting, Pandas, CLI</span></td>
+            <td style="font-size:14px; padding-bottom:1.5rem; padding-top:1.5rem;"></td>
+          </tr>
+          <tr>
+            <td style="font-size:16px; color:var(--text); padding-bottom:1.5rem; padding-top:1.5rem;">PHP</td>
+            <td style="padding-bottom:1.5rem; padding-top:1.5rem;">Web Backend<br><span style="color:var(--muted2); font-size:12px;">MVC, MySQL, REST</span></td>
+            <td style="font-size:14px; padding-bottom:1.5rem; padding-top:1.5rem;"></td>
+          </tr>
+          <tr>
+            <td style="font-size:16px; color:var(--text); padding-bottom:1.5rem; padding-top:1.5rem;">Databases</td>
+            <td style="padding-bottom:1.5rem; padding-top:1.5rem;">Data Layer<br><span style="color:var(--muted2); font-size:12px;">MySQL, PostgreSQL, NoSQL</span></td>
+            <td style="font-size:14px; padding-bottom:1.5rem; padding-top:1.5rem;"></td>
+          </tr>
+          <tr>
+            <td style="font-size:16px; color:var(--text); padding-bottom:1.5rem; padding-top:1.5rem;">C++</td>
+            <td style="padding-bottom:1.5rem; padding-top:1.5rem;">Systems Â· Low-level<br><span style="color:var(--muted2); font-size:12px;">Memory, Algorithms</span></td>
+            <td style="font-size:14px; padding-bottom:1.5rem; padding-top:1.5rem;"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>Bekasi, Indonesia</span>
+</footer>
+
+<script>
+  document.addEventListener('mousemove', e => {
+    const g = document.getElementById('glow');
+    g.style.left = e.clientX + 'px';
+    g.style.top = e.clientY + 'px';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
+</script>
+<script src="assets/js/mobile-nav.js"></script>
+</body>
+</html>
