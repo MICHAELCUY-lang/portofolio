@@ -21,18 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const projCards = document.querySelectorAll('.proj-card');
   projCards.forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('.proj-close-btn')) {
-        card.classList.remove('is-revealed');
-        e.stopPropagation();
-        return;
-      }
-      if (e.target.closest('.proj-card-link')) {
-        return;
-      }
-      if (card.classList.contains('is-revealed') && e.target.closest('.proj-card-body')) {
-        return; // Don't close if clicking inside details text area
-      }
-      card.classList.toggle('is-revealed');
+      window.location.href = 'portfolio.html';
     });
   });
 });

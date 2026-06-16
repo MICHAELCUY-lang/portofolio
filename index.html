@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Michael Bryan Mandey â€” Developer</title>
+<title>Michael Bryan Mandey — Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="assets/css/shared.css">
@@ -53,6 +53,10 @@
     box-shadow: 0 28px 70px rgba(0,0,0,.36);
   }
 
+  .focus-card.is-active:hover {
+    transform: translateX(-50%) scale(1) translateY(-8px) !important;
+  }
+
   .focus-card.is-before {
     transform: translateX(-112%) scale(.82);
     opacity: .42;
@@ -60,11 +64,19 @@
     z-index: 2;
   }
 
+  .focus-card.is-before:hover {
+    transform: translateX(-112%) scale(.82) translateY(-8px) !important;
+  }
+
   .focus-card.is-after {
     transform: translateX(12%) scale(.82);
     opacity: .42;
     filter: blur(3px);
     z-index: 2;
+  }
+
+  .focus-card.is-after:hover {
+    transform: translateX(12%) scale(.82) translateY(-8px) !important;
   }
 
   .focus-card.is-far {
@@ -506,7 +518,7 @@
     </h1>
     <p class="hero-bio">Building clean, fast software that holds up under scrutiny. President University, Bekasi.</p>
     <div class="hero-actions">
-      <a href="#projects" class="btn-gold">View Work â†“</a>
+      <a href="#projects" class="btn-gold">View Work ↓</a>
       <a href="#contact" class="btn-ghost">Contact me</a>
     </div>
     <div class="hero-stats">
@@ -550,18 +562,18 @@
       <div class="reveal">
         <div class="sec-label">About</div>
         <h2 class="about-headline">I write code that's <em>fast</em>, <em>deliberate</em>, and worth keeping.</h2>
-        <p class="about-body">IT student at President University with a real obsession for building well. Not just code that runs â€” code that's readable, efficient, and scales beyond the first version.</p>
+        <p class="about-body">IT student at President University with a real obsession for building well. Not just code that runs — code that's readable, efficient, and scales beyond the first version.</p>
         <p class="about-body">I move freely across the full stack. Java in the backend, JavaScript in the browser, Python for anything in between, databases tying it all together.</p>
         <div class="about-rule"></div>
         <table class="stack-tbl">
-          <tr><td>Java</td><td>OOP Â· Spring Â· DSA</td><td></td></tr>
-          <tr><td>JavaScript</td><td>ES6+ Â· Async Â· REST</td><td></td></tr>
-          <tr><td>Python</td><td>Scripting Â· Automation</td><td></td></tr>
-          <tr><td>PHP</td><td>MVC Â· Server-side</td><td></td></tr>
-          <tr><td>Databases</td><td>MySQL Â· PostgreSQL</td><td></td></tr>
-          <tr><td>C++</td><td>Algorithms Â· Memory</td><td></td></tr>
+          <tr><td>Java</td><td>OOP · Spring · DSA</td><td></td></tr>
+          <tr><td>JavaScript</td><td>ES6+ · Async · REST</td><td></td></tr>
+          <tr><td>Python</td><td>Scripting · Automation</td><td></td></tr>
+          <tr><td>PHP</td><td>MVC · Server-side</td><td></td></tr>
+          <tr><td>Databases</td><td>MySQL · PostgreSQL</td><td></td></tr>
+          <tr><td>C++</td><td>Algorithms · Memory</td><td></td></tr>
         </table>
-        <div style="margin-top:2rem"><a href="about.html" class="btn-ghost">Full About â†’</a></div>
+        <div style="margin-top:2rem"><a href="about.html" class="btn-ghost">Full About →</a></div>
       </div>
     </div>
   </div>
@@ -601,7 +613,7 @@
           <button class="proj-close-btn" aria-label="Close details">&times;</button>
           <div class="proj-card-body-inner">
             <div class="proj-card-title">GBI Glow Bekasi</div>
-            <p class="proj-card-desc">Full community website for a Bekasi church â€” event listings, service schedules, and content management. Built entirely from scratch, no CMS, deployed live.</p>
+            <p class="proj-card-desc">Full community website for a Bekasi church — event listings, service schedules, and content management. Built entirely from scratch, no CMS, deployed live.</p>
             
             <div class="proj-features-section">
               <div class="proj-features-title"><i class="fas fa-layer-group"></i> Key Features:</div>
@@ -615,7 +627,7 @@
             <div class="proj-card-pills">
               <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">Vercel</span>
             </div>
-            <a href="https://gbiglowbekasi.vercel.app" target="_blank" class="proj-card-link">Visit site â†’</a>
+            <a href="https://gbiglowbekasi.vercel.app" target="_blank" class="proj-card-link">Visit site →</a>
           </div>
         </div>
       </div>
@@ -633,7 +645,7 @@
           <button class="proj-close-btn" aria-label="Close details">&times;</button>
           <div class="proj-card-body-inner">
             <div class="proj-card-title">President Cupid</div>
-            <p class="proj-card-desc">Matchmaking platform for President University students. User profiles, compatibility engine, admin dashboard â€” launched and actively used on campus.</p>
+            <p class="proj-card-desc">Matchmaking platform for President University students. User profiles, compatibility engine, admin dashboard — launched and actively used on campus.</p>
             
             <div class="proj-features-section">
               <div class="proj-features-title"><i class="fas fa-layer-group"></i> Key Features:</div>
@@ -647,7 +659,7 @@
             <div class="proj-card-pills">
               <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">Real users</span>
             </div>
-            <a href="https://cupid.threeds.uno" target="_blank" class="proj-card-link">Visit site â†’</a>
+            <a href="https://cupid.threeds.uno" target="_blank" class="proj-card-link">Visit site →</a>
           </div>
         </div>
       </div>
@@ -665,7 +677,7 @@
           <button class="proj-close-btn" aria-label="Close details">&times;</button>
           <div class="proj-card-body-inner">
             <div class="proj-card-title">Student Org System</div>
-            <p class="proj-card-desc">Attendance and membership management for student organizations. Role-based access, attendance tracking, and report generation â€” replacing spreadsheet chaos.</p>
+            <p class="proj-card-desc">Attendance and membership management for student organizations. Role-based access, attendance tracking, and report generation — replacing spreadsheet chaos.</p>
             
             <div class="proj-features-section">
               <div class="proj-features-title"><i class="fas fa-layer-group"></i> Key Features:</div>
@@ -679,7 +691,7 @@
             <div class="proj-card-pills">
               <span class="proj-pill">HTML</span><span class="proj-pill">CSS</span><span class="proj-pill">JavaScript</span><span class="proj-pill">PHP</span><span class="proj-pill">MySQL</span>
             </div>
-            <a href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank" class="proj-card-link">View code â†’</a>
+            <a href="https://github.com/MICHAELCUY-lang/student_organization_attendance" target="_blank" class="proj-card-link">View code →</a>
           </div>
         </div>
       </div>
@@ -687,7 +699,7 @@
       </div>
     </div>
     <div class="slider-dots" id="proj-dots"></div>
-    <div class="more-row reveal"><a href="portfolio.html" class="btn-ghost">Full Portfolio â†’</a></div>
+    <div class="more-row reveal"><a href="portfolio.html" class="btn-ghost">Full Portfolio →</a></div>
   </div>
 </section>
 
@@ -779,7 +791,7 @@
       </div>
     </div>
     <div class="slider-dots" id="cert-dots"></div>
-    <div class="more-row reveal"><a href="certificates.html" class="btn-ghost">Full Gallery â†’</a></div>
+    <div class="more-row reveal"><a href="certificates.html" class="btn-ghost">Full Gallery →</a></div>
   </div>
 </section>
 
@@ -794,37 +806,36 @@
     </div>
     <div style="margin-top:4rem">
       <div class="edu-row" id="e1">
-        <div class="edu-meta"><div class="edu-period">2023 â€” Present</div><div class="edu-idx">01 / 03</div></div>
+        <div class="edu-meta"><div class="edu-period">2023 — Present</div><div class="edu-idx">01 / 03</div></div>
         <div class="edu-line-col"><div class="edu-dot"></div><div class="edu-vline"></div></div>
         <div class="edu-body">
-          <div class="edu-logo"><img src="assets/img/president.png" alt="President University"></div>
+          <div class="edu-logo"><img src="assets/images/president.png" alt="President University"></div>
           <div class="edu-school">President University</div>
-          <div class="edu-degree">Bachelor's â€” Information Technology</div>
+          <div class="edu-degree">Bachelor's — Information Technology</div>
           <p class="edu-note">Focused on software development, data structures, and system architecture. Shipping real projects every semester.</p>
         </div>
       </div>
       <div class="edu-row" id="e2" style="transition-delay:.1s">
-        <div class="edu-meta"><div class="edu-period">2021 â€” 2023</div><div class="edu-idx">02 / 03</div></div>
+        <div class="edu-meta"><div class="edu-period">2021 — 2023</div><div class="edu-idx">02 / 03</div></div>
         <div class="edu-line-col"><div class="edu-dot"></div><div class="edu-vline"></div></div>
         <div class="edu-body">
-          <div class="edu-logo"><img src="assets/img/ananda.png" alt="Ananda High School"></div>
+          <div class="edu-logo"><img src="assets/images/ananda.png" alt="Ananda High School"></div>
           <div class="edu-school">Ananda High School</div>
           <div class="edu-degree">Science Major</div>
           <p class="edu-note">Competed in programming events. Started taking software seriously as a craft, not just a class.</p>
         </div>
       </div>
       <div class="edu-row" id="e3" style="transition-delay:.2s">
-        <div class="edu-meta"><div class="edu-period">2018 â€” 2021</div><div class="edu-idx">03 / 03</div></div>
+        <div class="edu-meta"><div class="edu-period">2018 — 2021</div><div class="edu-idx">03 / 03</div></div>
         <div class="edu-line-col"><div class="edu-dot"></div><div class="edu-vline"></div></div>
         <div class="edu-body">
-          <div class="edu-logo"><img src="assets/img/strada.png" alt="Strada Middle School"></div>
+          <div class="edu-logo"><img src="assets/images/strada.png" alt="Strada Middle School"></div>
           <div class="edu-school">Strada Middle School</div>
           <div class="edu-degree">General Studies</div>
-          <p class="edu-note">First line of code. First taste of building something from nothing.</p>
+          <!-- <p class="edu-note">First line of code. First taste of building something from nothing.</p> -->
         </div>
       </div>
     </div>
-    <div class="more-row reveal"><a href="education.html" class="btn-ghost">Full Education â†’</a></div>
   </div>
 </section>
 
@@ -853,15 +864,14 @@
         <a class="c-soc" href="https://github.com/MICHAELCUY-lang" target="_blank"><i class="fab fa-github"></i></a>
         <a class="c-soc" href="https://www.linkedin.com/in/michael-bryan-mandey-34b673250" target="_blank"><i class="fab fa-linkedin-in"></i></a>
         <a class="c-soc" href="https://www.instagram.com/michael.mandey.79/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a class="c-soc" href="https://wa.me/6281297300254" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
-      <a class="c-cta" href="mailto:mbryanmandey@gmail.com">Send email â†’</a>
+      <a class="c-cta" href="mailto:mbryanmandey@gmail.com">Send email →</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <span>Â© 2025 Michael Bryan Mandey</span>
+  <span>© 2025 Michael Bryan Mandey</span>
   <span>Bekasi, Indonesia</span>
 </footer>
 
