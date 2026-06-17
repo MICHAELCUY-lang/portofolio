@@ -118,7 +118,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
 
 .hero-name{font-family:var(--syne);font-weight:800;
 
-  font-size:clamp(3.5rem,6vw,6rem);line-height:.9;letter-spacing:-.035em;
+  font-size:clamp(2.2rem,11vw,6rem);line-height:.9;letter-spacing:-.035em;
 
   color:var(--text);margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .35s forwards}
 
@@ -228,7 +228,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
 
 .header-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
 
-.header-title{font-family:var(--syne);font-weight:800;font-size:clamp(3rem,7vw,6rem);line-height:.92;letter-spacing:-.03em;color:var(--text)}
+.header-title{font-family:var(--syne);font-weight:800;font-size:clamp(1.8rem,8vw,6rem);line-height:.92;letter-spacing:-.03em;color:var(--text)}
 
 .header-title span{color:var(--gold)}
 
@@ -250,7 +250,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
 
 .sec-title{font-family:var(--syne);font-weight:800;
 
-  font-size:clamp(2.5rem,5vw,4.5rem);line-height:.95;letter-spacing:-.03em;
+  font-size:clamp(1.8rem,8vw,4.5rem);line-height:.95;letter-spacing:-.03em;
 
   color:var(--text);margin-bottom:1.5rem}
 
@@ -923,7 +923,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);
 
   
 
-  nav { padding: 1rem 1.5rem; backdrop-filter: none !important; }
+  nav { padding: 1.5rem; backdrop-filter: none !important; }
 
   .nav-pill { display: none; }
 

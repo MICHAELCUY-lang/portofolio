@@ -45,7 +45,7 @@ const projs = [document.getElementById('proj0'), document.getElementById('proj1'
 let lastSY = 0;
 const nav = document.querySelector('nav') || document.getElementById('nav');
 if (nav) {
-  nav.style.transition = 'transform .4s ease';
+  nav.style.transition = 'top .4s ease';
 }
 
 function raf() {
@@ -94,9 +94,9 @@ function raf() {
   /* Nav */
   if (nav) {
     if (sy > lastSY && sy > 100) {
-      nav.style.transform = 'translateY(-100%)';
+      nav.style.top = '-100px';
     } else {
-      nav.style.transform = 'translateY(0)';
+      nav.style.top = '0';
     }
   }
   lastSY = sy;

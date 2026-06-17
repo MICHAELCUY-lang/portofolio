@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -186,44 +186,57 @@
     color: var(--gold);
   }
 
-  .resume-frame {
-    width: 100%;
-    height: 720px;
-    border: none;
-    display: block;
-    background: #1a1a1a;
-  }
-
-  @media (max-width: 900px) {
-    .resume-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .resume-facts {
-      grid-template-columns: 1fr;
-    }
-
-    .resume-fact {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .resume-fact:last-child {
-      border-bottom: none;
-    }
-
-    .resume-item {
-      grid-template-columns: 1fr;
-      gap: .35rem;
-    }
-
-    .resume-viewer,
     .resume-frame {
-      min-height: 560px;
-      height: 560px;
+      width: 100%;
+      height: 720px;
+      border: none;
+      display: block;
+      background: #1a1a1a;
+      overflow-y: auto;
     }
-  }
-</style>
+
+    .resume-frame canvas {
+      max-width: 90%;
+      height: auto;
+      display: block;
+      margin: 0 auto 1.5rem auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 900px) {
+      .resume-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .resume-facts {
+        grid-template-columns: 1fr;
+      }
+
+      .resume-fact {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .resume-fact:last-child {
+        border-bottom: none;
+      }
+
+      .resume-item {
+        grid-template-columns: 1fr;
+        gap: .35rem;
+      }
+
+      .resume-viewer,
+      .resume-frame {
+        min-height: 560px;
+        height: 560px;
+      }
+      
+      .resume-frame canvas {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -331,7 +344,9 @@
           <span>Embedded Resume</span>
           <span>PDF Preview</span>
         </div>
-        <object class="resume-frame" data="assets/resume/CV_Michael%20Bryan%20Mandey(3).pdf#toolbar=0" type="application/pdf"><div style="height:100%; display:flex; align-items:center; justify-content:center; padding:2rem; text-align:center; color:var(--muted2); font-size:14px; line-height:1.8;">Resume PDF belum ditemukan di folder assets/resume. Taruh file CV di path tersebut agar preview dan download aktif.</div></object>
+        <div id="pdf-render-container" class="resume-frame" style="padding-top: 1.5rem;">
+          <div style="height:100%; display:flex; align-items:center; justify-content:center; padding:2rem; text-align:center; color:var(--muted2); font-size:14px; line-height:1.8;">Loading PDF preview...</div>
+        </div>
       </div>
     </div>
   </div>
@@ -354,6 +369,54 @@
   document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
 </script>
 <script src="assets/js/mobile-nav.js"></script>
+
+<!-- PDF.js for rendering PDF reliably on all devices (especially mobile) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const pdfUrl = 'assets/resume/CV_Michael%20Bryan%20Mandey(3).pdf';
+  const pdfContainer = document.getElementById('pdf-render-container');
+
+  let pdfDoc = null;
+
+  function renderPage(num) {
+    pdfDoc.getPage(num).then(function(page) {
+      const canvas = document.createElement('canvas');
+      pdfContainer.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      
+      const scale = 2.0; // High resolution render
+      const viewport = page.getViewport({ scale: scale });
+
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      const renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+
+      page.render(renderContext);
+    });
+  }
+
+  pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
+    pdfDoc = pdfDoc_;
+    pdfContainer.innerHTML = ''; // Clear loading text
+    for(let i = 1; i <= pdfDoc.numPages; i++) {
+      renderPage(i);
+    }
+  }).catch(function(error) {
+    pdfContainer.innerHTML = `
+      <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; color:var(--muted2); font-size:14px; line-height:1.8;">
+        <p>Resume PDF belum ditemukan atau gagal dimuat.</p>
+        <p>Taruh file CV di: assets/resume/CV_Michael%20Bryan%20Mandey(3).pdf</p>
+        <a href="${pdfUrl}" target="_blank" class="btn-gold" style="margin-top:1rem;">Download PDF</a>
+      </div>
+    `;
+  });
+</script>
 </body>
 </html>
 
