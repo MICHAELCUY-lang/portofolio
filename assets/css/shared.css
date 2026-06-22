@@ -476,6 +476,89 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
   flex-direction: column;
   gap: 10px;
 }
+
+/* Project Gallery inside Details (To be removed if completely unused, but keeping just in case) */
+.proj-gallery {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin: 24px 0;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x mandatory;
+}
+
+.proj-gallery::-webkit-scrollbar {
+  height: 4px;
+}
+.proj-gallery::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+
+.proj-gallery img {
+  height: 280px;
+  width: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  object-fit: cover;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+}
+
+.proj-gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* Slider Navigation on Covers */
+.proj-slider-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through by default */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show arrows on hover of the image wrapper */
+.proj-card-img-wrap:hover .proj-slider-nav,
+.proj-thumb:hover .proj-slider-nav {
+  opacity: 1;
+}
+
+.proj-slider-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto; /* Enable clicks on the buttons */
+  backdrop-filter: blur(4px);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.proj-slider-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.proj-slider-btn i {
+  font-size: 14px;
+}
+
 .proj-features-list li {
   font-size: 13px;
   line-height: 1.5;
