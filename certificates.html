@@ -93,8 +93,10 @@
   const certificates = [
     { title: "Junior Web Developer", org: "BNSP", date: "Nov 2023", file: "assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.pdf" },
     { title: "Belajar Dasar Pemrograman Web", org: "Dicoding", date: "Sep 2023", file: "assets/certificates/sertifikat_course_Michael Bryan Mandey.pdf" },
+    { title: "Machine Learning Beginner", org: "Dicoding", date: "2024", file: "assets/certificates/sertifikat_course_Michael Bryan Mandey_Machine Learning Beginner.pdf" },
     { title: "Python Course", org: "Dicoding", date: "2024", file: "assets/certificates/sertifikat_course_Michael Bryan Mandey_Python.pdf" },
     { title: "Microsoft Azure Course", org: "Dicoding", date: "2024", file: "assets/certificates/sertifikat_course_Michael Bryan Mandey_Microsoft Azure.pdf" },
+    { title: "Junior Web Developer", org: "BPPTIK", date: "2023", file: "assets/certificates/SERTIFIKAT JUNIOR WEB DEVELOPER BY BPPTIK.jpeg" },
     { title: "Participant Certificate", org: "Event", date: "2024", file: "assets/certificates/Michael Bryan Mandey.pdf" },
     { title: "Company Visit", org: "University", date: "2023", file: "assets/certificates/SERTIFIKAT Company Visit1.png" },
     { title: "ICON Event", org: "Organization", date: "2023", file: "assets/certificates/SERTIFIKAT ICON.png" }
@@ -103,7 +105,7 @@
   const gallery = document.getElementById('cert-gallery');
   
   certificates.forEach((cert, idx) => {
-    const isImage = cert.file.toLowerCase().endsWith('.png') || cert.file.toLowerCase().endsWith('.jpg');
+    const isImage = cert.file.toLowerCase().endsWith('.png') || cert.file.toLowerCase().endsWith('.jpg') || cert.file.toLowerCase().endsWith('.jpeg');
     const mediaId = `cert-media-${idx}`;
     
     gallery.innerHTML += `
@@ -119,7 +121,7 @@
   });
 
   certificates.forEach((cert, idx) => {
-    if (!cert.file.toLowerCase().endsWith('.png') && !cert.file.toLowerCase().endsWith('.jpg')) {
+    if (!cert.file.toLowerCase().endsWith('.png') && !cert.file.toLowerCase().endsWith('.jpg') && !cert.file.toLowerCase().endsWith('.jpeg')) {
       const loadingTask = pdfjsLib.getDocument(cert.file);
       loadingTask.promise.then(pdf => {
         pdf.getPage(1).then(page => {
@@ -139,7 +141,7 @@
   function openCertModal(title, fileUrl) {
     document.getElementById('cert-modal-title').innerText = title;
     const body = document.getElementById('cert-modal-body');
-    const isImage = fileUrl.toLowerCase().endsWith('.png') || fileUrl.toLowerCase().endsWith('.jpg');
+    const isImage = fileUrl.toLowerCase().endsWith('.png') || fileUrl.toLowerCase().endsWith('.jpg') || fileUrl.toLowerCase().endsWith('.jpeg');
     if (isImage) {
       body.innerHTML = `<img src="${fileUrl}" style="width:100%; height:100%; object-fit:contain; padding:2rem;">`;
     } else {
