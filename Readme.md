@@ -1,7 +1,6 @@
 # Michael Bryan Mandey - Developer Portfolio
 
 ![Banner](assets/images/projects/gbi-glow/cover.png)
-*(Placeholder banner - replace with actual portfolio screenshot)*
 
 ## 1. Project Overview
 - **Project Name**: Michael Bryan Mandey - Developer Portfolio
