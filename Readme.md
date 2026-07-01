@@ -19,11 +19,6 @@
 - **Vercel**: For deployment and static hosting (via `vercel.json`).
 
 ## 3. Libraries
-**Production Dependencies**
-- *Not detected in this project.* This is a Vanilla JS/CSS/HTML project without a `package.json`.
-
-**Development Dependencies**
-- *Not detected in this project.*
 
 **External Resources via CDN**
 - **Font Awesome 6.5.1**: Used for icons across the UI.
