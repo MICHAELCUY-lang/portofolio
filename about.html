@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,8 +7,71 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/shared.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ── Web Component Calendar Styles ── */
+:root {
+  --contributions-calendar-day-tile-default-background: #161616;
+  --contributions-calendar-day-tile-margin: 3px;
+  --contributions-calendar-day-tile-height: 13px;
+  --contributions-calendar-day-tile-width: 13px;
+}
+contributions-calendar#gh-calendar {
+  --contributions-calendar-day-tile-one-quarter-background: rgba(201,168,76,0.2);
+  --contributions-calendar-day-tile-two-quarters-background: rgba(201,168,76,0.45);
+  --contributions-calendar-day-tile-three-quarters-background: rgba(201,168,76,0.7);
+  --contributions-calendar-day-tile-four-quarters-background: var(--gold);
+}
+@media (max-width: 768px) {
+  :root {
+    --contributions-calendar-day-tile-margin: 2px;
+    --contributions-calendar-day-tile-height: 10px;
+    --contributions-calendar-day-tile-width: 10px;
+  }
+}
+
+/* Stats row */
+.gh-stats-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.gh-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.gh-stat-val {
+  font-family: var(--syne);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.gh-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+@media (max-width: 768px) {
+  .gh-stat-val { font-size: 22px; }
+}
+</style>
+  <link rel="stylesheet" href="assets/css/dock.css">
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://esm.sh/three@0.160.0",
+        "postprocessing": "https://esm.sh/postprocessing@6.34.1?deps=three@0.160.0"
+      }
+    }
+  </script>
+
 </head>
 <body>
+  <div id="pixel-blast-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; background: transparent;"></div>
 
 <div class="glow-cursor" id="glow"></div>
 
@@ -58,10 +121,27 @@
         <table class="stack-tbl">
           <tr><td>Current Focus</td><td>Full-Stack Web Dev</td><td></td></tr>
           <tr><td>Based In</td><td>Bekasi, Indonesia</td><td></td></tr>
-          <tr><td>Availability</td><td>Open to work</td><td><span style="color:var(--gold)">â—</span></td></tr>
+          <tr><td>Availability</td><td>Open to work</td><td><span style="color:var(--gold)">●</span></td></tr>
         </table>
       </div>
     </div>
+
+    <!-- GitHub Stats Section -->
+    <div class="github-stats-container reveal">
+      <div class="sec-label">GitHub Activity</div>
+      <h2 class="about-headline">Code I've written lately</h2>
+      
+      <div class="github-grid">
+        <div class="github-calendar-wrap">
+          <div id="gh-stats-row" class="gh-stats-row"></div>
+          <img src="https://ghchart.rshah.org/c9a84c/MICHAELCUY-lang" alt="GitHub Contributions Calendar" style="width: 100%; margin-top: 1rem; filter: brightness(0.9) contrast(1.1);">
+        </div>
+        <div class="github-langs-wrap">
+          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MICHAELCUY-lang&layout=compact&theme=radical&hide_border=true&bg_color=111111&text_color=ffffff&title_color=c9a84c" alt="Top Languages">
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -81,6 +161,97 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-l').forEach(el => obs.observe(el));
 </script>
+
+<script>
+(function() {
+  const USERNAME = 'MICHAELCUY-lang';
+  const statsEl = document.getElementById('gh-stats-row');
+
+  // Fetch data from CORS-friendly API
+  fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`)
+    .then(res => res.json())
+    .then(data => {
+      let totalContributions = 0;
+      let activeDays = 0;
+      let maxStreak = 0;
+      let tempStreak = 0;
+      let dateArray = [];
+
+      data.contributions.forEach(day => {
+        const count = day.count || 0;
+        totalContributions += count;
+        
+        if (count > 0) {
+          activeDays++;
+          tempStreak++;
+          if (tempStreak > maxStreak) maxStreak = tempStreak;
+          
+          // The web component expects an array of dates, repeated for multiple contributions
+          for (let i = 0; i < count; i++) {
+            dateArray.push(day.date);
+          }
+        } else {
+          tempStreak = 0;
+        }
+      });
+
+      // Show stats above the calendar
+      statsEl.innerHTML = `
+        <div class="gh-stat"><span class="gh-stat-val">${totalContributions}</span><span class="gh-stat-label">Contributions</span></div>
+        <div class="gh-stat"><span class="gh-stat-val">${activeDays}</span><span class="gh-stat-label">Active Days</span></div>
+        <div class="gh-stat"><span class="gh-stat-val">${maxStreak}</span><span class="gh-stat-label">Best Streak</span></div>
+      `;
+    })
+    .catch(() => {
+      statsEl.innerHTML = '';
+      const wrap = document.querySelector('.github-calendar-wrap');
+      wrap.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:13px;text-align:center;padding:2rem 0;">Unable to load GitHub data.</p>';
+    });
+})();
+</script>
+
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="assets/js/mobile-nav.js"></script>
+
+  <div class="dock-outer">
+    <div class="dock-panel" role="toolbar" aria-label="Application dock">
+      <a href="index.html" class="dock-item" aria-label="Home">
+        <div class="dock-icon"><i class="fas fa-home"></i></div>
+        <div class="dock-label">Home</div>
+      </a>
+      <a href="about.html" class="dock-item active" aria-label="About">
+        <div class="dock-icon"><i class="fas fa-user"></i></div>
+        <div class="dock-label">About</div>
+      </a>
+      <a href="portfolio.html" class="dock-item" aria-label="Portfolio">
+        <div class="dock-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="dock-label">Portfolio</div>
+      </a>
+      <a href="certificates.html" class="dock-item" aria-label="Certificates">
+        <div class="dock-icon"><i class="fas fa-award"></i></div>
+        <div class="dock-label">Certificates</div>
+      </a>
+      <a href="resume.html" class="dock-item" aria-label="Resume">
+        <div class="dock-icon"><i class="fas fa-file-alt"></i></div>
+        <div class="dock-label">Resume</div>
+      </a>
+      <a href="contact.html" class="dock-item" aria-label="Contact">
+        <div class="dock-icon"><i class="fas fa-envelope"></i></div>
+        <div class="dock-label">Contact</div>
+      </a>
+    </div>
+  </div>
+
+  <script src="assets/js/dock.js"></script>
+
+  <script type="module">
+    import { PixelBlast } from './assets/js/pixelblast.js';
+    new PixelBlast(document.getElementById('pixel-blast-bg'), {
+      color: '#c9a84c',
+      enableRipples: false,
+      liquid: false
+    });
+  </script>
+
 </body>
 </html>

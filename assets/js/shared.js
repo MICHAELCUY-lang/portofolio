@@ -132,6 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log("Terminal button clicked");
       termModal.classList.add('open');
       termModal.classList.add('active');
+      const dock = document.querySelector('.dock-outer');
+      if (dock) dock.style.display = 'none';
       const termInput = document.getElementById('terminal-input');
       if (termInput) termInput.focus();
     });
@@ -144,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log("Typing button clicked");
       typingModal.classList.add('open');
       typingModal.classList.add('active');
+      const dock = document.querySelector('.dock-outer');
+      if (dock) dock.style.display = 'none';
       initTypingTest();
     });
   } else {
@@ -158,6 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modal) {
         modal.classList.remove('open');
         modal.classList.remove('active');
+        const dock = document.querySelector('.dock-outer');
+        if (dock) dock.style.display = '';
       }
     });
   });

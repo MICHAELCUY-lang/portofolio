@@ -278,9 +278,21 @@
         }
       }
   </style>
+  <link rel="stylesheet" href="assets/css/dock.css">
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://esm.sh/three@0.160.0",
+        "postprocessing": "https://esm.sh/postprocessing@6.34.1?deps=three@0.160.0"
+      }
+    }
+  </script>
+
 </head>
 
 <body>
+  <div id="pixel-blast-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; background: transparent;"></div>
 
   <div class="glow-cursor" id="glow"></div>
 
@@ -549,7 +561,49 @@
     }
   </script>
   <script src="assets/js/project-slider.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="assets/js/mobile-nav.js"></script>
+
+  <div class="dock-outer">
+    <div class="dock-panel" role="toolbar" aria-label="Application dock">
+      <a href="index.html" class="dock-item" aria-label="Home">
+        <div class="dock-icon"><i class="fas fa-home"></i></div>
+        <div class="dock-label">Home</div>
+      </a>
+      <a href="about.html" class="dock-item" aria-label="About">
+        <div class="dock-icon"><i class="fas fa-user"></i></div>
+        <div class="dock-label">About</div>
+      </a>
+      <a href="portfolio.html" class="dock-item active" aria-label="Portfolio">
+        <div class="dock-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="dock-label">Portfolio</div>
+      </a>
+      <a href="certificates.html" class="dock-item" aria-label="Certificates">
+        <div class="dock-icon"><i class="fas fa-award"></i></div>
+        <div class="dock-label">Certificates</div>
+      </a>
+      <a href="resume.html" class="dock-item" aria-label="Resume">
+        <div class="dock-icon"><i class="fas fa-file-alt"></i></div>
+        <div class="dock-label">Resume</div>
+      </a>
+      <a href="contact.html" class="dock-item" aria-label="Contact">
+        <div class="dock-icon"><i class="fas fa-envelope"></i></div>
+        <div class="dock-label">Contact</div>
+      </a>
+    </div>
+  </div>
+
+  <script src="assets/js/dock.js"></script>
+
+  <script type="module">
+    import { PixelBlast } from './assets/js/pixelblast.js';
+    new PixelBlast(document.getElementById('pixel-blast-bg'), {
+      color: '#c9a84c',
+      enableRipples: false,
+      liquid: false
+    });
+  </script>
+
 </body>
 
 </html>

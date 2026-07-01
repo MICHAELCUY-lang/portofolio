@@ -24,6 +24,7 @@
     .focus-track {
       position: relative;
       height: 100%;
+      width: 100%;
       display: block;
       gap: 0;
       transform: none !important;
@@ -34,7 +35,8 @@
       position: absolute;
       top: 0;
       left: 50%;
-      width: min(58%, 680px);
+      width: 680px;
+      max-width: 58vw;
       height: calc(100% - 10px);
       min-width: 0 !important;
       transform: translateX(-50%) scale(.72);
@@ -87,18 +89,12 @@
       filter: blur(8px);
     }
 
-    .focus-track .proj-card {
-      display: flex;
-      flex-direction: column;
-    }
 
-    .focus-track .proj-card-body {
-      height: auto;
-      flex: 1;
-    }
 
     .focus-track .cert-card {
-      width: min(52%, 540px);
+      width: 540px;
+      max-width: 52vw;
+      height: auto !important;
       padding: 0;
       display: flex;
       flex-direction: column;
@@ -123,13 +119,6 @@
       background: #f4f0e8;
     }
 
-    .cert-preview::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 62%, rgba(10, 10, 10, .72));
-      pointer-events: none;
-    }
 
     .cert-preview-fallback {
       height: 100%;
@@ -186,6 +175,8 @@
     .tool-panel {
       width: min(920px, 100%);
       max-height: min(760px, 88vh);
+      display: flex;
+      flex-direction: column;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       background: linear-gradient(145deg, rgba(20, 20, 20, 0.65), rgba(10, 10, 10, 0.85));
@@ -257,9 +248,10 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-    /* Terminal Enhancements */
     .terminal-body {
       height: 440px;
+      flex-shrink: 1;
+      min-height: 0;
       overflow: auto;
       padding: 1.6rem;
       font-family: 'Consolas', 'Courier New', monospace;
@@ -493,9 +485,28 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="assets/css/dock.css">
+  <script>
+    window.addEventListener('error', function(e) {
+      const el = document.createElement('div');
+      el.style = 'position:fixed; top:10px; left:0; width:100%; background:red; color:white; z-index:10000; padding: 20px;';
+      el.textContent = 'Global Error: ' + e.message + ' | File: ' + e.filename + ' | Line: ' + e.lineno;
+      document.body.appendChild(el);
+    });
+  </script>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://esm.sh/three@0.160.0",
+        "postprocessing": "https://esm.sh/postprocessing@6.34.1?deps=three@0.160.0"
+      }
+    }
+  </script>
+
 </head>
 
 <body>
+  <div id="pixel-blast-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; background: transparent;"></div>
 
   <div class="glow-cursor" id="glow"></div>
 
@@ -527,28 +538,17 @@
     <div class="hero-left">
       <div class="hero-eyebrow">Software Developer &amp; IT Student</div>
       <h1 class="hero-name">
-        Michael<br>
-        <span class="hollow">Bryan</span><br>
-        <span class="gold">Mandey</span>
+        <span class="sr-only">Michael Bryan Mandey</span>
+        <span class="hero-name-anim" aria-hidden="true" style="display: block; clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);">
+          Michael<br>
+          <span class="hollow">Bryan</span><br>
+          <span class="gold">Mandey</span>
+        </span>
       </h1>
       <p class="hero-bio">Building clean, fast software that holds up under scrutiny. President University, Bekasi.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn-gold">View Work ↓</a>
         <a href="#contact" class="btn-ghost">Contact me</a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num">03</div>
-          <div class="hero-stat-lbl">Live projects</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">6+</div>
-          <div class="hero-stat-lbl">Languages</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">2023</div>
-          <div class="hero-stat-lbl">Since</div>
-        </div>
       </div>
     </div>
 
@@ -567,6 +567,62 @@
 
     <div class="hero-scroll">scroll</div>
   </section>
+  <!-- â”€â”€ LOGO LOOP â”€â”€ -->
+  <section class="logo-loop-section">
+    <div class="logo-loop-track">
+      <!-- First set -->
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="real-logo"> JavaScript</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="real-logo"> Python</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="real-logo"> C++</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="real-logo"> PHP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="real-logo"> SQL</div>
+      
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java JSP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="real-logo"> Node.js</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" class="real-logo"> MySQL</div>
+      
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" class="real-logo"> Kali Linux</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" class="real-logo" style="filter: brightness(0) invert(1);"> Cisco</div>
+      <div class="logo-item"><i class="fa-solid fa-magnifying-glass" style="color: var(--gold); font-size: 2rem;"></i> Autopsy</div>
+      <div class="logo-item"><i class="fa-solid fa-hard-drive" style="color: var(--gold); font-size: 2rem;"></i> FTK Imager</div>
+      
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="real-logo"> Git</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="real-logo" style="filter: invert(1);"> GitHub</div>
+      
+      <div class="logo-item"><img src="https://cryptologos.cc/logos/internet-computer-icp-logo.svg?v=032" class="real-logo"> ICP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="real-logo"> Azure</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="real-logo" style="filter: invert(1);"> Roblox Studio</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="real-logo"> Bootstrap</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" class="real-logo"> Postman</div>
+      
+      <!-- Duplicate set for seamless looping -->
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="real-logo"> JavaScript</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="real-logo"> Python</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="real-logo"> C++</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="real-logo"> PHP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="real-logo"> SQL</div>
+      
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java JSP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="real-logo"> Node.js</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" class="real-logo"> MySQL</div>
+      
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" class="real-logo"> Kali Linux</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" class="real-logo" style="filter: brightness(0) invert(1);"> Cisco</div>
+      <div class="logo-item"><i class="fa-solid fa-magnifying-glass" style="color: var(--gold); font-size: 2rem;"></i> Autopsy</div>
+      <div class="logo-item"><i class="fa-solid fa-hard-drive" style="color: var(--gold); font-size: 2rem;"></i> FTK Imager</div>
+      
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="real-logo"> Git</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="real-logo" style="filter: invert(1);"> GitHub</div>
+      
+      <div class="logo-item"><img src="https://cryptologos.cc/logos/internet-computer-icp-logo.svg?v=032" class="real-logo"> ICP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="real-logo"> Azure</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="real-logo" style="filter: invert(1);"> Roblox Studio</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="real-logo"> Bootstrap</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" class="real-logo"> Postman</div>
+    </div>
+  </section>
 
   <div class="sec-divider"></div>
 
@@ -584,45 +640,68 @@
           </div>
         </div>
         <div class="reveal">
-          <div class="sec-label">About</div>
-          <h2 class="about-headline">I write code that's <em>fast</em>, <em>deliberate</em>, and worth keeping.</h2>
-          <p class="about-body">IT student at President University with a real obsession for building well. Not just
-            code that runs — code that's readable, efficient, and scales beyond the first version.</p>
-          <p class="about-body">I move freely across the full stack. Java in the backend, JavaScript in the browser,
-            Python for anything in between, databases tying it all together.</p>
-          <div class="about-rule"></div>
-          <table class="stack-tbl">
-            <tr>
-              <td>Java</td>
-              <td>OOP · Spring · DSA</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>JavaScript</td>
-              <td>ES6+ · Async · REST</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Python</td>
-              <td>Scripting · Automation</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>PHP</td>
-              <td>MVC · Server-side</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Databases</td>
-              <td>MySQL · PostgreSQL</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>C++</td>
-              <td>Algorithms · Memory</td>
-              <td></td>
-            </tr>
-          </table>
+          <div class="sec-label">Skills & Tech Stack</div>
+          <h2 class="about-headline">Tools I use to <em>build</em> and <em>secure</em> systems.</h2>
+          
+          <div class="tech-stack-container" style="margin-top: 2rem;">
+            
+            <div class="tech-category" style="margin-bottom: 1.5rem;">
+              <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Programming Languages</h3>
+              <div class="proj-card-pills">
+                <span class="proj-pill">Python</span>
+                <span class="proj-pill">Java</span>
+                <span class="proj-pill">JavaScript</span>
+                <span class="proj-pill">PHP</span>
+                <span class="proj-pill">C++</span>
+                <span class="proj-pill">SQL</span>
+                <span class="proj-pill">HTML</span>
+                <span class="proj-pill">CSS</span>
+              </div>
+            </div>
+
+            <div class="tech-category" style="margin-bottom: 1.5rem;">
+              <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Frameworks & Backend</h3>
+              <div class="proj-card-pills">
+                <span class="proj-pill">Node.js</span>
+                <span class="proj-pill">Java JSP</span>
+                <span class="proj-pill">Laravel</span>
+                <span class="proj-pill">Bootstrap</span>
+              </div>
+            </div>
+
+            <div class="tech-category" style="margin-bottom: 1.5rem;">
+              <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Database & Cloud</h3>
+              <div class="proj-card-pills">
+                <span class="proj-pill">MySQL</span>
+                <span class="proj-pill">PHPMyAdmin</span>
+                <span class="proj-pill">Microsoft Azure</span>
+                <span class="proj-pill">ICP (Web3)</span>
+              </div>
+            </div>
+
+            <div class="tech-category" style="margin-bottom: 1.5rem;">
+              <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Cybersecurity</h3>
+              <div class="proj-card-pills">
+                <span class="proj-pill">Kali Linux</span>
+                <span class="proj-pill">Cisco Packet Tracer</span>
+                <span class="proj-pill">Capture The Flag (CTF)</span>
+                <span class="proj-pill">Network Fundamentals</span>
+                <span class="proj-pill">Autopsy</span>
+                <span class="proj-pill">FTK Imager</span>
+              </div>
+            </div>
+
+            <div class="tech-category" style="margin-bottom: 1.5rem;">
+              <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Tools & Version Control</h3>
+              <div class="proj-card-pills">
+                <span class="proj-pill">Git</span>
+                <span class="proj-pill">GitHub</span>
+                <span class="proj-pill">Postman</span>
+                <span class="proj-pill">Roblox Studio</span>
+              </div>
+            </div>
+
+          </div>
           <div style="margin-top:2rem"><a href="about.html" class="btn-ghost">Full About →</a></div>
         </div>
       </div>
@@ -1193,8 +1272,9 @@
       g.style.left = e.clientX + 'px'; g.style.top = e.clientY + 'px';
     });
 
-    /* â”€â”€ PARALLAX â”€â”€ */
+    /* â”€â”€ PARALLAX (Disabled) â”€â”€ */
     let ticking = false;
+    /*
     window.addEventListener('scroll', () => {
       if (!ticking) { requestAnimationFrame(doParallax); ticking = true; }
     });
@@ -1210,6 +1290,7 @@
       if (photo) photo.style.transform = `translateY(${sy * .06}px)`;
       ticking = false;
     }
+    */
 
     /* â”€â”€ FOCUS CAROUSEL â”€â”€ */
     function makeFocusSlider(trackId, prevId, nextId, dotsId, options = {}) {
@@ -1306,7 +1387,75 @@
     document.querySelectorAll('.reveal,.reveal-l,.edu-row').forEach(el => obs.observe(el));
   </script>
   <script src="assets/js/project-slider.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Split the animated text
+      const heroText = new SplitType('.hero-name-anim', { types: 'lines, words, chars' });
+      
+      // Animate characters revealing upwards
+      gsap.from(heroText.chars, {
+        y: 100,
+        opacity: 0,
+        rotationZ: 5,
+        duration: 1.2,
+        ease: "power4.out",
+        stagger: 0.04,
+        delay: 0.2
+      });
+    });
+  </script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="assets/js/mobile-nav.js"></script>
+
+  <div class="dock-outer">
+    <div class="dock-panel" role="toolbar" aria-label="Application dock">
+      <a href="index.html" class="dock-item active" aria-label="Home">
+        <div class="dock-icon"><i class="fas fa-home"></i></div>
+        <div class="dock-label">Home</div>
+      </a>
+      <a href="about.html" class="dock-item" aria-label="About">
+        <div class="dock-icon"><i class="fas fa-user"></i></div>
+        <div class="dock-label">About</div>
+      </a>
+      <a href="portfolio.html" class="dock-item" aria-label="Portfolio">
+        <div class="dock-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="dock-label">Portfolio</div>
+      </a>
+      <a href="certificates.html" class="dock-item" aria-label="Certificates">
+        <div class="dock-icon"><i class="fas fa-award"></i></div>
+        <div class="dock-label">Certificates</div>
+      </a>
+      <a href="resume.html" class="dock-item" aria-label="Resume">
+        <div class="dock-icon"><i class="fas fa-file-alt"></i></div>
+        <div class="dock-label">Resume</div>
+      </a>
+      <a href="contact.html" class="dock-item" aria-label="Contact">
+        <div class="dock-icon"><i class="fas fa-envelope"></i></div>
+        <div class="dock-label">Contact</div>
+      </a>
+    </div>
+  </div>
+
+  <script src="assets/js/dock.js"></script>
+
+  <script type="module">
+    import { PixelBlast } from './assets/js/pixelblast.js';
+    try {
+      new PixelBlast(document.getElementById('pixel-blast-bg'), {
+        color: '#c9a84c',
+        enableRipples: false,
+        liquid: false
+      });
+    } catch(err) {
+      const el = document.createElement('div');
+      el.style = 'position:fixed; top:50px; left:0; width:100%; background:red; color:white; z-index:9999; padding: 20px;';
+      el.textContent = 'PixelBlast Error: ' + err.message + ' | Stack: ' + err.stack;
+      document.body.appendChild(el);
+    }
+  </script>
+
 </body>
 
 </html>

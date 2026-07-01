@@ -24,4 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = 'portfolio.html';
     });
   });
+
+  // Initialize Lenis Smooth Scroll if available
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      autoRaf: true, // Let Lenis try to handle it automatically
+    });
+    
+    // Explicitly add our own RAF loop just in case autoRaf fails on this specific version
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
 });

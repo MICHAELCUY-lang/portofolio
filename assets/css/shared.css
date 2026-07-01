@@ -14,9 +14,11 @@
 
 }
 
-html{scroll-behavior:smooth}
+html{background:var(--bg);}
 
-body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+body{color:var(--text);font-family:var(--sans);overflow-x:hidden;background:transparent;}
+
+.pixel-blast-bg{background:var(--bg);z-index:-1}
 
 
 
@@ -42,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
 
   letter-spacing:.12em;text-decoration:none}
 
-.nav-links{list-style:none;display:flex;gap:2rem}
+.nav-links{display:none;}
 
 .nav-links a{font-size:13px;color:var(--muted2);text-decoration:none;
 
@@ -61,6 +63,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;gap:7px}
 
 .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+
+.nav-toggle{display:none !important;}
 
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 
@@ -94,13 +98,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
 
   width:100%;height:100%}
 
-.px-orb{
+.px-orb {
+  position: absolute; width: 500px; height: 500px;
+  /* Slightly stronger gold color so the morphing shape is more visible */
+  background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+  top: 10%; right: -100px;
+  /* Organic blob morphing animation */
+  animation: blob-morph 10s ease-in-out infinite alternate;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
 
-  position:absolute;width:500px;height:500px;border-radius:50%;
-
-  background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);
-
-  top:10%;right:-100px}
+@keyframes blob-morph {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  33% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  66% { border-radius: 70% 30% 40% 60% / 40% 70% 60% 30%; }
+  100% { border-radius: 40% 60% 30% 70% / 60% 40% 70% 30%; }
+}
 
 .px-lines{position:absolute;right:0;top:0;bottom:0;width:1px;background:var(--border)}
 
@@ -1358,6 +1371,200 @@ footer{background:var(--bg);border-top:1px solid var(--border);
   background: var(--surface); padding: 1rem; border-radius: 4px;
   border: 1px solid var(--border); text-align: center;
 }
+
+.tool-close {
+
+  background: transparent; border: none; color: var(--muted2);
+
+  cursor: pointer; font-size: 16px; transition: color 0.2s;
+
+}
+
+.tool-close:hover { color: #fff; }
+
+
+
+/* Terminal */
+
+.terminal-body {
+
+  padding: 1.5rem; height: 300px; overflow-y: auto;
+
+  font-family: var(--mono); font-size: 14px; color: var(--text);
+
+  line-height: 1.6;
+
+}
+
+.terminal-input-row {
+
+  display: flex; align-items: center; gap: 10px;
+
+  padding: 0 1.5rem 1.5rem; font-family: var(--mono); font-size: 14px;
+
+}
+
+.terminal-input-row span { color: var(--gold); }
+
+#terminal-input {
+
+  background: transparent; border: none; color: var(--text);
+
+  font-family: var(--mono); font-size: 14px; outline: none; flex: 1;
+
+}
+
+.term-line { margin-bottom: 0.5rem; }
+
+.term-line.cmd { color: var(--gold); }
+
+.term-line.err { color: #ff6b6b; }
+
+
+
+/* Typing */
+
+.typing-body { padding: 1.5rem; }
+
+.typing-sample {
+
+  font-size: 18px; line-height: 1.6; color: var(--muted2);
+
+  margin-bottom: 1rem; font-family: var(--mono);
+
+  user-select: none;
+
+}
+
+.typing-sample span.correct { color: var(--gold); }
+
+.typing-sample span.incorrect { color: #ff6b6b; text-decoration: underline; }
+
+.typing-sample span.active { color: #fff; border-bottom: 2px solid var(--gold); }
+
+
+
+.typing-input {
+
+  width: 100%; height: 80px; background: var(--surface);
+
+  border: 1px solid var(--border); border-radius: 4px;
+
+  padding: 1rem; color: var(--text); font-family: var(--mono);
+
+  font-size: 16px; resize: none; outline: none; margin-bottom: 1.5rem;
+
+}
+
+.typing-input:focus { border-color: var(--gold-line); }
+
+
+
+.typing-stats {
+
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+
+  margin-bottom: 1.5rem;
+
+}
+
+.typing-stat {
+
+  background: var(--surface); padding: 1rem; border-radius: 4px;
+
+  border: 1px solid var(--border); text-align: center;
+
+}
+
+.typing-stat strong {
+
+  display: block; font-size: 24px; font-family: var(--syne);
+
+  color: var(--gold); margin-bottom: 0.2rem;
+
+}
+
+.typing-stat span { font-size: 12px; color: var(--muted2); text-transform: uppercase; }
+
+
+
+.typing-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+
+
+/* ── TOOLS (TERMINAL & TYPING) ── */
+.tool-modal {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.tool-modal.active { opacity: 1; pointer-events: auto; }
+.tool-panel {
+  width: 90%; max-width: 700px; background: var(--surface2);
+  border: 1px solid var(--border-h); border-radius: 8px;
+  overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transform: translateY(20px); transition: transform 0.3s;
+}
+.tool-modal.active .tool-panel { transform: translateY(0); }
+.tool-head {
+  padding: 1rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: 13px; color: var(--muted2);
+  background: var(--surface);
+}
+.tool-close {
+  background: transparent; border: none; color: var(--muted2);
+  cursor: pointer; font-size: 16px; transition: color 0.2s;
+}
+.tool-close:hover { color: #fff; }
+
+/* Terminal */
+.terminal-body {
+  padding: 1.5rem; height: 300px; overflow-y: auto;
+  font-family: var(--mono); font-size: 14px; color: var(--text);
+  line-height: 1.6;
+}
+.terminal-input-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 1.5rem 1.5rem; font-family: var(--mono); font-size: 14px;
+}
+.terminal-input-row span { color: var(--gold); }
+#terminal-input {
+  background: transparent; border: none; color: var(--text);
+  font-family: var(--mono); font-size: 14px; outline: none; flex: 1;
+}
+.term-line { margin-bottom: 0.5rem; }
+.term-line.cmd { color: var(--gold); }
+.term-line.err { color: #ff6b6b; }
+
+/* Typing */
+.typing-body { padding: 1.5rem; }
+.typing-sample {
+  font-size: 18px; line-height: 1.6; color: var(--muted2);
+  margin-bottom: 1rem; font-family: var(--mono);
+  user-select: none;
+}
+.typing-sample span.correct { color: var(--gold); }
+.typing-sample span.incorrect { color: #ff6b6b; text-decoration: underline; }
+.typing-sample span.active { color: #fff; border-bottom: 2px solid var(--gold); }
+
+.typing-input {
+  width: 100%; height: 80px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 1rem; color: var(--text); font-family: var(--mono);
+  font-size: 16px; resize: none; outline: none; margin-bottom: 1.5rem;
+}
+.typing-input:focus { border-color: var(--gold-line); }
+
+.typing-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.typing-stat {
+  background: var(--surface); padding: 1rem; border-radius: 4px;
+  border: 1px solid var(--border); text-align: center;
+}
 .typing-stat strong {
   display: block; font-size: 24px; font-family: var(--syne);
   color: var(--gold); margin-bottom: 0.2rem;
@@ -1365,3 +1572,254 @@ footer{background:var(--bg);border-top:1px solid var(--border);
 .typing-stat span { font-size: 12px; color: var(--muted2); text-transform: uppercase; }
 
 .typing-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+
+/* Screen-reader only class for accessibility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; 
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ==========================================================================
+   GITHUB STATS (About Page) — Premium Gold Theme
+   ========================================================================== */
+.github-stats-container {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.github-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .github-grid {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.github-calendar-wrap {
+  flex: 1;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+}
+/* Subtle gold glow in corner */
+.github-calendar-wrap::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.github-langs-wrap {
+  width: 100%;
+  max-width: 350px;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.github-langs-wrap::before {
+  content: '';
+  position: absolute;
+  bottom: -30px; left: -30px;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.github-langs-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+/* ── Override github-calendar defaults ── */
+.calendar {
+  margin: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--text);
+  font-family: var(--sans) !important;
+}
+
+/* Hide the ugly "Skip to contributions" link */
+.calendar a[href="#gh-contrib-year-list"],
+.calendar .sr-only,
+.calendar .js-calendar-graph-svg + div,
+.calendar .float-left.text-gray,
+.calendar .contrib-footer,
+.calendar .text-normal {
+  display: none !important;
+}
+
+/* Tooltip popup */
+.calendar .graph-svg-tip {
+  background: var(--surface2) !important;
+  color: #fff !important;
+  border: 1px solid var(--gold-line) !important;
+  border-radius: 6px !important;
+  font-family: var(--mono) !important;
+  font-size: 12px !important;
+  padding: 6px 10px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+}
+.calendar .graph-svg-tip strong {
+  color: var(--gold) !important;
+}
+
+/* Month and day labels */
+.calendar text.wday,
+.calendar text.month {
+  font-size: 10px !important;
+  fill: var(--muted) !important;
+  font-family: var(--mono) !important;
+}
+
+/* Contribution cells — override green to GOLD */
+.calendar rect[data-level="0"],
+.calendar .ContributionCalendar-day[data-level="0"],
+.calendar td[data-level="0"] {
+  fill: rgba(255,255,255,0.04) !important;
+  rx: 3 !important;
+  ry: 3 !important;
+}
+.calendar rect[data-level="1"],
+.calendar .ContributionCalendar-day[data-level="1"],
+.calendar td[data-level="1"] {
+  fill: rgba(201,168,76,0.2) !important;
+  rx: 3 !important;
+  ry: 3 !important;
+}
+.calendar rect[data-level="2"],
+.calendar .ContributionCalendar-day[data-level="2"],
+.calendar td[data-level="2"] {
+  fill: rgba(201,168,76,0.45) !important;
+  rx: 3 !important;
+  ry: 3 !important;
+}
+.calendar rect[data-level="3"],
+.calendar .ContributionCalendar-day[data-level="3"],
+.calendar td[data-level="3"] {
+  fill: rgba(201,168,76,0.7) !important;
+  rx: 3 !important;
+  ry: 3 !important;
+}
+.calendar rect[data-level="4"],
+.calendar .ContributionCalendar-day[data-level="4"],
+.calendar td[data-level="4"] {
+  fill: var(--gold) !important;
+  rx: 3 !important;
+  ry: 3 !important;
+  filter: drop-shadow(0 0 3px rgba(201,168,76,0.4));
+}
+
+/* Custom scrollbar inside calendar wrap */
+.github-calendar-wrap::-webkit-scrollbar { height: 4px; }
+.github-calendar-wrap::-webkit-scrollbar-track { background: transparent; }
+.github-calendar-wrap::-webkit-scrollbar-thumb { background: var(--gold-line); border-radius: 4px; }
+
+/* Legend color overrides */
+.calendar .legend li:nth-child(1) { background-color: rgba(255,255,255,0.04) !important; border: 1px solid var(--border) !important; }
+.calendar .legend li:nth-child(2) { background-color: rgba(201,168,76,0.2) !important; }
+.calendar .legend li:nth-child(3) { background-color: rgba(201,168,76,0.45) !important; }
+.calendar .legend li:nth-child(4) { background-color: rgba(201,168,76,0.7) !important; }
+.calendar .legend li:nth-child(5) { background-color: var(--gold) !important; }
+.calendar .legend { font-size: 11px; color: var(--muted) !important; }
+
+/* Table styling fixes */
+.calendar table { border-collapse: separate !important; border-spacing: 3px !important; }
+.calendar th { font-size: 10px; color: var(--muted) !important; font-weight: 400; }
+.calendar td {
+  border-radius: 3px !important;
+  outline: none !important;
+  border: none !important;
+}
+
+/* Hide any remaining ugly links */
+.calendar a { color: var(--gold) !important; text-decoration: none !important; font-size: 0 !important; line-height: 0 !important; height: 0 !important; overflow: hidden !important; display: block !important; }
+
+/* Override the scrollbar on the wrapper table */
+.calendar .js-calendar-graph { overflow: hidden !important; }
+
+@media (max-width: 1023px) {
+  .github-langs-wrap {
+    max-width: 100%;
+  }
+}
+
+/* â”€â”€ LOGO LOOP â”€â”€ */
+.logo-loop-section {
+  width: 100%;
+  overflow: hidden;
+  padding: 2.5rem 0;
+  background-color: rgba(255, 255, 255, 0.015);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-loop-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-loop 60s linear infinite;
+}
+
+
+
+.logo-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 3rem;
+  font-family: var(--mono);
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.real-logo {
+  height: 2.25rem;
+  width: auto;
+  object-fit: contain;
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.logo-item:hover .real-logo {
+  transform: scale(1.1);
+}
+
+.logo-item i {
+  font-size: 2rem;
+}
+
+.logo-item:hover {
+  color: var(--gold);
+}
+
+@keyframes scroll-loop {
+  to {
+    transform: translateX(-50%);
+  }
+}
