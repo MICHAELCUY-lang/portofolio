@@ -85,17 +85,12 @@ While this is a vanilla HTML project without a component framework, reusable UI 
 - **Memoization / Suspense**: *Not applicable (Vanilla JS).*
 - **Image optimization**: Static images; no automated optimization pipeline detected.
 
-## 11. Security
-- **XSS protection**: Since there is no user input or database, XSS risk is virtually zero.
-- **CSRF / Auth**: *Not applicable.*
-- **Sanitization**: *Not applicable.*
-
-## 12. Code Quality
+## 11. Code Quality
 - **ESLint / Prettier**: *Not detected in this project.*
 - **TypeScript**: *Not detected in this project.*
 - **Organization**: Clean separation of HTML, CSS, and JS. The `assets/` structure is logical and scalable for a static site.
 
-## 13. Improvements
+## 12. Improvements
 - **Architecture**: Migrate to a framework like Next.js, Vite (React/Vue), or Astro. This would allow creating true reusable components (e.g., `<Navbar />`, `<Footer />`) instead of duplicating HTML across 8 pages.
 - **Performance**: Compress raster images (use WebP/AVIF format) and add `loading="lazy"` to `<img>` tags below the fold.
 - **Maintainability**: Add Prettier for consistent code formatting and consider implementing a bundler to minify CSS and JS files.
