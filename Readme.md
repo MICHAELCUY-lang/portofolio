@@ -1,7 +1,5 @@
 # Michael Bryan Mandey - Developer Portfolio
 
-![Banner](assets/images/projects/gbi-glow/cover.png)
-
 ## 1. Project Overview
 - **Project Name**: Michael Bryan Mandey - Developer Portfolio
 - **Purpose**: A personal portfolio website to showcase web development projects, skills, educational background, certificates, and resume.
