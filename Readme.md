@@ -66,81 +66,42 @@ While this is a vanilla HTML project without a component framework, reusable UI 
 - **`.school-card` / `.proj-card`**: Reusable card layouts for displaying lists of education and projects.
 - **Focus Sliders**: JavaScript-driven slider for projects and certificates (`project-slider.js` and `makeFocusSlider` in `index.html`).
 
-## 7. API
-- *Not detected in this project.* The site relies on static content.
-
-## 8. Database
-- *Not detected in this project.* Content is hardcoded in HTML.
-
-## 9. Authentication
-- *Not detected in this project.*
-
-## 10. State Management
+## 7. State Management
 - **State Management**: Vanilla JavaScript DOM manipulation. State (like current slider index, cursor position, active navigation link) is kept in local JS variables and directly applied to DOM element styles/classes.
 
-## 11. Folder Responsibilities
+## 8. Folder Responsibilities
 - **`assets/js`**: Core logic layer. Handles WebGL canvas rendering, slider interactions, and global UI effects like the cursor.
 - **`assets/css`**: Core presentation layer. Defines CSS variables, layout systems, and animations.
 - **`assets/images`**: Static asset storage for raster graphics.
-
-## 12. Environment Variables
-- *Not detected in this project.*
-
-## 13. Installation
-Since this is a static site without Node.js dependencies, you can run it directly:
-
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd portofolio-master
-
-# Serve it locally (requires any basic static server)
-# If using npx:
-npx serve .
-
-# Or using Python:
-python3 -m http.server 8000
-```
-Then open `http://localhost:8000` (or the port provided) in your browser.
-
-## 14. Build Process
+- 
+## 9. Build Process
 - **Development**: Edit HTML/CSS/JS directly. Use a live server extension (like VSCode Live Server) for hot-reloading.
 - **Production Build**: No bundling or transpilation step is required.
 - **Deployment**: Configured for Vercel via `vercel.json` which serves the root directory statically.
 
-## 15. Performance
+## 10. Performance
 - **Lazy loading**: *Not detected.* (Improvement opportunity for images).
 - **Code splitting**: Native MPA inherently splits HTML/CSS per page, but JS/CSS assets could be optimized.
 - **Memoization / Suspense**: *Not applicable (Vanilla JS).*
 - **Image optimization**: Static images; no automated optimization pipeline detected.
 
-## 16. Security
+## 11. Security
 - **XSS protection**: Since there is no user input or database, XSS risk is virtually zero.
 - **CSRF / Auth**: *Not applicable.*
 - **Sanitization**: *Not applicable.*
 
-## 17. Code Quality
+## 12. Code Quality
 - **ESLint / Prettier**: *Not detected in this project.*
 - **TypeScript**: *Not detected in this project.*
 - **Organization**: Clean separation of HTML, CSS, and JS. The `assets/` structure is logical and scalable for a static site.
 
-## 18. Improvements
+## 13. Improvements
 - **Architecture**: Migrate to a framework like Next.js, Vite (React/Vue), or Astro. This would allow creating true reusable components (e.g., `<Navbar />`, `<Footer />`) instead of duplicating HTML across 8 pages.
 - **Performance**: Compress raster images (use WebP/AVIF format) and add `loading="lazy"` to `<img>` tags below the fold.
 - **Maintainability**: Add Prettier for consistent code formatting and consider implementing a bundler to minify CSS and JS files.
 - **Accessibility (a11y)**: Add `aria-labels` to icon-only buttons, ensure adequate contrast, and allow pausing the WebGL animations for users with reduced motion preferences.
 
 ---
-
-## 19. Complete README.md Structure
-
-Below is the structured output matching the documentation requirements.
-
-### Description
-A highly interactive, visually striking personal developer portfolio built with Vanilla web technologies. It features a custom WebGL pixel blast background, MacOS-like dock navigation, and fluid animations.
-
-### Demo
-[Link to Live Website] *(Replace with actual Vercel URL)*
 
 ### Features
 - 🚀 **Zero-Dependency Frontend**: Lightning fast, built entirely without heavy UI frameworks.
@@ -150,15 +111,6 @@ A highly interactive, visually striking personal developer portfolio built with 
 
 ### Usage
 Simply navigate through the site using the bottom dock or mobile menu. Interactive elements like the project slider and WebGL background respond to mouse/touch inputs.
-
-### Available Scripts
-*N/A - Static HTML site.*
-
-### Project Architecture
-Follows a classic static Multi-Page Application (MPA) architecture, utilizing shared CSS/JS files injected into multiple HTML entry points.
-
-### License
-MIT License *(or specify otherwise)*
 
 ### Author
 **Michael Bryan Mandey**
