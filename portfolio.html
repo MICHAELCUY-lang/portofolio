@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MBM — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap"
     rel="stylesheet">
@@ -280,14 +283,7 @@
   </style>
   <link rel="stylesheet" href="assets/css/dock.css">
 
-    <script type="importmap">
-    {
-      "imports": {
-        "three": "https://esm.sh/three@0.160.0",
-        "postprocessing": "https://esm.sh/postprocessing@6.34.1?deps=three@0.160.0"
-      }
-    }
-  </script>
+  <!-- Import map removed: Three.js is now loaded lazily -->
 
 </head>
 
@@ -561,7 +557,7 @@
     }
   </script>
   <script src="assets/js/project-slider.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
   <script src="assets/js/mobile-nav.js"></script>
 
   <div class="dock-outer">
@@ -595,14 +591,7 @@
 
   <script src="assets/js/dock.js"></script>
 
-  <script type="module">
-    import { PixelBlast } from './assets/js/pixelblast.js';
-    new PixelBlast(document.getElementById('pixel-blast-bg'), {
-      color: '#c9a84c',
-      enableRipples: false,
-      liquid: false
-    });
-  </script>
+  <script src="assets/js/pixelblast-loader.js" defer></script>
 
 </body>
 

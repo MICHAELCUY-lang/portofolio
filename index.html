@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Michael Bryan Mandey — Developer</title>
+  <!-- Preconnect to critical CDNs for faster resource loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono&display=swap"
     rel="stylesheet">
@@ -486,22 +491,7 @@
     }
   </style>
   <link rel="stylesheet" href="assets/css/dock.css">
-  <script>
-    window.addEventListener('error', function(e) {
-      const el = document.createElement('div');
-      el.style = 'position:fixed; top:10px; left:0; width:100%; background:red; color:white; z-index:10000; padding: 20px;';
-      el.textContent = 'Global Error: ' + e.message + ' | File: ' + e.filename + ' | Line: ' + e.lineno;
-      document.body.appendChild(el);
-    });
-  </script>
-    <script type="importmap">
-    {
-      "imports": {
-        "three": "https://esm.sh/three@0.160.0",
-        "postprocessing": "https://esm.sh/postprocessing@6.34.1?deps=three@0.160.0"
-      }
-    }
-  </script>
+  <!-- Import map removed: Three.js is now loaded lazily via dynamic import -->
 
 </head>
 
@@ -555,7 +545,7 @@
     <div class="hero-right">
       <div class="hero-ghost" id="px-ghost">MANDEY</div>
       <div class="hero-photo-frame" id="px-photo">
-        <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
+        <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey" fetchpriority="high">
         <div class="hero-photo-overlay"></div>
         <div class="hero-photo-border"></div>
         <div class="hero-photo-tag">
@@ -571,56 +561,62 @@
   <section class="logo-loop-section">
     <div class="logo-loop-track">
       <!-- First set -->
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="real-logo"> JavaScript</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="real-logo"> Python</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="real-logo"> C++</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="real-logo"> PHP</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="real-logo"> SQL</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="real-logo" loading="lazy" decoding="async"> JavaScript</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="real-logo" loading="lazy" decoding="async"> Python</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo" loading="lazy" decoding="async"> Java</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="real-logo" loading="lazy" decoding="async"> C++</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="real-logo" loading="lazy" decoding="async"> PHP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="real-logo" loading="lazy" decoding="async"> SQL</div>
       
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java JSP</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="real-logo"> Node.js</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" class="real-logo"> MySQL</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo" loading="lazy" decoding="async"> Java JSP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="real-logo" loading="lazy" decoding="async"> Node.js</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" class="real-logo" loading="lazy" decoding="async"> MySQL</div>
       
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" class="real-logo"> Kali Linux</div>
-      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" class="real-logo" style="filter: brightness(0) invert(1);"> Cisco</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" class="real-logo" loading="lazy" decoding="async"> Kali Linux</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" class="real-logo" loading="lazy" decoding="async" style="filter: brightness(0) invert(1);"> Cisco</div>
       <div class="logo-item"><i class="fa-solid fa-magnifying-glass" style="color: var(--gold); font-size: 2rem;"></i> Autopsy</div>
       <div class="logo-item"><i class="fa-solid fa-hard-drive" style="color: var(--gold); font-size: 2rem;"></i> FTK Imager</div>
       
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="real-logo"> Git</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="real-logo" style="filter: invert(1);"> GitHub</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="real-logo" loading="lazy" decoding="async"> Git</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="real-logo" loading="lazy" decoding="async" style="filter: invert(1);"> GitHub</div>
       
-      <div class="logo-item"><img src="https://cryptologos.cc/logos/internet-computer-icp-logo.svg?v=032" class="real-logo"> ICP</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="real-logo"> Azure</div>
-      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="real-logo" style="filter: invert(1);"> Roblox Studio</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="real-logo"> Bootstrap</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" class="real-logo"> Postman</div>
+      <div class="logo-item"><img src="https://cryptologos.cc/logos/internet-computer-icp-logo.svg?v=032" class="real-logo" loading="lazy" decoding="async"> ICP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="real-logo" loading="lazy" decoding="async"> Azure</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="real-logo" loading="lazy" decoding="async" style="filter: invert(1);"> Roblox Studio</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="real-logo" loading="lazy" decoding="async"> Bootstrap</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" class="real-logo" loading="lazy" decoding="async"> Postman</div>
+      <div class="logo-item"><i class="fa-solid fa-bug" style="color: var(--gold); font-size: 2rem;"></i> Metasploit</div>
+      <div class="logo-item"><i class="fa-solid fa-network-wired" style="color: var(--gold); font-size: 2rem;"></i> Nmap</div>
+      <div class="logo-item"><i class="fa-solid fa-wave-square" style="color: var(--gold); font-size: 2rem;"></i> Wireshark</div>
       
       <!-- Duplicate set for seamless looping -->
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="real-logo"> JavaScript</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="real-logo"> Python</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="real-logo"> C++</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="real-logo"> PHP</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="real-logo"> SQL</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="real-logo" loading="lazy" decoding="async"> JavaScript</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="real-logo" loading="lazy" decoding="async"> Python</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo" loading="lazy" decoding="async"> Java</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" class="real-logo" loading="lazy" decoding="async"> C++</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="real-logo" loading="lazy" decoding="async"> PHP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="real-logo" loading="lazy" decoding="async"> SQL</div>
       
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo"> Java JSP</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="real-logo"> Node.js</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" class="real-logo"> MySQL</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="real-logo" loading="lazy" decoding="async"> Java JSP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="real-logo" loading="lazy" decoding="async"> Node.js</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" class="real-logo" loading="lazy" decoding="async"> MySQL</div>
       
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" class="real-logo"> Kali Linux</div>
-      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" class="real-logo" style="filter: brightness(0) invert(1);"> Cisco</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" class="real-logo" loading="lazy" decoding="async"> Kali Linux</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" class="real-logo" loading="lazy" decoding="async" style="filter: brightness(0) invert(1);"> Cisco</div>
       <div class="logo-item"><i class="fa-solid fa-magnifying-glass" style="color: var(--gold); font-size: 2rem;"></i> Autopsy</div>
       <div class="logo-item"><i class="fa-solid fa-hard-drive" style="color: var(--gold); font-size: 2rem;"></i> FTK Imager</div>
       
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="real-logo"> Git</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="real-logo" style="filter: invert(1);"> GitHub</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="real-logo" loading="lazy" decoding="async"> Git</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" class="real-logo" loading="lazy" decoding="async" style="filter: invert(1);"> GitHub</div>
       
-      <div class="logo-item"><img src="https://cryptologos.cc/logos/internet-computer-icp-logo.svg?v=032" class="real-logo"> ICP</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="real-logo"> Azure</div>
-      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="real-logo" style="filter: invert(1);"> Roblox Studio</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="real-logo"> Bootstrap</div>
-      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" class="real-logo"> Postman</div>
+      <div class="logo-item"><img src="https://cryptologos.cc/logos/internet-computer-icp-logo.svg?v=032" class="real-logo" loading="lazy" decoding="async"> ICP</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="real-logo" loading="lazy" decoding="async"> Azure</div>
+      <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="real-logo" loading="lazy" decoding="async" style="filter: invert(1);"> Roblox Studio</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="real-logo" loading="lazy" decoding="async"> Bootstrap</div>
+      <div class="logo-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" class="real-logo" loading="lazy" decoding="async"> Postman</div>
+      <div class="logo-item"><i class="fa-solid fa-bug" style="color: var(--gold); font-size: 2rem;"></i> Metasploit</div>
+      <div class="logo-item"><i class="fa-solid fa-network-wired" style="color: var(--gold); font-size: 2rem;"></i> Nmap</div>
+      <div class="logo-item"><i class="fa-solid fa-wave-square" style="color: var(--gold); font-size: 2rem;"></i> Wireshark</div>
     </div>
   </section>
 
@@ -632,7 +628,7 @@
       <div class="about-grid">
         <div class="reveal-l">
           <div class="about-img-wrap">
-            <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
+            <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey" loading="lazy" decoding="async">
             <div class="about-img-border"></div>
             <div class="about-img-cap">
               <span>Michael Bryan Mandey</span><span>2025</span>
@@ -698,6 +694,9 @@
                 <span class="proj-pill">GitHub</span>
                 <span class="proj-pill">Postman</span>
                 <span class="proj-pill">Roblox Studio</span>
+                <span class="proj-pill">Metasploit</span>
+                <span class="proj-pill">Nmap</span>
+                <span class="proj-pill">Wireshark</span>
               </div>
             </div>
 
@@ -734,7 +733,7 @@
 
           <div class="proj-card">
             <div class="proj-card-img-wrap">
-              <img class="proj-card-bg" src="assets/images/projects/gbi-glow/cover.png" alt="GBI Glow Bekasi">
+              <img class="proj-card-bg" src="assets/images/projects/gbi-glow/cover.png" alt="GBI Glow Bekasi" loading="lazy" decoding="async">
               <div class="proj-card-overlay-base"></div>
             </div>
             <div class="proj-card-header">
@@ -773,7 +772,7 @@
           <div class="proj-card">
             <div class="proj-card-img-wrap">
               <img id="img-p2-index" class="proj-card-bg" src="assets/images/projects/president-cupid/cover.png"
-                alt="President Cupid">
+                alt="President Cupid" loading="lazy" decoding="async">
               <div class="proj-card-overlay-base"></div>
 
               <div class="proj-slider-nav">
@@ -818,7 +817,7 @@
 
           <div class="proj-card">
             <div class="proj-card-img-wrap">
-              <img class="proj-card-bg" src="assets/images/projects/student-org/cover.png" alt="Student Org System">
+              <img class="proj-card-bg" src="assets/images/projects/student-org/cover.png" alt="Student Org System" loading="lazy" decoding="async">
               <div class="proj-card-overlay-base"></div>
             </div>
             <div class="proj-card-header">
@@ -858,7 +857,7 @@
           <div class="proj-card">
             <div class="proj-card-img-wrap">
               <img id="img-p4-index" class="proj-card-bg" src="assets/images/projects/cybersecuritymanagement/Screenshot 2026-02-26 220236.png"
-                alt="Cybersecurity Management">
+                alt="Cybersecurity Management" loading="lazy" decoding="async">
               <div class="proj-card-overlay-base"></div>
 
               <div class="proj-slider-nav">
@@ -902,7 +901,7 @@
 
           <div class="proj-card">
             <div class="proj-card-img-wrap">
-              <img id="img-p5-index" class="proj-card-bg" src="assets/images/projects/robloxgame/Screenshot 2025-12-05 125356.png" alt="Roblox Game">
+              <img id="img-p5-index" class="proj-card-bg" src="assets/images/projects/robloxgame/Screenshot 2025-12-05 125356.png" alt="Roblox Game" loading="lazy" decoding="async">
               <div class="proj-card-overlay-base"></div>
 
               <div class="proj-slider-nav">
@@ -971,7 +970,7 @@
 
           <div class="cert-card">
             <div class="cert-preview">
-              <img src="assets/certificates/SERTIFIKAT ICON.png" alt="Certificate preview">
+              <img src="assets/certificates/SERTIFIKAT ICON.png" alt="Certificate preview" loading="lazy" decoding="async">
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-award"></i></div>
@@ -984,7 +983,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <img src="assets/certificates/SERTIFIKAT Company Visit1.png" alt="Company visit certificate preview">
+              <img src="assets/certificates/SERTIFIKAT Company Visit1.png" alt="Company visit certificate preview" loading="lazy" decoding="async">
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-building"></i></div>
@@ -997,10 +996,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <object data="assets/certificates/Michael Bryan Mandey.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                type="application/pdf">
-                <div class="cert-preview-fallback">PDF Preview</div>
-              </object>
+              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-file-pdf"></i></div>
@@ -1013,11 +1009,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <object
-                data="assets/certificates/sertifikat_course_Michael Bryan Mandey.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                type="application/pdf">
-                <div class="cert-preview-fallback">PDF Preview</div>
-              </object>
+              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-code"></i></div>
@@ -1030,11 +1022,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <object
-                data="assets/certificates/sertifikat_course_Michael Bryan Mandey_Python.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                type="application/pdf">
-                <div class="cert-preview-fallback">PDF Preview</div>
-              </object>
+              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-code"></i></div>
@@ -1047,11 +1035,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <object
-                data="assets/certificates/sertifikat_course_Michael Bryan Mandey_Microsoft Azure.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                type="application/pdf">
-                <div class="cert-preview-fallback">PDF Preview</div>
-              </object>
+              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-cloud"></i></div>
@@ -1065,11 +1049,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <object
-                data="assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                type="application/pdf">
-                <div class="cert-preview-fallback">PDF Preview</div>
-              </object>
+              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-laptop-code"></i></div>
@@ -1109,7 +1089,7 @@
             <div class="edu-vline"></div>
           </div>
           <div class="edu-body">
-            <div class="edu-logo"><img src="assets/images/president.png" alt="President University"></div>
+            <div class="edu-logo"><img src="assets/images/president.png" alt="President University" loading="lazy" decoding="async"></div>
             <div class="edu-school">President University</div>
             <div class="edu-degree">Bachelor's — Information Technology</div>
             <p class="edu-note">Focused on software development, data structures, and system architecture. Shipping real
@@ -1126,7 +1106,7 @@
             <div class="edu-vline"></div>
           </div>
           <div class="edu-body">
-            <div class="edu-logo"><img src="assets/images/ananda.png" alt="Ananda High School"></div>
+            <div class="edu-logo"><img src="assets/images/ananda.png" alt="Ananda High School" loading="lazy" decoding="async"></div>
             <div class="edu-school">Ananda High School</div>
             <div class="edu-degree">Science Major</div>
             <p class="edu-note">Competed in programming events. Started taking software seriously as a craft, not just a
@@ -1387,26 +1367,26 @@
     document.querySelectorAll('.reveal,.reveal-l,.edu-row').forEach(el => obs.observe(el));
   </script>
   <script src="assets/js/project-slider.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://unpkg.com/split-type" defer></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Split the animated text
-      const heroText = new SplitType('.hero-name-anim', { types: 'lines, words, chars' });
-      
-      // Animate characters revealing upwards
-      gsap.from(heroText.chars, {
-        y: 100,
-        opacity: 0,
-        rotationZ: 5,
-        duration: 1.2,
-        ease: "power4.out",
-        stagger: 0.04,
-        delay: 0.2
-      });
+    // Wait for deferred GSAP + SplitType to load, then animate
+    window.addEventListener('load', () => {
+      if (typeof SplitType !== 'undefined' && typeof gsap !== 'undefined') {
+        const heroText = new SplitType('.hero-name-anim', { types: 'lines, words, chars' });
+        gsap.from(heroText.chars, {
+          y: 100,
+          opacity: 0,
+          rotationZ: 5,
+          duration: 1.2,
+          ease: "power4.out",
+          stagger: 0.04,
+          delay: 0.2
+        });
+      }
     });
   </script>
-  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
   <script src="assets/js/mobile-nav.js"></script>
 
   <div class="dock-outer">
@@ -1440,21 +1420,7 @@
 
   <script src="assets/js/dock.js"></script>
 
-  <script type="module">
-    import { PixelBlast } from './assets/js/pixelblast.js';
-    try {
-      new PixelBlast(document.getElementById('pixel-blast-bg'), {
-        color: '#c9a84c',
-        enableRipples: false,
-        liquid: false
-      });
-    } catch(err) {
-      const el = document.createElement('div');
-      el.style = 'position:fixed; top:50px; left:0; width:100%; background:red; color:white; z-index:9999; padding: 20px;';
-      el.textContent = 'PixelBlast Error: ' + err.message + ' | Stack: ' + err.stack;
-      document.body.appendChild(el);
-    }
-  </script>
+  <script src="assets/js/pixelblast-loader.js" defer></script>
 
 </body>
 

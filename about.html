@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MBM — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/shared.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -60,14 +63,7 @@ contributions-calendar#gh-calendar {
 </style>
   <link rel="stylesheet" href="assets/css/dock.css">
 
-    <script type="importmap">
-    {
-      "imports": {
-        "three": "https://esm.sh/three@0.160.0",
-        "postprocessing": "https://esm.sh/postprocessing@6.34.1?deps=three@0.160.0"
-      }
-    }
-  </script>
+  <!-- Import map removed: Three.js is now loaded lazily via dynamic import -->
 
 </head>
 <body>
@@ -104,7 +100,7 @@ contributions-calendar#gh-calendar {
     <div class="about-grid">
       <div class="reveal-l">
         <div class="about-img-wrap">
-          <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey">
+          <img src="assets/images/FOTO MICHAEL 2.jpg" alt="Michael Bryan Mandey" loading="lazy" decoding="async">
           <div class="about-img-border"></div>
           <div class="about-img-cap">
             <span>Michael Bryan Mandey</span><span>2025</span>
@@ -134,10 +130,10 @@ contributions-calendar#gh-calendar {
       <div class="github-grid">
         <div class="github-calendar-wrap">
           <div id="gh-stats-row" class="gh-stats-row"></div>
-          <img src="https://ghchart.rshah.org/c9a84c/MICHAELCUY-lang" alt="GitHub Contributions Calendar" style="width: 100%; margin-top: 1rem; filter: brightness(0.9) contrast(1.1);">
+          <img src="https://ghchart.rshah.org/c9a84c/MICHAELCUY-lang" alt="GitHub Contributions Calendar" style="width: 100%; margin-top: 1rem; filter: brightness(0.9) contrast(1.1);" loading="lazy" decoding="async">
         </div>
         <div class="github-langs-wrap">
-          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MICHAELCUY-lang&layout=compact&theme=radical&hide_border=true&bg_color=111111&text_color=ffffff&title_color=c9a84c" alt="Top Languages">
+          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MICHAELCUY-lang&layout=compact&theme=radical&hide_border=true&bg_color=111111&text_color=ffffff&title_color=c9a84c" alt="Top Languages" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -210,7 +206,7 @@ contributions-calendar#gh-calendar {
 })();
 </script>
 
-<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script src="assets/js/mobile-nav.js"></script>
 
   <div class="dock-outer">
@@ -244,14 +240,7 @@ contributions-calendar#gh-calendar {
 
   <script src="assets/js/dock.js"></script>
 
-  <script type="module">
-    import { PixelBlast } from './assets/js/pixelblast.js';
-    new PixelBlast(document.getElementById('pixel-blast-bg'), {
-      color: '#c9a84c',
-      enableRipples: false,
-      liquid: false
-    });
-  </script>
+  <script src="assets/js/pixelblast-loader.js" defer></script>
 
 </body>
 </html>
