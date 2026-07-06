@@ -10,11 +10,13 @@ window.addEventListener('load', () => {
 });
 
 /* CURSOR */
-const dot = document.getElementById('dot');
-const ring = document.getElementById('ring');
-let rx = 0, ry = 0, mx = 0, my = 0;
+let dot, ring, rx = 0, ry = 0, mx = 0, my = 0;
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('DOMContentLoaded', () => {
+  dot = document.getElementById('dot');
+  ring = document.getElementById('ring');
+  
+  document.addEventListener('mousemove', e => {
   mx = e.clientX;
   my = e.clientY;
   if (dot) {
@@ -23,30 +25,33 @@ document.addEventListener('mousemove', e => {
   }
 });
 
-(function lp() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  if (ring) {
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-  }
-  requestAnimationFrame(lp);
-})();
+  (function lp() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    if (ring) {
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+    }
+    requestAnimationFrame(lp);
+  })();
+});
 
 /* PARALLAX LAYERS */
-const himg = document.getElementById('himg');
-const hghost = document.getElementById('hghost');
-const aimg = document.getElementById('aimg');
-const aboutbg = document.getElementById('aboutbg');
-const cbg = document.getElementById('cbg');
-const pimgs = [document.getElementById('pimg0'), document.getElementById('pimg1'), document.getElementById('pimg2')];
-const projs = [document.getElementById('proj0'), document.getElementById('proj1'), document.getElementById('proj2')];
+let himg, hghost, aimg, aboutbg, cbg, pimgs, projs, nav, lastSY = 0;
 
-let lastSY = 0;
-const nav = document.querySelector('nav') || document.getElementById('nav');
-if (nav) {
-  nav.style.transition = 'top .4s ease';
-}
+document.addEventListener('DOMContentLoaded', () => {
+  himg = document.getElementById('himg');
+  hghost = document.getElementById('hghost');
+  aimg = document.getElementById('aimg');
+  aboutbg = document.getElementById('aboutbg');
+  cbg = document.getElementById('cbg');
+  pimgs = [document.getElementById('pimg0'), document.getElementById('pimg1'), document.getElementById('pimg2')];
+  projs = [document.getElementById('proj0'), document.getElementById('proj1'), document.getElementById('proj2')];
+
+  nav = document.querySelector('nav') || document.getElementById('nav');
+  if (nav) {
+    nav.style.transition = 'top .4s ease';
+  }
 
 function raf() {
   const sy = window.scrollY;
@@ -99,11 +104,16 @@ function raf() {
       nav.style.top = '0';
     }
   }
-  lastSY = sy;
+    lastSY = sy;
 
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
+    requestAnimationFrame(raf);
+  }
+  
+  // Start RAF after a slight delay to allow painting
+  setTimeout(() => {
+    requestAnimationFrame(raf);
+  }, 100);
+});
 
 /* SCROLL REVEAL + SKILL BARS */
 const io = new IntersectionObserver(entries => {

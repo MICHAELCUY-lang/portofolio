@@ -32,10 +32,12 @@
     document.body.appendChild(mod);
   }
 
-  // Load after page is fully rendered and idle
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadPixelBlast, { timeout: 3000 });
-  } else {
-    setTimeout(loadPixelBlast, 2000);
-  }
+  // Wait for the full page load (including images) before even queueing the loader
+  window.addEventListener('load', function() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadPixelBlast, { timeout: 3000 });
+    } else {
+      setTimeout(loadPixelBlast, 2000);
+    }
+  });
 })();
