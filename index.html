@@ -24,6 +24,49 @@
   
   <link rel="stylesheet" href="assets/css/shared.css">
   <style>
+    #site-preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--bg);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #site-preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(201, 168, 76, 0.2);
+      border-top: 3px solid var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .preloader-text {
+      font-family: var(--mono);
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
     .focus-stage {
       overflow: hidden;
       height: 590px;
@@ -504,6 +547,14 @@
 </head>
 
 <body>
+  <!-- Preloader -->
+  <div id="site-preloader">
+    <div class="preloader-content">
+      <div class="spinner"></div>
+      <div class="preloader-text">Loading...</div>
+    </div>
+  </div>
+
   <div id="pixel-blast-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; background: transparent;"></div>
 
   <div class="glow-cursor" id="glow"></div>
@@ -543,10 +594,10 @@
           <span class="gold">Mandey</span>
         </span>
       </h1>
-      <p class="hero-bio">Building clean, fast software that holds up under scrutiny. President University, Bekasi.</p>
+      <p class="hero-eyebrow">Building clean, fast software that holds up under scrutiny. President University, Bekasi.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn-gold">View Work ↓</a>
-        <a href="#contact" class="btn-ghost">Contact me</a>
+        <a href="#contact" class="btn-gold">Contact me</a>
       </div>
     </div>
 
@@ -652,33 +703,34 @@
             <div class="tech-category" style="margin-bottom: 1.5rem;">
               <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Programming Languages</h3>
               <div class="proj-card-pills">
-                <span class="proj-pill">Python</span>
-                <span class="proj-pill">Java</span>
-                <span class="proj-pill">JavaScript</span>
                 <span class="proj-pill">PHP</span>
+                <span class="proj-pill">JavaScript</span>
+                <span class="proj-pill">HTML</span>
+                <span class="proj-pill">CSS</span> 
                 <span class="proj-pill">C++</span>
                 <span class="proj-pill">SQL</span>
-                <span class="proj-pill">HTML</span>
-                <span class="proj-pill">CSS</span>
+               <span class="proj-pill">Java</span>
+                <span class="proj-pill">Python</span>
+                
               </div>
             </div>
 
             <div class="tech-category" style="margin-bottom: 1.5rem;">
               <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Frameworks & Backend</h3>
               <div class="proj-card-pills">
-                <span class="proj-pill">Node.js</span>
-                <span class="proj-pill">Java JSP</span>
                 <span class="proj-pill">Laravel</span>
                 <span class="proj-pill">Bootstrap</span>
+                <span class="proj-pill">Node.js</span>
+                <span class="proj-pill">Java JSP</span>
               </div>
             </div>
 
             <div class="tech-category" style="margin-bottom: 1.5rem;">
               <h3 style="font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;">Database & Cloud</h3>
               <div class="proj-card-pills">
+                <span class="proj-pill">Microsoft Azure</span>
                 <span class="proj-pill">MySQL</span>
                 <span class="proj-pill">PHPMyAdmin</span>
-                <span class="proj-pill">Microsoft Azure</span>
                 <span class="proj-pill">ICP (Web3)</span>
               </div>
             </div>
@@ -709,7 +761,7 @@
             </div>
 
           </div>
-          <div style="margin-top:2rem"><a href="about.html" class="btn-ghost">Full About →</a></div>
+          <div style="margin-top:2rem"><a href="about.html" class="btn-gold">Full About →</a></div>
         </div>
       </div>
     </div>
@@ -953,7 +1005,7 @@
         </div>
       </div>
       <div class="slider-dots" id="proj-dots"></div>
-      <div class="more-row reveal"><a href="portfolio.html" class="btn-ghost">Full Portfolio →</a></div>
+      <div class="more-row reveal"><a href="portfolio.html" class="btn-gold">Full Portfolio →</a></div>
     </div>
   </section>
 
@@ -978,7 +1030,9 @@
 
           <div class="cert-card">
             <div class="cert-preview">
-              <img src="assets/certificates/SERTIFIKAT ICON.png" alt="Certificate preview" loading="lazy" decoding="async">
+              <a href="assets/certificates/SERTIFIKAT ICON.png" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/SERTIFIKAT ICON.png" alt="Certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-award"></i></div>
@@ -991,7 +1045,9 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <img src="assets/certificates/SERTIFIKAT Company Visit1.png" alt="Company visit certificate preview" loading="lazy" decoding="async">
+              <a href="assets/certificates/SERTIFIKAT Company Visit1.png" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/SERTIFIKAT Company Visit1.png" alt="Company visit certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-building"></i></div>
@@ -1004,7 +1060,9 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
+              <a href="assets/certificates/Michael Bryan Mandey.pdf" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/Michael Bryan Mandey.png" alt="Certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-file-pdf"></i></div>
@@ -1017,7 +1075,9 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
+              <a href="assets/certificates/sertifikat_course_Michael Bryan Mandey.pdf" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/sertifikat_course_Michael Bryan Mandey.png" alt="Certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-code"></i></div>
@@ -1030,7 +1090,9 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
+              <a href="assets/certificates/sertifikat_course_Michael Bryan Mandey_Python.pdf" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/sertifikat_course_Michael Bryan Mandey_Python.png" alt="Certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-code"></i></div>
@@ -1043,7 +1105,9 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
+              <a href="assets/certificates/sertifikat_course_Michael Bryan Mandey_Microsoft Azure.pdf" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/sertifikat_course_Michael Bryan Mandey_Microsoft Azure.png" alt="Certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-cloud"></i></div>
@@ -1057,7 +1121,9 @@
           </div>
           <div class="cert-card">
             <div class="cert-preview">
-              <div class="cert-preview-fallback"><i class="fas fa-file-pdf" style="font-size:2rem;margin-bottom:.5rem;display:block;"></i>PDF Certificate</div>
+              <a href="assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.pdf" target="_blank" style="display:block;height:100%;text-decoration:none;color:inherit;">
+                <img src="assets/certificates/Sertifikat_MICHAEL BRYAN MANDEY_Junior Web Developer.png" alt="Certificate preview" loading="lazy" decoding="async">
+              </a>
             </div>
             <div class="cert-card-body">
               <div class="cert-card-icon"><i class="fas fa-laptop-code"></i></div>
@@ -1073,7 +1139,7 @@
         </div>
       </div>
       <div class="slider-dots" id="cert-dots"></div>
-      <div class="more-row reveal"><a href="certificates.html" class="btn-ghost">Full Gallery →</a></div>
+      <div class="more-row reveal"><a href="certificates.html" class="btn-gold">Full Gallery →</a></div>
     </div>
   </section>
 
@@ -1430,6 +1496,18 @@
 
   <script src="assets/js/pixelblast-loader.js" defer></script>
 
+  <!-- Preloader Script -->
+  <script>
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('site-preloader');
+      if(preloader) {
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 600);
+      }
+    });
+  </script>
 </body>
 
 </html>

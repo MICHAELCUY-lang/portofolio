@@ -53,57 +53,84 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.style.transition = 'top .4s ease';
   }
 
-function raf() {
-  const sy = window.scrollY;
-  const vh = window.innerHeight;
-
-  /* Hero photo deep parallax */
-  if (himg) himg.style.transform = `translateY(${sy * 0.42}px) scale(1.12)`;
-
-  /* Ghost text parallax — faster */
-  if (hghost) hghost.style.transform = `translateY(${sy * -0.18}px)`;
-
-  /* About number parallax */
-  const aboutEl = document.getElementById('about');
-  if (aboutEl && aboutbg) {
-    const t = -aboutEl.getBoundingClientRect().top;
-    aboutbg.style.transform = `translateY(${t * 0.15}px)`;
-    if (aimg) aimg.style.transform = `translateY(${t * 0.08}px)`;
+  // Cache offsets to prevent layout thrashing in RAF loop
+  let cachedOffsets = { about: 0, contact: 0, projs: [] };
+  
+  function getAbsTop(el) {
+    let top = 0;
+    while(el) { top += el.offsetTop; el = el.offsetParent; }
+    return top;
   }
 
-  /* Project image parallax per section */
-  projs.forEach((p, i) => {
-    if (!p || !pimgs[i]) return;
-    const r = p.getBoundingClientRect();
-    const prog = (-r.top) / (r.height + vh);
-    pimgs[i].style.transform = `translateY(${prog * 22}%)`;
-  });
-
-  /* Contact bg parallax */
-  const cEl = document.getElementById('contact');
-  if (cEl && cbg) {
-    const ct = -cEl.getBoundingClientRect().top;
-    cbg.style.transform = `translate(-50%,calc(-50% + ${ct * 0.12}px))`;
+  function updateOffsets() {
+    const aboutEl = document.getElementById('about');
+    if (aboutEl) cachedOffsets.about = getAbsTop(aboutEl);
+    
+    const cEl = document.getElementById('contact');
+    if (cEl) cachedOffsets.contact = getAbsTop(cEl);
+    
+    cachedOffsets.projs = projs.map(p => {
+      if(!p) return { top: 0, height: 0 };
+      return { top: getAbsTop(p), height: p.offsetHeight };
+    });
   }
 
-  /* Contact text reveal */
-  if (cEl && cEl.getBoundingClientRect().top < vh * 0.85) {
-    const cg1 = document.getElementById('cg1');
-    const cg2 = document.getElementById('cg2');
-    const cg3 = document.getElementById('cg3');
-    if (cg1) cg1.classList.add('up');
-    if (cg2) setTimeout(() => cg2.classList.add('up'), 130);
-    if (cg3) setTimeout(() => cg3.classList.add('up'), 260);
-  }
+  window.addEventListener('resize', updateOffsets);
+  window.addEventListener('load', updateOffsets);
+  updateOffsets();
 
-  /* Nav */
-  if (nav) {
-    if (sy > lastSY && sy > 100) {
-      nav.style.top = '-100px';
-    } else {
-      nav.style.top = '0';
+  function raf() {
+    const sy = window.scrollY;
+    const vh = window.innerHeight;
+
+    /* Hero photo deep parallax */
+    if (himg) himg.style.transform = `translateY(${sy * 0.42}px) scale(1.12)`;
+
+    /* Ghost text parallax — faster */
+    if (hghost) hghost.style.transform = `translateY(${sy * -0.18}px)`;
+
+    /* About number parallax */
+    const aboutEl = document.getElementById('about');
+    if (aboutEl && aboutbg) {
+      const t = sy - cachedOffsets.about;
+      aboutbg.style.transform = `translateY(${t * 0.15}px)`;
+      if (aimg) aimg.style.transform = `translateY(${t * 0.08}px)`;
     }
-  }
+
+    /* Project image parallax per section */
+    projs.forEach((p, i) => {
+      if (!p || !pimgs[i]) return;
+      const rTop = cachedOffsets.projs[i].top - sy;
+      const rHeight = cachedOffsets.projs[i].height;
+      const prog = (-rTop) / (rHeight + vh);
+      pimgs[i].style.transform = `translateY(${prog * 22}%)`;
+    });
+
+    /* Contact bg parallax */
+    const cEl = document.getElementById('contact');
+    if (cEl && cbg) {
+      const ct = sy - cachedOffsets.contact;
+      cbg.style.transform = `translate(-50%,calc(-50% + ${ct * 0.12}px))`;
+    }
+
+    /* Contact text reveal */
+    if (cEl && (cachedOffsets.contact - sy) < vh * 0.85) {
+      const cg1 = document.getElementById('cg1');
+      const cg2 = document.getElementById('cg2');
+      const cg3 = document.getElementById('cg3');
+      if (cg1 && !cg1.classList.contains('up')) cg1.classList.add('up');
+      if (cg2 && !cg2.dataset.revealed) { cg2.dataset.revealed = true; setTimeout(() => cg2.classList.add('up'), 130); }
+      if (cg3 && !cg3.dataset.revealed) { cg3.dataset.revealed = true; setTimeout(() => cg3.classList.add('up'), 260); }
+    }
+
+    /* Nav */
+    if (nav) {
+      if (sy > lastSY && sy > 100) {
+        nav.style.top = '-100px';
+      } else {
+        nav.style.top = '0';
+      }
+    }
     lastSY = sy;
 
     requestAnimationFrame(raf);
